@@ -1,0 +1,3 @@
+export const MOBILE_BREAKPOINT = 768
+export const CHATBOT_MAX_MESSAGE_LENGTH = 1000
+export const DEFAULT_PAGE_SIZE = 10
