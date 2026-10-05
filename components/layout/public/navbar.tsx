@@ -8,6 +8,8 @@ import { ThemeToggle } from "@/components/shared/theme-toggle"
 import { publicNavigation } from "@/config/navigation"
 import { cn } from "@/lib/utils"
 
+import { MobileNav } from "./mobile-nav"
+
 export function Navbar() {
   const pathname = usePathname()
 
@@ -16,22 +18,39 @@ export function Navbar() {
       <div
         className={cn(
           "flex w-full items-center justify-between",
-          "h-24",
-          "px-8 lg:px-14 xl:px-20 2xl:px-24"
+
+          // Mobile
+          "h-20 px-5",
+
+          // Small
+          "sm:px-7",
+
+          // Tablet/Desktop
+          "md:h-24 md:px-8",
+          "lg:px-14",
+          "xl:px-20",
+          "2xl:px-24"
         )}
       >
         {/* Logo */}
         <Logo
           variant="header"
           priority
-          className="h-14.5 w-auto"
+          className={cn(
+            "h-13.5 w-auto",
+            "sm:h-14",
+            "md:h-14.5"
+          )}
         />
 
-        {/* Desktop Navigation */}
+        {/* =================================================
+            DESKTOP NAVIGATION
+        ================================================== */}
+
         <nav
           aria-label="Main navigation"
           className={cn(
-            "hidden md:flex items-center",
+            "hidden items-center md:flex",
             "rounded-full",
             "border border-white/20",
             "bg-black/35",
@@ -48,12 +67,18 @@ export function Navbar() {
 
             return (
               <Link
-                key={item.href}
+                key={item.id}
                 href={item.href}
+                aria-current={isActive ? "page" : undefined}
                 className={cn(
                   "relative flex h-9 items-center rounded-full px-4",
                   "text-sm font-medium",
                   "transition-colors duration-200",
+
+                  "focus-visible:outline-none",
+                  "focus-visible:ring-2",
+                  "focus-visible:ring-primary",
+
                   isActive
                     ? "text-primary"
                     : "text-white/80 hover:text-white"
@@ -83,6 +108,12 @@ export function Navbar() {
 
           <ThemeToggle />
         </nav>
+
+        {/* =================================================
+            MOBILE NAVIGATION
+        ================================================== */}
+
+        <MobileNav />
       </div>
     </header>
   )

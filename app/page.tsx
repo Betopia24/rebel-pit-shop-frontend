@@ -6,8 +6,8 @@ import { Footer } from "@/components/layout/public/footer"
 export default function Page() {
   return (
     <div>
-      {/* <Navbar/> */}
-      <Footer />
+      <Navbar/>
+      {/* <Footer /> */}
     </div>
   )
 }
