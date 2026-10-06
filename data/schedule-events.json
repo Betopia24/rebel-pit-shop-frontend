@@ -1,0 +1,521 @@
+{
+  "timeZone": "America/Chicago",
+
+  "coaches": [
+    {
+      "id": "nichole",
+      "name": "Nichole",
+      "role": "Nutrition & Boxing Coach, Personal Trainer, Owner",
+      "avatar": "https://rebelboxingclub.com/wp-content/uploads/2020/12/Untitled-design-2025-05-02T115024.488.png",
+      "specialties": [
+        "Boxing",
+        "Nutrition",
+        "Personal Training",
+        "Strength Training"
+      ],
+      "credentials": [
+        "Rebel Boxing Club Owner",
+        "Nutrition & Boxing Coach",
+        "Personal Trainer"
+      ],
+      "bio": [
+        "Nichole has been an athlete all her life, and that’s taught her that success comes with discipline and consistency, but even more important than that, a person has to be willing to do the things other people aren’t.",
+        "She started as a member after having her third baby, learning to box in classes, and began training a couple of years later. Now as one of the owners of Rebel, Nichole continues to push the boundaries of what’s “comfortable” in classes, always providing a unique, rewarding experience that members love to hate — but mostly love.",
+        "As a personal trainer, Nichole helps her clients focus less on the scale and more on what matters — progress, results, and increased strength.",
+        "If you come on a day Nichole is working, you’ll likely meet her two loveable pitbulls, Pickles and Frankie. They’re the emotional support of the gym!"
+      ]
+    },
+
+    {
+      "id": "nhut",
+      "name": "Nhut",
+      "role": "Boxing Coach & Owner",
+      "avatar": "https://rebelboxingclub.com/wp-content/uploads/2020/12/Untitled-design-2025-05-02T115930.937.png",
+      "specialties": [
+        "Boxing",
+        "Technical Training",
+        "Group Training",
+        "Conditioning"
+      ],
+      "credentials": [
+        "BA in Kinesiology and Exercise Science",
+        "Wichita State University",
+        "Rebel Boxing Club Owner"
+      ],
+      "bio": [
+        "Nhut earned his BA in Kinesiology and Exercise Science from Wichita State University, and has been focused on personal and group training ever since.",
+        "He is our quiet force of motivation, the one that helps remind our members they can do the tough thing, even if that tough thing is a lot of the burpees that he loves.",
+        "Nhut taught boxing classes at other gyms before he joined the Rebel team and delights in offering the warm-ups that get your heartrate up like no other coach.",
+        "Jumping into a Nhut class you’ll get consistent, technical help with a lot of leg work thrown in for good measure."
+      ]
+    },
+
+    {
+      "id": "cory",
+      "name": "Cory",
+      "role": "Boxing Coach",
+      "avatar": "https://rebelboxingclub.com/wp-content/uploads/2020/12/Untitled-design-2025-05-02T113905.094.png",
+      "specialties": [
+        "Boxing",
+        "Martial Arts",
+        "Technical Training",
+        "Mitt Work"
+      ],
+      "credentials": [
+        "13 years in martial arts and coaching",
+        "Former assistant Karate coach at Butler CC"
+      ],
+      "bio": [
+        "Cory has been involved in martial arts and coaching for 13 years now. He began in Karate where he was an assistant coach at Butler CC.",
+        "Over the years, Cory has learned and adapted a lot of technical knowledge from other coaches and professional fighters that he brings into every class and personal mitts session.",
+        "He really loves working with people that are not satisfied with just being good — they want to be better."
+      ]
+    },
+
+    {
+      "id": "kelsey",
+      "name": "Kelsey",
+      "role": "Boxing Coach",
+      "avatar": "https://rebelboxingclub.com/wp-content/uploads/2020/12/Untitled-design-2025-05-02T113231.634.png",
+      "specialties": [
+        "Boxing",
+        "Athletic Training",
+        "Kinesiology",
+        "Conditioning"
+      ],
+      "credentials": [
+        "Degree in Athletic Training & Kinesiology",
+        "Kansas State University",
+        "Former KSU Rowing team athlete",
+        "Former athletic trainer with multiple KSU sports teams"
+      ],
+      "bio": [
+        "For as long as she can remember, Kelsey has been training for something. She loves the feeling that working hard gives her and even more so, she likes experiencing this with others.",
+        "Kelsey got her degree in Athletic Training & Kinesiology from Kansas State University while also being on the Rowing team and working as an athletic trainer with multiple KSU sports teams.",
+        "Her major taught her how to look at the body as a kinetic chain, each part being important to the next, and train the body in safe and healthy ways.",
+        "One of Kelsey’s favorite things about exercising is setting goals and doing hard things. For the last 5 years she’s been doing those exact two things alongside other people in boxing classes and it has made it even more fun to her.",
+        "Coaching boxing has enhanced this opportunity for her and she’s just getting started."
+      ]
+    },
+
+    {
+      "id": "john",
+      "name": "John",
+      "role": "Kickboxing Coach",
+      "avatar": "https://rebelboxingclub.com/wp-content/uploads/2025/05/Untitled-design-2025-05-02T133354.528.png",
+      "specialties": [
+        "Kickboxing",
+        "Muay Thai",
+        "Brazilian Jiu-Jitsu",
+        "Conditioning"
+      ],
+      "credentials": [
+        "13+ years of military experience",
+        "Brazilian Jiu-Jitsu brown belt",
+        "Muay Thai background"
+      ],
+      "bio": [
+        "John brings over 13 years of military experience and a deep background in Brazilian Jiu-Jitsu and Muay Thai to his coaching at Rebel.",
+        "As a BJJ brown belt Coach John is very familiar with hard work and consistency. His class takes a fast-paced, technical approach, he’s all about sharpening skills, building confidence, and keeping you moving with purpose.",
+        "His coaching style is energetic and disciplined, blending detailed instruction with nonstop intensity.",
+        "John’s classes are designed to challenge both your technique and your conditioning, expect powerful striking drills, constant movement, and a motivating push from start to finish."
+      ]
+    },
+
+    {
+      "id": "moses",
+      "name": "Moses",
+      "role": "Boxing Coach",
+      "avatar": "https://rebelboxingclub.com/wp-content/uploads/2025/05/Untitled-design-2025-05-02T140941.902.png",
+      "specialties": [
+        "Boxing",
+        "Fitness",
+        "Group Training",
+        "Confidence Building"
+      ],
+      "credentials": [
+        "8 years of boxing training experience"
+      ],
+      "bio": [
+        "With 8 years of experience, Moses is a high-energy boxing trainer who turns workouts into a full-blown experience.",
+        "Specializing in fun, Moses is a full-blown architect when it comes to designing his classes, often powered by great music and good vibes.",
+        "He helps people punch their way to confidence, fitness, and serious skill without taking the fun out of the fight.",
+        "Whether you’re brand new or leveling up, expect sweat, laughter, and beats that keep you moving."
+      ]
+    },
+
+    {
+      "id": "devin",
+      "name": "Devin",
+      "role": "Kickboxing Coach",
+      "avatar": "",
+      "specialties": [
+        "Kickboxing",
+        "Wrestling",
+        "MMA",
+        "Technical Training"
+      ],
+      "credentials": [
+        "2x undefeated State Champion wrestler",
+        "Amateur MMA fighter",
+        "5+ years of coaching experience",
+        "2 years as a Rebel coach"
+      ],
+      "bio": [
+        "Coach Devin is a 2x undefeated State Champion wrestler and an amateur MMA fighter with a strong base in wrestling and kickboxing.",
+        "With over five years of coaching experience throughout Wichita and two years as a Rebel coach, he brings both skill and intensity to every session.",
+        "His classes are fast-moving and focused built around explosive drills, solid technique, and smart strategy.",
+        "Devin knows how to push members out of their comfort zone while keeping things grounded in real-world application.",
+        "Whether you’re refining your striking, improving footwork, or just looking to get stronger and sharper, Devin’s coaching delivers."
+      ]
+    }
+  ],
+
+  "schedule": {
+    "eyebrow": "Weekly Classes",
+    "title": "Class Schedule",
+    "description": "Choose a day and find the training session that fits your goals.",
+
+    "days": [
+      {
+        "id": "mon",
+        "label": "Mon",
+        "classes": [
+          {
+            "id": "mon-boxing-fundamentals",
+            "title": "Boxing Fundamentals",
+            "description": "Learn the basics, build solid technique and develop discipline.",
+            "startTime": "06:00 AM",
+            "endTime": "07:00 AM",
+            "level": "Beginner",
+            "joined": 18,
+            "coach": {
+              "id": "nhut",
+              "name": "Nhut",
+              "avatar": "https://rebelboxingclub.com/wp-content/uploads/2020/12/Untitled-design-2025-05-02T115930.937.png"
+            }
+          },
+
+          {
+            "id": "mon-strength-conditioning",
+            "title": "Strength & Conditioning",
+            "description": "Build power, endurance and athletic performance.",
+            "startTime": "10:00 AM",
+            "endTime": "11:00 AM",
+            "level": "All Levels",
+            "joined": 24,
+            "coach": {
+              "id": "kelsey",
+              "name": "Kelsey",
+              "avatar": "https://rebelboxingclub.com/wp-content/uploads/2020/12/Untitled-design-2025-05-02T113231.634.png"
+            }
+          },
+
+          {
+            "id": "mon-technical-sparring",
+            "title": "Technical Sparring",
+            "description": "Controlled rounds focused on timing, movement and skill development.",
+            "startTime": "04:30 PM",
+            "endTime": "05:30 PM",
+            "level": "Intermediate",
+            "joined": 12,
+            "coach": {
+              "id": "cory",
+              "name": "Cory",
+              "avatar": "https://rebelboxingclub.com/wp-content/uploads/2020/12/Untitled-design-2025-05-02T113905.094.png"
+            }
+          },
+
+          {
+            "id": "mon-advanced-boxing",
+            "title": "Advanced Boxing",
+            "description": "High-intensity training for experienced fighters.",
+            "startTime": "06:00 PM",
+            "endTime": "07:00 PM",
+            "level": "Advanced",
+            "joined": 9,
+            "coach": {
+              "id": "nhut",
+              "name": "Nhut",
+              "avatar": "https://rebelboxingclub.com/wp-content/uploads/2020/12/Untitled-design-2025-05-02T115930.937.png"
+            }
+          },
+
+          {
+            "id": "mon-womens-boxing",
+            "title": "Women's Boxing",
+            "description": "Build confidence, get stronger and train in a supportive community.",
+            "startTime": "07:30 PM",
+            "endTime": "08:30 PM",
+            "level": "All Levels",
+            "joined": 16,
+            "coach": {
+              "id": "nichole",
+              "name": "Nichole",
+              "avatar": "https://rebelboxingclub.com/wp-content/uploads/2020/12/Untitled-design-2025-05-02T115024.488.png"
+            }
+          }
+        ]
+      },
+
+      {
+        "id": "tue",
+        "label": "Tue",
+        "classes": [
+          {
+            "id": "tue-boxing-basics",
+            "title": "Boxing Basics",
+            "description": "Fundamentals, stance, footwork and combinations.",
+            "startTime": "06:30 AM",
+            "endTime": "07:30 AM",
+            "level": "Beginner",
+            "joined": 14,
+            "coach": {
+              "id": "cory",
+              "name": "Cory",
+              "avatar": "https://rebelboxingclub.com/wp-content/uploads/2020/12/Untitled-design-2025-05-02T113905.094.png"
+            }
+          },
+
+          {
+            "id": "tue-personal-training",
+            "title": "Personal Training",
+            "description": "Focused one-on-one coaching tailored to your goals.",
+            "startTime": "12:00 PM",
+            "endTime": "01:00 PM",
+            "level": "All Levels",
+            "joined": 6,
+            "coach": {
+              "id": "nichole",
+              "name": "Nichole",
+              "avatar": "https://rebelboxingclub.com/wp-content/uploads/2020/12/Untitled-design-2025-05-02T115024.488.png"
+            }
+          },
+
+          {
+            "id": "tue-fitness-boxing",
+            "title": "Fitness Boxing",
+            "description": "High-energy boxing workout for strength and endurance.",
+            "startTime": "06:00 PM",
+            "endTime": "07:00 PM",
+            "level": "All Levels",
+            "joined": 21,
+            "coach": {
+              "id": "moses",
+              "name": "Moses",
+              "avatar": "https://rebelboxingclub.com/wp-content/uploads/2025/05/Untitled-design-2025-05-02T140941.902.png"
+            }
+          }
+        ]
+      },
+
+      {
+        "id": "wed",
+        "label": "Wed",
+        "classes": [
+          {
+            "id": "wed-conditioning",
+            "title": "Conditioning & Core",
+            "description": "Strength, endurance and fight-ready conditioning.",
+            "startTime": "07:00 AM",
+            "endTime": "08:00 AM",
+            "level": "All Levels",
+            "joined": 19,
+            "coach": {
+              "id": "kelsey",
+              "name": "Kelsey",
+              "avatar": "https://rebelboxingclub.com/wp-content/uploads/2020/12/Untitled-design-2025-05-02T113231.634.png"
+            }
+          },
+
+          {
+            "id": "wed-youth-boxing",
+            "title": "Youth Boxing",
+            "description": "Structured boxing training for young athletes.",
+            "startTime": "05:00 PM",
+            "endTime": "06:00 PM",
+            "level": "Youth",
+            "joined": 17,
+            "coach": {
+              "id": "nichole",
+              "name": "Nichole",
+              "avatar": "https://rebelboxingclub.com/wp-content/uploads/2020/12/Untitled-design-2025-05-02T115024.488.png"
+            }
+          },
+
+          {
+            "id": "wed-sparring",
+            "title": "Sparring Session",
+            "description": "Technical rounds and controlled live practice.",
+            "startTime": "07:00 PM",
+            "endTime": "08:00 PM",
+            "level": "Intermediate",
+            "joined": 11,
+            "coach": {
+              "id": "nhut",
+              "name": "Nhut",
+              "avatar": "https://rebelboxingclub.com/wp-content/uploads/2020/12/Untitled-design-2025-05-02T115930.937.png"
+            }
+          }
+        ]
+      },
+
+      {
+        "id": "thu",
+        "label": "Thu",
+        "classes": [
+          {
+            "id": "thu-boxing-fundamentals",
+            "title": "Boxing Fundamentals",
+            "description": "Develop technique, balance and confidence.",
+            "startTime": "06:00 AM",
+            "endTime": "07:00 AM",
+            "level": "Beginner",
+            "joined": 15,
+            "coach": {
+              "id": "cory",
+              "name": "Cory",
+              "avatar": "https://rebelboxingclub.com/wp-content/uploads/2020/12/Untitled-design-2025-05-02T113905.094.png"
+            }
+          },
+
+          {
+            "id": "thu-kickboxing",
+            "title": "Kickboxing Technique",
+            "description": "Sharpen striking, movement and technical combinations.",
+            "startTime": "05:30 PM",
+            "endTime": "06:30 PM",
+            "level": "All Levels",
+            "joined": 20,
+            "coach": {
+              "id": "john",
+              "name": "John",
+              "avatar": "https://rebelboxingclub.com/wp-content/uploads/2025/05/Untitled-design-2025-05-02T133354.528.png"
+            }
+          }
+        ]
+      },
+
+      {
+        "id": "fri",
+        "label": "Fri",
+        "classes": [
+          {
+            "id": "fri-strength-conditioning",
+            "title": "Strength & Conditioning",
+            "description": "Build athletic power and fight-ready endurance.",
+            "startTime": "07:00 AM",
+            "endTime": "08:00 AM",
+            "level": "All Levels",
+            "joined": 23,
+            "coach": {
+              "id": "kelsey",
+              "name": "Kelsey",
+              "avatar": "https://rebelboxingclub.com/wp-content/uploads/2020/12/Untitled-design-2025-05-02T113231.634.png"
+            }
+          },
+
+          {
+            "id": "fri-fight-prep",
+            "title": "Fight Prep",
+            "description": "Advanced drills, strategy and conditioning.",
+            "startTime": "06:00 PM",
+            "endTime": "07:00 PM",
+            "level": "Advanced",
+            "joined": 8,
+            "coach": {
+              "id": "devin",
+              "name": "Devin",
+              "avatar": ""
+            }
+          }
+        ]
+      },
+
+      {
+        "id": "sat",
+        "label": "Sat",
+        "classes": [
+          {
+            "id": "sat-community-boxing",
+            "title": "Community Boxing",
+            "description": "An energetic class for all experience levels.",
+            "startTime": "09:00 AM",
+            "endTime": "10:00 AM",
+            "level": "All Levels",
+            "joined": 28,
+            "coach": {
+              "id": "moses",
+              "name": "Moses",
+              "avatar": "https://rebelboxingclub.com/wp-content/uploads/2025/05/Untitled-design-2025-05-02T140941.902.png"
+            }
+          },
+
+          {
+            "id": "sat-open-gym",
+            "title": "Open Gym",
+            "description": "Train at your own pace and sharpen your skills.",
+            "startTime": "11:00 AM",
+            "endTime": "01:00 PM",
+            "level": "Members Only",
+            "joined": 31,
+            "coach": {
+              "id": "nhut",
+              "name": "Nhut",
+              "avatar": "https://rebelboxingclub.com/wp-content/uploads/2020/12/Untitled-design-2025-05-02T115930.937.png"
+            }
+          }
+        ]
+      },
+
+      {
+        "id": "sun",
+        "label": "Sun",
+        "classes": [
+          {
+            "id": "sun-mobility",
+            "title": "Mobility & Recovery",
+            "description": "Recover, improve mobility and prepare for the week.",
+            "startTime": "10:00 AM",
+            "endTime": "11:00 AM",
+            "level": "All Levels",
+            "joined": 13,
+            "coach": {
+              "id": "nichole",
+              "name": "Nichole",
+              "avatar": "https://rebelboxingclub.com/wp-content/uploads/2020/12/Untitled-design-2025-05-02T115024.488.png"
+            }
+          }
+        ]
+      }
+    ]
+  },
+
+  "events": [
+    {
+      "id": "saturday-sparring-night",
+      "date": "2026-10-10",
+      "category": "Sparring",
+      "title": "Saturday Sparring Night",
+      "description": "Open sparring for all skill levels. Great practice, real experience, and a supportive environment.",
+      "startTime": "06:00 PM",
+      "endTime": "09:00 PM",
+      "location": "Rebel Boxing Club",
+      "ctaLabel": "Reserve Spot",
+      "href": "/message"
+    },
+
+    {
+      "id": "youth-skills-camp",
+      "date": "2026-10-17",
+      "category": "Youth",
+      "title": "Youth Skills Camp",
+      "description": "A focused boxing camp built around technique, confidence, fitness and discipline.",
+      "startTime": "09:00 AM",
+      "endTime": "12:00 PM",
+      "location": "Rebel Boxing Club",
+      "ctaLabel": "Learn More",
+      "href": "/message"
+    }
+  ]
+}
