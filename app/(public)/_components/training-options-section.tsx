@@ -185,7 +185,7 @@ export function TrainingOptionsSection() {
         >
           {/* Left */}
 
-          <div className="max-w-[760px]">
+          <div className="max-w-190">
             {/* Eyebrow */}
 
             <div
@@ -278,7 +278,7 @@ export function TrainingOptionsSection() {
               className="
                 mt-5
 
-                max-w-[690px]
+                max-w-172.5
 
                 text-sm
                 leading-7
@@ -458,7 +458,7 @@ export function TrainingOptionsSection() {
               isolate
 
               flex
-              min-h-[420px]
+              min-h-105
               flex-col
 
               overflow-hidden
@@ -485,7 +485,7 @@ export function TrainingOptionsSection() {
               motion-reduce:transform-none
               motion-reduce:transition-none
 
-              sm:min-h-[440px]
+              sm:min-h-110
               sm:p-7
 
               xl:p-8
@@ -740,7 +740,7 @@ export function TrainingOptionsSection() {
                 className="
                   mt-7
 
-                  max-w-[420px]
+                  max-w-105
 
                   font-heading
                   text-[clamp(2.2rem,7vw,3.4rem)]
@@ -787,7 +787,7 @@ export function TrainingOptionsSection() {
                 className="
                   mt-5
 
-                  max-w-[400px]
+                  max-w-100
 
                   text-sm
                   leading-7
@@ -933,7 +933,7 @@ function TrainingCard({
         relative
         isolate
 
-        min-h-[420px]
+        min-h-105
 
         overflow-hidden
 
@@ -957,7 +957,7 @@ function TrainingCard({
         motion-reduce:transform-none
         motion-reduce:transition-none
 
-        sm:min-h-[440px]
+        sm:min-h-110
       "
     >
       {/* =====================================================
@@ -1092,7 +1092,7 @@ function TrainingCard({
           pointer-events-none
 
           absolute
-          -left-[45%]
+          left-[45%]
           top-0
           z-10
 
@@ -1245,8 +1245,8 @@ function TrainingCard({
           z-20
 
           flex
-          min-h-[420px]
-          max-w-[410px]
+          min-h-105
+          max-w-102.5
           flex-col
 
           px-5
@@ -1262,12 +1262,12 @@ function TrainingCard({
           motion-reduce:transform-none
           motion-reduce:transition-none
 
-          sm:min-h-[440px]
+          sm:min-h-110
           sm:px-7
           sm:pb-7
           sm:pt-20
 
-          xl:max-w-[430px]
+          xl:max-w-107.5
           xl:px-8
           xl:pb-8
         "
@@ -1367,7 +1367,7 @@ function TrainingCard({
           className="
             mt-2
 
-            max-w-[380px]
+            max-w-95
 
             font-heading
             text-[clamp(1.8rem,5vw,2.55rem)]
@@ -1401,7 +1401,7 @@ function TrainingCard({
           className="
             mt-4
 
-            max-w-[380px]
+            max-w-95
 
             text-sm
             leading-6.5

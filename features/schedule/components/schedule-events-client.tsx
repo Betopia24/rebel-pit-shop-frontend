@@ -229,7 +229,7 @@ export function ScheduleEventsClient({
             className="
               mx-auto
               w-full
-              max-w-[900px]
+              max-w-225
               text-center
             "
           >
@@ -347,7 +347,7 @@ export function ScheduleEventsClient({
               className="
                 mx-auto
                 mt-4
-                max-w-[700px]
+                max-w-175
 
                 px-1
 
@@ -726,10 +726,10 @@ function ScheduleCard({
         >
           <TabsList
             className="
-              !grid
-              !h-auto
-              !w-full
-              !grid-cols-7
+              grid!
+              h-auto!
+              w-full!
+              grid-cols-7!
 
               gap-0.5
 
@@ -759,13 +759,13 @@ function ScheduleCard({
                     `
                       relative
 
-                      !flex
-                      !h-10
-                      !w-full
-                      !min-w-0
+                      flex!
+                      h-10!
+                      w-full!
+                      min-w-0!
 
-                      !items-center
-                      !justify-center
+                      items-center!
+                      justify-center!
 
                       overflow-hidden
 
@@ -774,8 +774,8 @@ function ScheduleCard({
                       border
                       border-transparent
 
-                      !px-0
-                      !py-0
+                      px-0!
+                      py-0!
 
                       text-center
                       text-[9px]
@@ -810,9 +810,9 @@ function ScheduleCard({
                     `,
                     isActive &&
                       `
-                        !border-primary/25
-                        !bg-primary/7
-                        !text-primary
+                        border-primary/25!
+                        bg-primary/7!
+                        text-primary!
 
                         shadow-[inset_0_0_0_1px_rgba(212,175,55,0.025)]
                       `
@@ -1271,7 +1271,7 @@ function ScheduleClassRow({
             className="
               mt-1
 
-              max-w-[680px]
+              max-w-170
 
               text-[12px]
               leading-5
@@ -1389,7 +1389,7 @@ function ScheduleClassRow({
 
               line-clamp-2
 
-              max-w-[460px]
+              max-w-115
 
               text-[13px]
               leading-5
@@ -1551,7 +1551,7 @@ function CoachDisplay({
           className="
             block
 
-            max-w-[125px]
+            max-w-31.25
             truncate
 
             text-[11px]
@@ -1816,7 +1816,7 @@ function UpcomingEventsCard({
               className="
                 mt-2
 
-                max-w-[520px]
+                max-w-130
 
                 text-[12px]
                 leading-5
@@ -2005,7 +2005,7 @@ function EventCard({
           className="
             flex
 
-            h-[68px]
+            h-17
             w-full
 
             shrink-0
@@ -2023,16 +2023,16 @@ function EventCard({
             px-4
 
             min-[430px]:h-24
-            min-[430px]:w-[72px]
+            min-[430px]:w-18
             min-[430px]:flex-col
             min-[430px]:justify-center
             min-[430px]:px-0
 
-            md:h-[102px]
-            md:w-[78px]
+            md:h-25.5
+            md:w-19.5
 
             2xl:h-24
-            2xl:w-[74px]
+            2xl:w-18.5
           "
         >
           <span
@@ -2124,7 +2124,7 @@ function EventCard({
             className="
               mt-1.5
 
-              max-w-[620px]
+              max-w-155
 
               text-[12px]
               leading-5
@@ -2280,11 +2280,11 @@ function CoachProfileDialog({
 
           shadow-[0_40px_120px_rgba(0,0,0,0.72)]
 
-          [scrollbar-width:thin]
+          scrollbar-thin
           [scrollbar-color:rgba(212,175,55,0.32)_transparent]
 
           sm:w-[calc(100%-48px)]
-          sm:max-w-[1020px]
+          sm:max-w-255
 
           lg:overflow-hidden
         "
@@ -2317,7 +2317,7 @@ function CoachProfileDialog({
                 className="
                   relative
 
-                  min-h-[300px]
+                  min-h-75
 
                   overflow-hidden
 
@@ -2326,7 +2326,7 @@ function CoachProfileDialog({
 
                   bg-[#101010]
 
-                  sm:min-h-[340px]
+                  sm:min-h-85
 
                   lg:h-full
                   lg:min-h-0
@@ -2377,12 +2377,12 @@ function CoachProfileDialog({
                   <div
                     className="
                       flex
-                      min-h-[300px]
+                      min-h-75
                       size-full
                       items-center
                       justify-center
 
-                      sm:min-h-[340px]
+                      sm:min-h-85
 
                       lg:min-h-0
                     "
@@ -2451,7 +2451,7 @@ function CoachProfileDialog({
                     className="
                       mt-2
 
-                      max-w-[520px]
+                      max-w-130
 
                       text-[12px]
                       leading-5
@@ -2482,11 +2482,11 @@ function CoachProfileDialog({
                   lg:overflow-y-auto
                   lg:p-9
 
-                  [scrollbar-width:thin]
+                  scrollbar-thin
                   [scrollbar-color:rgba(212,175,55,0.25)_transparent]
                 "
               >
-                <div className="max-w-[620px]">
+                <div className="max-w-155">
                   {/* Desktop identity */}
 
                   <div className="hidden lg:block">
@@ -2540,7 +2540,7 @@ function CoachProfileDialog({
                       className="
                         mt-3
 
-                        max-w-[540px]
+                        max-w-135
 
                         text-[15px]
                         font-medium
@@ -2780,7 +2780,7 @@ function CoachProfileDialog({
                   >
                     <p
                       className="
-                        max-w-[520px]
+                        max-w-130
 
                         text-[11px]
                         leading-5
@@ -2915,7 +2915,7 @@ function ScheduleEmptyState() {
         className="
           mt-1
 
-          max-w-[260px]
+          max-w-65
 
           text-xs
           leading-5

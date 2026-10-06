@@ -255,15 +255,11 @@ export function HeroSection() {
       >
         <div
           className="
-            max-w-[590px]
-
-            sm:max-w-[620px]
-
-            md:max-w-[650px]
-
-            lg:max-w-[680px]
-
-            xl:max-w-[830px]
+            max-w-147.5
+            sm:max-w-155
+            md:max-w-162.5
+            lg:max-w-170
+            xl:max-w-207.5
             xl:translate-y-4
           "
         >
@@ -374,20 +370,16 @@ export function HeroSection() {
           <p
             className="
               mt-5
-              max-w-[500px]
-
+              max-w-125
               text-sm
               leading-6.5
               text-zinc-200
-
               sm:mt-6
               sm:text-[15px]
               sm:leading-7
-
-              md:max-w-[520px]
+              md:max-w-130
               md:text-base
-
-              xl:max-w-[540px]
+              xl:max-w-135
               xl:text-[17px]
               xl:leading-7.5
             "

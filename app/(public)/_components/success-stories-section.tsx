@@ -154,7 +154,7 @@ export function SuccessStoriesSection() {
           className="
             mx-auto
 
-            max-w-[850px]
+            max-w-212.5
 
             text-center
           "
@@ -260,7 +260,7 @@ export function SuccessStoriesSection() {
               mx-auto
               mt-5
 
-              max-w-[680px]
+              max-w-170
 
               text-[13px]
               leading-6
@@ -650,8 +650,8 @@ function ReviewCard({
         relative
 
         flex
-        h-[220px]
-        w-[290px]
+        h-55
+        w-72.5
         shrink-0
         flex-col
 
@@ -679,14 +679,14 @@ function ReviewCard({
 
         motion-reduce:transform-none
 
-        min-[380px]:w-[310px]
+        min-[380px]:w-77.5
 
-        sm:h-[230px]
-        sm:w-[340px]
+        sm:h-57.5
+        sm:w-85
         sm:p-6
 
-        lg:h-[240px]
-        lg:w-[380px]
+        lg:h-60
+        lg:w-95
       "
     >
       {/* subtle hover glow */}
