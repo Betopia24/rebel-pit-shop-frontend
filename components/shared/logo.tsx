@@ -15,12 +15,14 @@ const logos = {
     width: 140,
     height: 52,
   },
+
   footer: {
     src: "/images/branding/rebel-boxing-logo-white.webp",
     width: 180,
     height: 70,
   },
 } as const
+
 
 export function Logo({
   variant = "header",
@@ -33,7 +35,17 @@ export function Logo({
     <Link
       href="/"
       aria-label="Rebel Boxing Club home"
-      className="inline-flex shrink-0"
+      className="
+        inline-flex
+        shrink-0
+        rounded-sm
+
+        focus-visible:outline-none
+        focus-visible:ring-2
+        focus-visible:ring-primary
+        focus-visible:ring-offset-4
+        focus-visible:ring-offset-black
+      "
     >
       <Image
         src={logo.src}
@@ -41,7 +53,11 @@ export function Logo({
         width={logo.width}
         height={logo.height}
         priority={priority}
-        className={cn("h-auto w-auto object-contain", className)}
+        draggable={false}
+        className={cn(
+          "h-auto w-auto select-none object-contain",
+          className
+        )}
       />
     </Link>
   )

@@ -5,6 +5,7 @@ import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+
 import {
   ChevronRight,
   Menu,
@@ -29,24 +30,18 @@ import {
 import { Separator } from "@/components/ui/separator"
 
 
-/* =========================================================
-   MOBILE NAV
-========================================================= */
-
 export function MobileNav() {
   const pathname = usePathname()
 
   const [open, setOpen] = useState(false)
 
   return (
-    <div className="md:hidden">
+    <div className="xl:hidden">
       <Sheet
         open={open}
         onOpenChange={setOpen}
       >
-        {/* ===================================================
-            MENU TRIGGER
-        ==================================================== */}
+        {/* Trigger */}
 
         <SheetTrigger
           aria-label="Open navigation menu"
@@ -60,6 +55,7 @@ export function MobileNav() {
             justify-center
 
             rounded-full
+
             border
             border-primary/35
 
@@ -71,11 +67,14 @@ export function MobileNav() {
 
             backdrop-blur-xl
 
-            transition-all
+            transition-[background-color,border-color,box-shadow,transform]
             duration-300
 
             hover:border-primary/70
             hover:bg-primary/10
+            hover:shadow-[0_0_20px_rgba(212,175,55,0.10)]
+
+            active:scale-95
 
             focus-visible:outline-none
             focus-visible:ring-2
@@ -83,6 +82,7 @@ export function MobileNav() {
             focus-visible:ring-offset-2
             focus-visible:ring-offset-black
 
+            motion-reduce:transform-none
             motion-reduce:transition-none
           "
         >
@@ -103,9 +103,7 @@ export function MobileNav() {
         </SheetTrigger>
 
 
-        {/* ===================================================
-            SHEET / MOBILE MENU
-        ==================================================== */}
+        {/* Menu */}
 
         <SheetContent
           side="right"
@@ -164,65 +162,55 @@ export function MobileNav() {
             sm:[&>button]:right-7
           "
         >
-          {/* =================================================
-              BACKGROUND IMAGE
-          ================================================== */}
+          {/* Background */}
 
           <div
             aria-hidden="true"
             className="
               pointer-events-none
-
               absolute
               inset-0
               -z-30
             "
           >
             <Image
-              src="/images/footer/footer-bg.png"
+              src="/images/hero/hero-poster.png"
               alt=""
               fill
               sizes="(max-width: 640px) 100vw, 430px"
               className="
                 object-cover
-                object-[25%_center]
-
-                opacity-35
+                object-[58%_center]
+                opacity-25
               "
             />
           </div>
 
 
-          {/* =================================================
-              DARK OVERLAY
-          ================================================== */}
+          {/* Overlay */}
 
           <div
             aria-hidden="true"
             className="
               pointer-events-none
-
               absolute
               inset-0
               -z-20
 
               bg-linear-to-b
-              from-black/70
-              via-black/92
-              to-black/98
+              from-black/72
+              via-black/94
+              to-black
             "
           />
 
 
-          {/* =================================================
-              GOLD AMBIENT GLOW
-          ================================================== */}
+          {/* Gold ambient glow */}
 
           <div
             aria-hidden="true"
             className="
               pointer-events-none
-
               absolute
               inset-y-0
               right-0
@@ -230,14 +218,12 @@ export function MobileNav() {
 
               w-2/3
 
-              bg-[radial-gradient(circle_at_100%_45%,rgba(212,175,55,0.12),transparent_58%)]
+              bg-[radial-gradient(circle_at_100%_45%,rgba(212,175,55,0.10),transparent_58%)]
             "
           />
 
 
-          {/* =================================================
-              HEADER
-          ================================================== */}
+          {/* Header */}
 
           <SheetHeader
             className="
@@ -283,9 +269,7 @@ export function MobileNav() {
           </SheetHeader>
 
 
-          {/* =================================================
-              CONTENT
-          ================================================== */}
+          {/* Content */}
 
           <div
             className="
@@ -303,10 +287,6 @@ export function MobileNav() {
               sm:px-7
             "
           >
-            {/* ===============================================
-                MAIN NAVIGATION
-            ================================================ */}
-
             <nav
               aria-label="Mobile navigation"
               className="mt-4"
@@ -327,9 +307,9 @@ export function MobileNav() {
                             ? "page"
                             : undefined
                         }
-                        onClick={() => {
+                        onClick={() =>
                           setOpen(false)
-                        }}
+                        }
                         className={cn(
                           `
                             group
@@ -342,7 +322,7 @@ export function MobileNav() {
                             justify-between
 
                             overflow-hidden
-                            rounded-sm
+                            rounded-md
 
                             px-4
                             py-3
@@ -351,7 +331,7 @@ export function MobileNav() {
                             font-medium
                             text-zinc-200
 
-                            transition-all
+                            transition-[background-color,color,transform]
                             duration-200
 
                             hover:bg-white/4
@@ -376,8 +356,6 @@ export function MobileNav() {
                             `
                         )}
                       >
-                        {/* Active indicator */}
-
                         {isActive && (
                           <span
                             aria-hidden="true"
@@ -396,9 +374,6 @@ export function MobileNav() {
                           />
                         )}
 
-
-                        {/* Link text */}
-
                         <span
                           className={cn(
                             "relative z-10",
@@ -407,9 +382,6 @@ export function MobileNav() {
                         >
                           {item.label}
                         </span>
-
-
-                        {/* Arrow */}
 
                         <ChevronRight
                           aria-hidden="true"
@@ -421,7 +393,7 @@ export function MobileNav() {
 
                               text-zinc-500
 
-                              transition-all
+                              transition-[transform,color]
                               duration-200
 
                               group-hover:translate-x-0.5
@@ -441,21 +413,10 @@ export function MobileNav() {
             </nav>
 
 
-            {/* ===============================================
-                DIVIDER
-            ================================================ */}
-
-            <Separator
-              className="
-                my-7
-                bg-white/10
-              "
-            />
+            <Separator className="my-7 bg-white/10" />
 
 
-            {/* ===============================================
-                THEME CONTROL
-            ================================================ */}
+            {/* Theme */}
 
             <section
               aria-labelledby="mobile-theme-heading"
@@ -481,7 +442,6 @@ export function MobileNav() {
                 <p
                   className="
                     mt-1
-
                     text-xs
                     leading-5
                     text-zinc-500
@@ -497,9 +457,7 @@ export function MobileNav() {
             </section>
 
 
-            {/* ===============================================
-                BOTTOM BRAND ACCENT
-            ================================================ */}
+            {/* Bottom accent */}
 
             <div className="mt-auto pt-10">
               <Separator className="bg-white/10" />
