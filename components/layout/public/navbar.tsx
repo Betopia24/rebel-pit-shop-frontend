@@ -3,28 +3,56 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
+import { MobileNav } from "@/components/layout/public/mobile-nav"
 import { Logo } from "@/components/shared/logo"
 import { ThemeToggle } from "@/components/shared/theme-toggle"
 
 import { publicNavigation } from "@/config/navigation"
+
 import { cn } from "@/lib/utils"
 
-import { MobileNav } from "./mobile-nav"
 
+/* =========================================================
+   PUBLIC NAVBAR
+
+   Behaviour:
+   - Fixed at the top of the viewport
+   - Remains visible while scrolling
+   - Keeps the existing transparent / floating design
+   - Desktop navigation: 1280px+
+   - Mobile / tablet navigation: below 1280px
+
+   IMPORTANT:
+   We intentionally use `fixed` instead of `sticky`.
+
+   A normal sticky header remains in document flow and
+   would push the Hero section downward.
+
+   Fixed positioning keeps the current Hero-overlay design
+   exactly as it is while still keeping the navbar visible
+   during scrolling.
+========================================================= */
 
 export function Navbar() {
   const pathname = usePathname()
 
+
   return (
     <header
       className="
-        absolute
+        fixed
         inset-x-0
         top-0
-        z-50
+
+        z-[var(--z-navbar)]
+
         w-full
       "
     >
+      {/* =====================================================
+          NAVBAR CONTAINER
+      ====================================================== */}
+
       <div
         className="
           flex
@@ -47,7 +75,9 @@ export function Navbar() {
           2xl:px-24
         "
       >
-        {/* Logo */}
+        {/* ===================================================
+            LOGO
+        ==================================================== */}
 
         <Logo
           variant="header"
@@ -63,10 +93,10 @@ export function Navbar() {
         />
 
 
-        {/* =================================================
-            DESKTOP NAV
-            1280px+
-        ================================================== */}
+        {/* ===================================================
+            DESKTOP NAVIGATION
+            Visible: >= 1280px
+        ==================================================== */}
 
         <nav
           aria-label="Main navigation"
@@ -77,12 +107,13 @@ export function Navbar() {
             rounded-full
 
             border
-            border-white/20
+            border-foreground/20
 
-            bg-black/35
+            bg-background/35
+
             p-1.5
 
-            shadow-[0_8px_30px_rgba(0,0,0,0.18)]
+            shadow-[var(--shadow-navbar)]
 
             backdrop-blur-xl
 
@@ -95,12 +126,15 @@ export function Navbar() {
                 ? pathname === "/"
                 : pathname.startsWith(item.href)
 
+
             return (
               <Link
                 key={item.id}
                 href={item.href}
                 aria-current={
-                  isActive ? "page" : undefined
+                  isActive
+                    ? "page"
+                    : undefined
                 }
                 className={cn(
                   `
@@ -124,16 +158,23 @@ export function Navbar() {
                     focus-visible:ring-2
                     focus-visible:ring-primary
                     focus-visible:ring-offset-2
-                    focus-visible:ring-offset-black
+                    focus-visible:ring-offset-background
 
                     motion-reduce:transition-none
                   `,
                   isActive
                     ? "text-primary"
-                    : "text-white/80 hover:text-white"
+                    : `
+                        text-foreground/80
+
+                        hover:text-foreground
+                      `
                 )}
               >
                 {item.label}
+
+
+                {/* Active indicator */}
 
                 {isActive && (
                   <span
@@ -149,6 +190,7 @@ export function Navbar() {
                       -translate-x-1/2
 
                       rounded-full
+
                       bg-primary
                     "
                   />
@@ -158,22 +200,41 @@ export function Navbar() {
           })}
 
 
+          {/* =================================================
+              NAV DIVIDER
+          ================================================== */}
+
           <div
             aria-hidden="true"
             className="
               mx-2
+
               h-5
               w-px
-              bg-white/15
+
+              bg-foreground/15
             "
           />
 
+
+          {/* =================================================
+              THEME
+          ================================================== */}
 
           <ThemeToggle />
         </nav>
 
 
-        {/* Mobile + Tablet */}
+        {/* ===================================================
+            MOBILE + TABLET NAVIGATION
+
+            MobileNav internally uses:
+            xl:hidden
+
+            Therefore:
+            < 1280px  → MobileNav
+            >=1280px  → Desktop nav
+        ==================================================== */}
 
         <MobileNav />
       </div>

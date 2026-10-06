@@ -16,6 +16,9 @@ import { cn } from "@/lib/utils"
 
 /* =========================================================
    ICON MAPS
+
+   Content comes from siteConfig.
+   Only icon relationships live inside the component.
 ========================================================= */
 
 const benefitIcons = {
@@ -37,27 +40,45 @@ const trainingCardIcons = {
 ========================================================= */
 
 type TrainingCardProps = {
-  card: (typeof siteConfig.trainingOptions.cards)[number]
+  card:
+    (typeof siteConfig.trainingOptions.cards)[number]
 }
 
 
 /* =========================================================
    TRAINING OPTIONS SECTION
+
+   Layer system:
+
+   z-0
+   └── section background effects
+
+   z-10
+   └── decorative rings / atmosphere
+
+   z-20
+   └── actual content
+
+   Cards use the same local stacking convention.
 ========================================================= */
 
 export function TrainingOptionsSection() {
-  const training = siteConfig.trainingOptions
+  const training =
+    siteConfig.trainingOptions
+
 
   return (
     <section
       id="training-options"
       aria-labelledby="training-options-heading"
+      aria-describedby="training-options-description"
       className="
         relative
         isolate
+
         overflow-hidden
 
-        bg-[#080808]
+        bg-background
 
         py-20
 
@@ -69,41 +90,48 @@ export function TrainingOptionsSection() {
       "
     >
       {/* =====================================================
-          SECTION BACKGROUND
-          CSS ONLY — NO BACKGROUND IMAGE
+          LAYER 0 — GOLD ATMOSPHERE
       ====================================================== */}
 
       <div
         aria-hidden="true"
         className="
           pointer-events-none
+
           absolute
           inset-0
-          -z-30
+          z-0
 
-          bg-[radial-gradient(circle_at_8%_78%,rgba(212,175,55,0.07),transparent_26%),radial-gradient(circle_at_94%_18%,rgba(212,175,55,0.055),transparent_24%)]
+          bg-[radial-gradient(circle_at_8%_78%,var(--gold-08),transparent_26%),radial-gradient(circle_at_94%_18%,var(--gold-06),transparent_24%)]
         "
       />
 
-      {/* Subtle grid */}
+
+      {/* =====================================================
+          LAYER 0 — SUBTLE GRID
+      ====================================================== */}
 
       <div
         aria-hidden="true"
         className="
           pointer-events-none
+
           absolute
           inset-0
-          -z-30
+          z-0
 
           opacity-25
 
-          bg-[linear-gradient(rgba(255,255,255,0.018)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.018)_1px,transparent_1px)]
+          bg-[linear-gradient(var(--white-02)_1px,transparent_1px),linear-gradient(90deg,var(--white-02)_1px,transparent_1px)]
 
           bg-size-[72px_72px]
         "
       />
 
-      {/* Left decorative ring */}
+
+      {/* =====================================================
+          LAYER 10 — LEFT DECORATIVE RING
+      ====================================================== */}
 
       <div
         aria-hidden="true"
@@ -112,10 +140,12 @@ export function TrainingOptionsSection() {
 
           absolute
           -left-28
-          top-[50%]
-          -z-20
+          top-1/2
+          z-10
 
           size-64
+
+          -translate-y-1/2
 
           rounded-full
 
@@ -124,7 +154,10 @@ export function TrainingOptionsSection() {
         "
       />
 
-      {/* Right decorative ring */}
+
+      {/* =====================================================
+          LAYER 10 — RIGHT DECORATIVE RING
+      ====================================================== */}
 
       <div
         aria-hidden="true"
@@ -134,7 +167,7 @@ export function TrainingOptionsSection() {
           absolute
           -right-24
           bottom-20
-          -z-20
+          z-10
 
           size-72
 
@@ -147,12 +180,16 @@ export function TrainingOptionsSection() {
 
 
       {/* =====================================================
-          CONTAINER
+          LAYER 20 — MAIN CONTAINER
       ====================================================== */}
 
       <div
         className="
+          relative
+          z-20
+
           mx-auto
+
           w-full
           max-w-[1600px]
 
@@ -170,12 +207,13 @@ export function TrainingOptionsSection() {
         "
       >
         {/* ===================================================
-            HEADER
+            SECTION HEADER
         ==================================================== */}
 
         <div
           className="
             grid
+
             gap-10
 
             lg:grid-cols-[minmax(0,1.15fr)_minmax(440px,0.85fr)]
@@ -183,7 +221,9 @@ export function TrainingOptionsSection() {
             lg:gap-16
           "
         >
-          {/* Left */}
+          {/* =================================================
+              LEFT
+          ================================================== */}
 
           <div className="max-w-190">
             {/* Eyebrow */}
@@ -191,8 +231,10 @@ export function TrainingOptionsSection() {
             <div
               className="
                 mb-5
+
                 flex
                 items-center
+
                 gap-3
               "
             >
@@ -201,16 +243,20 @@ export function TrainingOptionsSection() {
                 className="
                   h-0.5
                   w-8
+
                   bg-primary
                 "
               />
+
 
               <span
                 className="
                   text-[11px]
                   font-bold
                   uppercase
+
                   tracking-[0.32em]
+
                   text-primary
 
                   sm:text-xs
@@ -218,6 +264,7 @@ export function TrainingOptionsSection() {
               >
                 {training.eyebrow}
               </span>
+
 
               <span
                 aria-hidden="true"
@@ -243,9 +290,10 @@ export function TrainingOptionsSection() {
                 uppercase
 
                 leading-[0.9]
+
                 tracking-[-0.045em]
 
-                text-white
+                text-foreground
 
                 text-[clamp(2.8rem,12vw,4.5rem)]
 
@@ -256,17 +304,7 @@ export function TrainingOptionsSection() {
             >
               {training.title}{" "}
 
-              <span
-                className="
-                  bg-linear-to-r
-                  from-[#F7D96A]
-                  via-primary
-                  to-[#B68A1E]
-
-                  bg-clip-text
-                  text-transparent
-                "
-              >
+              <span className="rebel-gold-text">
                 {training.accentTitle}
               </span>
             </h2>
@@ -275,6 +313,7 @@ export function TrainingOptionsSection() {
             {/* Description */}
 
             <p
+              id="training-options-description"
               className="
                 mt-5
 
@@ -282,7 +321,8 @@ export function TrainingOptionsSection() {
 
                 text-sm
                 leading-7
-                text-zinc-400
+
+                text-text-secondary
 
                 sm:text-base
 
@@ -299,13 +339,14 @@ export function TrainingOptionsSection() {
               BENEFITS
           ================================================== */}
 
-          <div
+          <ul
+            aria-label="Training benefits"
             className="
               grid
               grid-cols-3
 
               border-y
-              border-white/10
+              border-foreground/10
 
               py-6
 
@@ -313,108 +354,113 @@ export function TrainingOptionsSection() {
               lg:py-0
             "
           >
-            {training.benefits.map((benefit, index) => {
-              const Icon =
-                benefitIcons[
-                  benefit.id as keyof typeof benefitIcons
-                ]
+            {training.benefits.map(
+              (benefit, index) => {
+                const Icon =
+                  benefitIcons[
+                    benefit.id as keyof typeof benefitIcons
+                  ]
 
-              return (
-                <div
-                  key={benefit.id}
-                  className={cn(
-                    `
-                      group/benefit
 
-                      flex
-                      min-w-0
-                      flex-col
-                      items-center
+                return (
+                  <li
+                    key={benefit.id}
+                    className={cn(
+                      `
+                        group/benefit
 
-                      px-2
+                        flex
+                        min-w-0
+                        flex-col
+                        items-center
 
-                      text-center
+                        px-2
 
-                      sm:px-5
-                    `,
-                    index !== 0 &&
-                      "border-l border-white/10"
-                  )}
-                >
-                  <div
-                    className="
-                      flex
-                      size-12
-                      items-center
-                      justify-center
+                        text-center
 
-                      rounded-full
-
-                      border
-                      border-primary/30
-
-                      bg-primary/5
-
-                      text-primary
-
-                      transition-[transform,border-color,background-color,box-shadow]
-                      duration-300
-                      ease-out
-
-                      group-hover/benefit:-translate-y-1
-                      group-hover/benefit:border-primary/65
-                      group-hover/benefit:bg-primary/10
-                      group-hover/benefit:shadow-[0_0_24px_rgba(212,175,55,0.12)]
-
-                      motion-reduce:transform-none
-                      motion-reduce:transition-none
-
-                      sm:size-14
-                    "
+                        sm:px-5
+                      `,
+                      index !== 0 &&
+                        "border-l border-foreground/10"
+                    )}
                   >
-                    <Icon
-                      aria-hidden="true"
-                      strokeWidth={1.7}
+                    <div
                       className="
-                        size-5
+                        flex
+                        size-12
+                        items-center
+                        justify-center
 
-                        transition-transform
+                        rounded-full
+
+                        border
+                        border-primary/30
+
+                        bg-primary/5
+
+                        text-primary
+
+                        transition-[transform,border-color,background-color,box-shadow]
                         duration-300
+                        ease-out
 
-                        group-hover/benefit:scale-110
+                        group-hover/benefit:-translate-y-1
+                        group-hover/benefit:border-primary/65
+                        group-hover/benefit:bg-primary/10
+                        group-hover/benefit:shadow-[var(--shadow-gold-xs)]
 
                         motion-reduce:transform-none
                         motion-reduce:transition-none
 
-                        sm:size-6
+                        sm:size-14
                       "
-                    />
-                  </div>
+                    >
+                      <Icon
+                        aria-hidden="true"
+                        strokeWidth={1.7}
+                        className="
+                          size-5
 
-                  <span
-                    className="
-                      mt-3
+                          transition-transform
+                          duration-300
 
-                      text-[11px]
-                      font-medium
-                      leading-4
-                      text-zinc-300
+                          group-hover/benefit:scale-110
 
-                      transition-colors
-                      duration-300
+                          motion-reduce:transform-none
+                          motion-reduce:transition-none
 
-                      group-hover/benefit:text-white
+                          sm:size-6
+                        "
+                      />
+                    </div>
 
-                      sm:text-sm
-                      sm:leading-5
-                    "
-                  >
-                    {benefit.label}
-                  </span>
-                </div>
-              )
-            })}
-          </div>
+
+                    <span
+                      className="
+                        mt-3
+
+                        text-[11px]
+                        font-medium
+                        leading-4
+
+                        text-text-soft
+
+                        transition-colors
+                        duration-300
+
+                        group-hover/benefit:text-foreground
+
+                        sm:text-sm
+                        sm:leading-5
+                      "
+                    >
+                      {benefit.label}
+                    </span>
+                  </li>
+                )
+              }
+            )}
+          </ul>
         </div>
 
 
@@ -428,6 +474,7 @@ export function TrainingOptionsSection() {
 
             grid
             items-stretch
+
             gap-4
 
             sm:gap-5
@@ -468,11 +515,11 @@ export function TrainingOptionsSection() {
               border
               border-primary/40
 
-              bg-[#0D0D0D]
+              bg-surface
 
               p-6
 
-              shadow-[0_24px_70px_rgba(0,0,0,0.30)]
+              shadow-[var(--shadow-card)]
 
               transition-[transform,border-color,box-shadow]
               duration-500
@@ -480,7 +527,7 @@ export function TrainingOptionsSection() {
 
               hover:-translate-y-1.5
               hover:border-primary/75
-              hover:shadow-[0_32px_90px_rgba(0,0,0,0.42),0_0_38px_rgba(212,175,55,0.08)]
+              hover:shadow-[var(--shadow-card-hover)]
 
               motion-reduce:transform-none
               motion-reduce:transition-none
@@ -491,7 +538,9 @@ export function TrainingOptionsSection() {
               xl:p-8
             "
           >
-            {/* Gold atmosphere */}
+            {/* ===============================================
+                LAYER 0 — GOLD ATMOSPHERE
+            ================================================ */}
 
             <div
               aria-hidden="true"
@@ -500,9 +549,9 @@ export function TrainingOptionsSection() {
 
                 absolute
                 inset-0
-                -z-30
+                z-0
 
-                bg-[radial-gradient(circle_at_100%_0%,rgba(212,175,55,0.17),transparent_42%),linear-gradient(135deg,rgba(212,175,55,0.04),transparent_44%)]
+                bg-[radial-gradient(circle_at_100%_0%,var(--gold-20),transparent_42%),linear-gradient(135deg,var(--gold-04),transparent_44%)]
 
                 opacity-80
 
@@ -514,7 +563,9 @@ export function TrainingOptionsSection() {
             />
 
 
-            {/* Moving glow */}
+            {/* ===============================================
+                LAYER 10 — MOVING GLOW
+            ================================================ */}
 
             <div
               aria-hidden="true"
@@ -524,7 +575,7 @@ export function TrainingOptionsSection() {
                 absolute
                 -right-20
                 -top-20
-                -z-20
+                z-10
 
                 size-64
 
@@ -550,7 +601,9 @@ export function TrainingOptionsSection() {
             />
 
 
-            {/* Decorative circles */}
+            {/* ===============================================
+                LAYER 10 — DECORATIVE CIRCLES
+            ================================================ */}
 
             <div
               aria-hidden="true"
@@ -560,7 +613,7 @@ export function TrainingOptionsSection() {
                 absolute
                 -right-24
                 top-8
-                -z-10
+                z-10
 
                 size-64
 
@@ -579,6 +632,7 @@ export function TrainingOptionsSection() {
               "
             />
 
+
             <div
               aria-hidden="true"
               className="
@@ -587,7 +641,7 @@ export function TrainingOptionsSection() {
                 absolute
                 -right-10
                 top-28
-                -z-10
+                z-10
 
                 size-44
 
@@ -607,7 +661,9 @@ export function TrainingOptionsSection() {
             />
 
 
-            {/* Top hover line */}
+            {/* ===============================================
+                TOP HOVER LINE
+            ================================================ */}
 
             <div
               aria-hidden="true"
@@ -617,6 +673,7 @@ export function TrainingOptionsSection() {
                 absolute
                 left-0
                 top-0
+                z-30
 
                 h-px
                 w-0
@@ -636,12 +693,14 @@ export function TrainingOptionsSection() {
             />
 
 
-            {/* Offer content */}
+            {/* ===============================================
+                CONTENT
+            ================================================ */}
 
             <div
               className="
                 relative
-                z-10
+                z-20
 
                 flex
                 h-full
@@ -657,13 +716,14 @@ export function TrainingOptionsSection() {
                 motion-reduce:transition-none
               "
             >
-              {/* Fixed meta position */}
+              {/* Meta */}
 
               <div
                 className="
                   flex
                   min-h-11
                   items-center
+
                   gap-3
                 "
               >
@@ -690,7 +750,7 @@ export function TrainingOptionsSection() {
                     group-hover/offer:scale-105
                     group-hover/offer:border-primary/75
                     group-hover/offer:bg-primary/12
-                    group-hover/offer:shadow-[0_0_24px_rgba(212,175,55,0.14)]
+                    group-hover/offer:shadow-[var(--shadow-gold-xs)]
 
                     motion-reduce:transform-none
                     motion-reduce:transition-none
@@ -713,18 +773,21 @@ export function TrainingOptionsSection() {
                   />
                 </div>
 
+
                 <span
                   className="
                     text-[10px]
                     font-bold
                     uppercase
+
                     tracking-[0.22em]
+
                     text-primary
 
                     transition-colors
                     duration-300
 
-                    group-hover/offer:text-[#F5D568]
+                    group-hover/offer:text-gold-soft
 
                     sm:text-[11px]
                   "
@@ -743,13 +806,15 @@ export function TrainingOptionsSection() {
                   max-w-105
 
                   font-heading
-                  text-[clamp(2.2rem,7vw,3.4rem)]
                   font-black
 
+                  text-[clamp(2.2rem,7vw,3.4rem)]
+
                   leading-[0.98]
+
                   tracking-[-0.04em]
 
-                  text-white
+                  text-foreground
 
                   transition-transform
                   duration-300
@@ -764,16 +829,10 @@ export function TrainingOptionsSection() {
 
                 <span
                   className="
+                    rebel-gold-text
+
                     mt-1
                     block
-
-                    bg-linear-to-r
-                    from-[#F6D469]
-                    via-primary
-                    to-[#B78A22]
-
-                    bg-clip-text
-                    text-transparent
                   "
                 >
                   {training.offer.accentTitle}
@@ -791,12 +850,13 @@ export function TrainingOptionsSection() {
 
                   text-sm
                   leading-7
-                  text-zinc-400
+
+                  text-text-secondary
 
                   transition-colors
                   duration-300
 
-                  group-hover/offer:text-zinc-300
+                  group-hover/offer:text-text-soft
 
                   sm:text-base
                 "
@@ -805,13 +865,15 @@ export function TrainingOptionsSection() {
               </p>
 
 
-              {/* CTA always bottom */}
+              {/* CTA */}
 
               <div className="mt-auto pt-8">
                 <Link
                   href={training.offer.href}
                   className="
                     group/button
+
+                    rebel-gold-surface
 
                     inline-flex
                     min-h-13
@@ -822,35 +884,30 @@ export function TrainingOptionsSection() {
                     rounded-xl
 
                     border
-                    border-[#F0CB4A]
-
-                    bg-linear-to-r
-                    from-[#F8D65D]
-                    via-primary
-                    to-[#C99620]
+                    border-gold-hover
 
                     px-5
 
                     text-[12px]
                     font-bold
                     uppercase
-                    tracking-[0.055em]
-                    text-black
 
-                    shadow-[0_12px_32px_rgba(212,175,55,0.16)]
+                    tracking-[0.055em]
+
+                    shadow-[var(--shadow-gold-sm)]
 
                     transition-[transform,box-shadow,filter]
                     duration-300
 
                     hover:-translate-y-0.5
                     hover:brightness-105
-                    hover:shadow-[0_18px_48px_rgba(212,175,55,0.27)]
+                    hover:shadow-[var(--shadow-gold-lg)]
 
                     focus-visible:outline-none
                     focus-visible:ring-2
                     focus-visible:ring-primary
                     focus-visible:ring-offset-2
-                    focus-visible:ring-offset-black
+                    focus-visible:ring-offset-background
 
                     motion-reduce:transform-none
                     motion-reduce:transition-none
@@ -863,6 +920,7 @@ export function TrainingOptionsSection() {
                     {training.offer.label}
                   </span>
 
+
                   <span
                     className="
                       flex
@@ -873,7 +931,7 @@ export function TrainingOptionsSection() {
 
                       rounded-full
 
-                      bg-black
+                      bg-background
 
                       text-primary
 
@@ -925,6 +983,7 @@ function TrainingCard({
       card.id as keyof typeof trainingCardIcons
     ]
 
+
   return (
     <article
       className="
@@ -940,11 +999,11 @@ function TrainingCard({
         rounded-2xl
 
         border
-        border-white/12
+        border-foreground/12
 
-        bg-[#0D0D0D]
+        bg-surface
 
-        shadow-[0_24px_70px_rgba(0,0,0,0.30)]
+        shadow-[var(--shadow-card)]
 
         transition-[transform,border-color,box-shadow]
         duration-500
@@ -952,7 +1011,7 @@ function TrainingCard({
 
         hover:-translate-y-1.5
         hover:border-primary/55
-        hover:shadow-[0_32px_90px_rgba(0,0,0,0.42),0_0_0_1px_rgba(212,175,55,0.08),0_0_35px_rgba(212,175,55,0.06)]
+        hover:shadow-[var(--shadow-card-hover)]
 
         motion-reduce:transform-none
         motion-reduce:transition-none
@@ -961,7 +1020,7 @@ function TrainingCard({
       "
     >
       {/* =====================================================
-          IMAGE
+          LAYER 0 — IMAGE
       ====================================================== */}
 
       <Image
@@ -973,7 +1032,7 @@ function TrainingCard({
           50vw
         "
         className="
-          -z-40
+          z-0
 
           object-cover
 
@@ -992,7 +1051,7 @@ function TrainingCard({
 
 
       {/* =====================================================
-          BASE DARK LAYER
+          LAYER 10 — BASE DARKENING
       ====================================================== */}
 
       <div
@@ -1002,20 +1061,20 @@ function TrainingCard({
 
           absolute
           inset-0
-          -z-30
+          z-10
 
-          bg-black/16
+          bg-background/16
 
           transition-colors
           duration-500
 
-          group-hover/card:bg-black/10
+          group-hover/card:bg-background/10
         "
       />
 
 
       {/* =====================================================
-          CONTENT SAFE GRADIENT
+          LAYER 10 — TEXT-SAFE GRADIENT
       ====================================================== */}
 
       <div
@@ -1025,9 +1084,9 @@ function TrainingCard({
 
           absolute
           inset-0
-          -z-20
+          z-10
 
-          bg-[linear-gradient(90deg,rgba(5,5,5,0.98)_0%,rgba(5,5,5,0.94)_24%,rgba(5,5,5,0.77)_42%,rgba(5,5,5,0.34)_61%,rgba(5,5,5,0.05)_82%,rgba(5,5,5,0)_100%)]
+          bg-[linear-gradient(90deg,rgb(var(--rgb-surface-deep)/0.98)_0%,rgb(var(--rgb-surface-deep)/0.94)_24%,rgb(var(--rgb-surface-deep)/0.77)_42%,rgb(var(--rgb-surface-deep)/0.34)_61%,rgb(var(--rgb-surface-deep)/0.05)_82%,transparent_100%)]
 
           transition-opacity
           duration-500
@@ -1037,7 +1096,9 @@ function TrainingCard({
       />
 
 
-      {/* Bottom fade */}
+      {/* =====================================================
+          LAYER 10 — BOTTOM FADE
+      ====================================================== */}
 
       <div
         aria-hidden="true"
@@ -1047,19 +1108,21 @@ function TrainingCard({
           absolute
           inset-x-0
           bottom-0
-          -z-20
+          z-10
 
           h-2/3
 
           bg-linear-to-t
-          from-black/72
-          via-black/22
+          from-background/72
+          via-background/22
           to-transparent
         "
       />
 
 
-      {/* Gold ambient hover */}
+      {/* =====================================================
+          LAYER 10 — GOLD HOVER ATMOSPHERE
+      ====================================================== */}
 
       <div
         aria-hidden="true"
@@ -1068,11 +1131,11 @@ function TrainingCard({
 
           absolute
           inset-0
-          -z-10
+          z-10
 
           opacity-0
 
-          bg-[radial-gradient(circle_at_14%_82%,rgba(212,175,55,0.14),transparent_30%)]
+          bg-[radial-gradient(circle_at_14%_82%,var(--gold-15),transparent_30%)]
 
           transition-opacity
           duration-500
@@ -1083,7 +1146,7 @@ function TrainingCard({
 
 
       {/* =====================================================
-          CINEMATIC LIGHT SWEEP
+          LAYER 30 — CINEMATIC LIGHT SWEEP
       ====================================================== */}
 
       <div
@@ -1094,7 +1157,7 @@ function TrainingCard({
           absolute
           left-[45%]
           top-0
-          z-10
+          z-30
 
           h-full
           w-[22%]
@@ -1103,7 +1166,7 @@ function TrainingCard({
 
           bg-linear-to-r
           from-transparent
-          via-white/7
+          via-foreground/7
           to-transparent
 
           opacity-0
@@ -1120,7 +1183,9 @@ function TrainingCard({
       />
 
 
-      {/* Left gold edge */}
+      {/* =====================================================
+          LEFT GOLD EDGE
+      ====================================================== */}
 
       <div
         aria-hidden="true"
@@ -1130,7 +1195,7 @@ function TrainingCard({
           absolute
           inset-y-0
           left-0
-          z-20
+          z-30
 
           w-px
 
@@ -1147,7 +1212,9 @@ function TrainingCard({
       />
 
 
-      {/* Top hover line */}
+      {/* =====================================================
+          TOP HOVER LINE
+      ====================================================== */}
 
       <div
         aria-hidden="true"
@@ -1157,7 +1224,7 @@ function TrainingCard({
           absolute
           left-0
           top-0
-          z-20
+          z-30
 
           h-px
           w-0
@@ -1178,7 +1245,7 @@ function TrainingCard({
 
 
       {/* =====================================================
-          NUMBER — FIXED POSITION
+          CARD NUMBER
       ====================================================== */}
 
       <div
@@ -1190,6 +1257,7 @@ function TrainingCard({
 
           flex
           items-center
+
           gap-3
 
           sm:left-7
@@ -1202,18 +1270,20 @@ function TrainingCard({
           className="
             text-sm
             font-semibold
+
             text-primary
 
             transition-colors
             duration-300
 
-            group-hover/card:text-[#F5D568]
+            group-hover/card:text-gold-soft
 
             sm:text-base
           "
         >
           {card.number}
         </span>
+
 
         <span
           aria-hidden="true"
@@ -1236,7 +1306,7 @@ function TrainingCard({
 
 
       {/* =====================================================
-          CONTENT
+          CARD CONTENT
       ====================================================== */}
 
       <div
@@ -1272,9 +1342,9 @@ function TrainingCard({
           xl:pb-8
         "
       >
-        {/* =================================================
-            ICON — SAME POSITION ON EVERY CARD
-        ================================================== */}
+        {/* ===================================================
+            ICON
+        ==================================================== */}
 
         <div
           className="
@@ -1296,7 +1366,7 @@ function TrainingCard({
               border
               border-primary/45
 
-              bg-black/45
+              bg-background/45
 
               text-primary
 
@@ -1308,7 +1378,7 @@ function TrainingCard({
               group-hover/card:scale-105
               group-hover/card:border-primary/80
               group-hover/card:bg-primary/12
-              group-hover/card:shadow-[0_0_24px_rgba(212,175,55,0.15)]
+              group-hover/card:shadow-[var(--shadow-gold-xs)]
 
               motion-reduce:transform-none
               motion-reduce:transition-none
@@ -1333,9 +1403,9 @@ function TrainingCard({
         </div>
 
 
-        {/* =================================================
+        {/* ===================================================
             EYEBROW
-        ================================================== */}
+        ==================================================== */}
 
         <span
           className="
@@ -1344,13 +1414,15 @@ function TrainingCard({
             text-[10px]
             font-bold
             uppercase
+
             tracking-[0.2em]
+
             text-primary
 
             transition-colors
             duration-300
 
-            group-hover/card:text-[#F5D568]
+            group-hover/card:text-gold-soft
 
             sm:text-[11px]
           "
@@ -1359,9 +1431,9 @@ function TrainingCard({
         </span>
 
 
-        {/* =================================================
+        {/* ===================================================
             TITLE
-        ================================================== */}
+        ==================================================== */}
 
         <h3
           className="
@@ -1370,15 +1442,17 @@ function TrainingCard({
             max-w-95
 
             font-heading
-            text-[clamp(1.8rem,5vw,2.55rem)]
             font-black
 
+            text-[clamp(1.8rem,5vw,2.55rem)]
+
             leading-[1.02]
+
             tracking-[-0.035em]
 
-            text-white
+            text-foreground
 
-            drop-shadow-[0_3px_12px_rgba(0,0,0,0.4)]
+            drop-shadow-[0_3px_12px_var(--overlay-black-40)]
 
             transition-transform
             duration-300
@@ -1393,9 +1467,9 @@ function TrainingCard({
         </h3>
 
 
-        {/* =================================================
+        {/* ===================================================
             DESCRIPTION
-        ================================================== */}
+        ==================================================== */}
 
         <p
           className="
@@ -1405,12 +1479,13 @@ function TrainingCard({
 
             text-sm
             leading-6.5
-            text-zinc-300
+
+            text-text-soft
 
             transition-colors
             duration-300
 
-            group-hover/card:text-zinc-200
+            group-hover/card:text-foreground/90
 
             sm:text-[15px]
             sm:leading-7
@@ -1420,37 +1495,40 @@ function TrainingCard({
         </p>
 
 
-        {/* =================================================
-            CTA — ALWAYS BOTTOM
-        ================================================== */}
+        {/* ===================================================
+            CTA
+        ==================================================== */}
 
         <div className="mt-auto pt-6">
           <Link
             href={card.href}
+            aria-label={`Learn more about ${card.title}`}
             className="
               group/link
 
               inline-flex
               w-fit
               items-center
+
               gap-3
 
               rounded-sm
 
               text-sm
               font-semibold
+
               text-primary
 
               transition-colors
               duration-200
 
-              hover:text-[#F5D568]
+              hover:text-gold-soft
 
               focus-visible:outline-none
               focus-visible:ring-2
               focus-visible:ring-primary
               focus-visible:ring-offset-4
-              focus-visible:ring-offset-black
+              focus-visible:ring-offset-background
             "
           >
             <span
@@ -1475,6 +1553,7 @@ function TrainingCard({
               Learn More
             </span>
 
+
             <span
               className="
                 flex
@@ -1488,7 +1567,7 @@ function TrainingCard({
                 border
                 border-primary/45
 
-                bg-black/20
+                bg-background/20
 
                 transition-[background-color,border-color,transform,box-shadow,color]
                 duration-300
@@ -1496,8 +1575,8 @@ function TrainingCard({
                 group-hover/link:translate-x-1
                 group-hover/link:border-primary
                 group-hover/link:bg-primary
-                group-hover/link:text-black
-                group-hover/link:shadow-[0_0_18px_rgba(212,175,55,0.20)]
+                group-hover/link:text-primary-foreground
+                group-hover/link:shadow-[var(--shadow-gold-xs)]
 
                 motion-reduce:transform-none
                 motion-reduce:transition-none

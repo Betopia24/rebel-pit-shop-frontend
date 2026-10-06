@@ -1,12 +1,14 @@
 import { Star } from "lucide-react"
 
-import successStoriesData from "@/data/success-stories.json"
-
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/avatar"
+
+import { siteConfig } from "@/config/site"
+
+import successStoriesData from "@/data/success-stories.json"
 
 import { cn } from "@/lib/utils"
 
@@ -26,9 +28,11 @@ type Review = {
   image?: string | null
 }
 
+
 type ReviewCardProps = {
   review: Review
 }
+
 
 type MarqueeRowProps = {
   reviews: Review[]
@@ -43,11 +47,13 @@ type MarqueeRowProps = {
 const reviews =
   successStoriesData.reviews as Review[]
 
+
 const topRow =
   reviews.filter(
     (_, index) =>
       index % 2 === 0
   )
+
 
 const bottomRow =
   reviews.filter(
@@ -57,7 +63,18 @@ const bottomRow =
 
 
 /* =========================================================
-   MAIN SECTION
+   SUCCESS STORIES SECTION
+
+   Layer system:
+
+   z-0
+   └── atmospheric background
+
+   z-10
+   └── decorative accents
+
+   z-20
+   └── actual section content
 ========================================================= */
 
 export function SuccessStoriesSection() {
@@ -65,16 +82,23 @@ export function SuccessStoriesSection() {
     return null
   }
 
+
+  const content =
+    siteConfig.successStories
+
+
   return (
     <section
       aria-labelledby="success-stories-title"
+      aria-describedby="success-stories-description"
       className="
         relative
         isolate
+
         w-full
         overflow-hidden
 
-        bg-[#080808]
+        bg-background
 
         py-16
 
@@ -88,7 +112,7 @@ export function SuccessStoriesSection() {
       "
     >
       {/* =====================================================
-          CLEAN BACKGROUND
+          LAYER 0 — BACKGROUND ATMOSPHERE
       ====================================================== */}
 
       <div
@@ -98,11 +122,16 @@ export function SuccessStoriesSection() {
 
           absolute
           inset-0
-          -z-20
+          z-0
 
-          bg-[radial-gradient(circle_at_50%_0%,rgba(212,175,55,0.045),transparent_32%)]
+          bg-[radial-gradient(circle_at_50%_0%,var(--gold-05),transparent_32%)]
         "
       />
+
+
+      {/* =====================================================
+          LAYER 10 — TOP ACCENT
+      ====================================================== */}
 
       <div
         aria-hidden="true"
@@ -112,7 +141,7 @@ export function SuccessStoriesSection() {
           absolute
           inset-x-0
           top-0
-          -z-10
+          z-10
 
           h-px
 
@@ -125,11 +154,14 @@ export function SuccessStoriesSection() {
 
 
       {/* =====================================================
-          HEADER
+          LAYER 20 — HEADER
       ====================================================== */}
 
       <div
         className="
+          relative
+          z-20
+
           mx-auto
 
           w-full
@@ -153,13 +185,14 @@ export function SuccessStoriesSection() {
         <header
           className="
             mx-auto
-
             max-w-212.5
 
             text-center
           "
         >
-          {/* Eyebrow */}
+          {/* =================================================
+              EYEBROW
+          ================================================== */}
 
           <div
             className="
@@ -184,20 +217,24 @@ export function SuccessStoriesSection() {
               "
             />
 
+
             <span
               className="
                 text-[9px]
                 font-bold
                 uppercase
+
                 tracking-[0.28em]
+
                 text-primary
 
                 sm:text-[11px]
                 sm:tracking-[0.32em]
               "
             >
-              Rebels&apos; Success Stories
+              {content.eyebrow}
             </span>
+
 
             <span
               aria-hidden="true"
@@ -215,7 +252,9 @@ export function SuccessStoriesSection() {
           </div>
 
 
-          {/* Title */}
+          {/* =================================================
+              TITLE
+          ================================================== */}
 
           <h2
             id="success-stories-title"
@@ -226,6 +265,7 @@ export function SuccessStoriesSection() {
               font-black
 
               leading-[0.92]
+
               tracking-[-0.045em]
 
               text-[clamp(2.5rem,10vw,4rem)]
@@ -233,29 +273,22 @@ export function SuccessStoriesSection() {
               sm:text-[clamp(3.3rem,7vw,5.2rem)]
             "
           >
-            <span className="text-white">
-              Stories from
+            <span className="text-foreground">
+              {content.title}
             </span>{" "}
 
-            <span
-              className="
-                bg-linear-to-r
-                from-[#F7D96A]
-                via-primary
-                to-[#B68A1E]
-
-                bg-clip-text
-                text-transparent
-              "
-            >
-              Our Members
+            <span className="rebel-gold-text">
+              {content.accentTitle}
             </span>
           </h2>
 
 
-          {/* Description */}
+          {/* =================================================
+              DESCRIPTION
+          ================================================== */}
 
           <p
+            id="success-stories-description"
             className="
               mx-auto
               mt-5
@@ -264,7 +297,8 @@ export function SuccessStoriesSection() {
 
               text-[13px]
               leading-6
-              text-zinc-500
+
+              text-text-muted
 
               sm:text-[15px]
               sm:leading-7
@@ -272,11 +306,7 @@ export function SuccessStoriesSection() {
               lg:text-base
             "
           >
-            Real people. Real progress.
-            Discover how our members have
-            built confidence, strength,
-            and a healthier, happier life
-            at Rebel Boxing Club.
+            {content.description}
           </p>
 
 
@@ -298,22 +328,25 @@ export function SuccessStoriesSection() {
               rounded-full
 
               border
-              border-white/10
+              border-foreground/10
 
-              bg-[#101010]
+              bg-surface
 
               px-3
               py-2
 
-              shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]
+              shadow-[inset_0_1px_0_var(--white-04)]
 
               min-[380px]:gap-3
               min-[380px]:px-4
             "
           >
-            {/* stacked avatars */}
+            {/* ===============================================
+                STACKED AVATARS
+            ================================================ */}
 
             <div
+              aria-hidden="true"
               className="
                 flex
                 -space-x-2
@@ -328,25 +361,27 @@ export function SuccessStoriesSection() {
                       size-7
 
                       border-2
-                      border-[#101010]
+                      border-surface
 
-                      bg-[#181818]
+                      bg-surface-card
                     "
                   >
                     {review.image && (
                       <AvatarImage
                         src={review.image}
-                        alt={review.name}
+                        alt=""
                         className="object-cover"
                       />
                     )}
 
+
                     <AvatarFallback
                       className="
-                        bg-[#181818]
+                        bg-surface-card
 
                         text-[8px]
                         font-bold
+
                         text-primary
                       "
                     >
@@ -359,13 +394,16 @@ export function SuccessStoriesSection() {
             </div>
 
 
-            {/* rating */}
+            {/* ===============================================
+                RATING NUMBER
+            ================================================ */}
 
             <span
               className="
                 text-sm
                 font-bold
-                text-white
+
+                text-foreground
               "
             >
               {
@@ -376,13 +414,20 @@ export function SuccessStoriesSection() {
             </span>
 
 
+            {/* ===============================================
+                RATING STARS
+            ================================================ */}
+
             <div
               className="
                 flex
                 items-center
+
                 gap-0.5
               "
-              aria-label={`${successStoriesData.summary.rating} out of 5 stars`}
+              aria-label={
+                `${successStoriesData.summary.rating} out of 5 stars`
+              }
             >
               {Array.from({
                 length: 5,
@@ -401,6 +446,10 @@ export function SuccessStoriesSection() {
             </div>
 
 
+            {/* ===============================================
+                DIVIDER
+            ================================================ */}
+
             <span
               aria-hidden="true"
               className="
@@ -409,17 +458,22 @@ export function SuccessStoriesSection() {
                 h-4
                 w-px
 
-                bg-white/10
+                bg-foreground/10
               "
             />
 
+
+            {/* ===============================================
+                REVIEW COUNT
+            ================================================ */}
 
             <span
               className="
                 whitespace-nowrap
 
                 text-[10px]
-                text-zinc-500
+
+                text-text-muted
 
                 min-[380px]:text-xs
               "
@@ -436,11 +490,14 @@ export function SuccessStoriesSection() {
 
 
       {/* =====================================================
-          MARQUEE AREA
+          LAYER 20 — MARQUEE AREA
       ====================================================== */}
 
       <div
         className="
+          relative
+          z-20
+
           mt-12
 
           space-y-4
@@ -452,7 +509,9 @@ export function SuccessStoriesSection() {
           lg:space-y-6
         "
       >
-        {/* Row 1 */}
+        {/* ===================================================
+            ROW 1
+        ==================================================== */}
 
         <MarqueeRow
           reviews={
@@ -463,7 +522,9 @@ export function SuccessStoriesSection() {
         />
 
 
-        {/* Row 2 */}
+        {/* ===================================================
+            ROW 2
+        ==================================================== */}
 
         <MarqueeRow
           reviews={
@@ -498,7 +559,9 @@ function MarqueeRow({
         overflow-hidden
       "
     >
-      {/* Left fade */}
+      {/* =====================================================
+          LEFT FADE
+      ====================================================== */}
 
       <div
         aria-hidden="true"
@@ -513,8 +576,8 @@ function MarqueeRow({
           w-8
 
           bg-linear-to-r
-          from-[#080808]
-          via-[#080808]/85
+          from-background
+          via-background/85
           to-transparent
 
           sm:w-16
@@ -524,7 +587,9 @@ function MarqueeRow({
       />
 
 
-      {/* Right fade */}
+      {/* =====================================================
+          RIGHT FADE
+      ====================================================== */}
 
       <div
         aria-hidden="true"
@@ -539,8 +604,8 @@ function MarqueeRow({
           w-8
 
           bg-linear-to-l
-          from-[#080808]
-          via-[#080808]/85
+          from-background
+          via-background/85
           to-transparent
 
           sm:w-16
@@ -550,7 +615,9 @@ function MarqueeRow({
       />
 
 
-      {/* Moving track */}
+      {/* =====================================================
+          MOVING TRACK
+      ====================================================== */}
 
       <div
         className={cn(
@@ -568,7 +635,9 @@ function MarqueeRow({
             : "rebel-review-track-forward"
         )}
       >
-        {/* Original set */}
+        {/* ===================================================
+            ORIGINAL SET
+        ==================================================== */}
 
         <div
           className="
@@ -597,7 +666,12 @@ function MarqueeRow({
         </div>
 
 
-        {/* Duplicate set for seamless loop */}
+        {/* ===================================================
+            DUPLICATE SET
+
+            aria-hidden prevents screen readers from
+            reading the same testimonial twice.
+        ==================================================== */}
 
         <div
           aria-hidden="true"
@@ -648,10 +722,13 @@ function ReviewCard({
         group/review
 
         relative
+        isolate
 
         flex
+
         h-55
         w-72.5
+
         shrink-0
         flex-col
 
@@ -660,24 +737,24 @@ function ReviewCard({
         rounded-2xl
 
         border
-        border-white/10
+        border-foreground/10
 
-        bg-[#101010]
+        bg-surface
 
         p-5
 
-        shadow-[0_14px_40px_rgba(0,0,0,0.16)]
+        shadow-(--shadow-card-soft)
 
-        transition-[transform,border-color,background-color,box-shadow]
+        transition-[transform,border-color,box-shadow]
         duration-300
         ease-out
 
         hover:-translate-y-1
         hover:border-primary/35
-        hover:bg-[#12110D]
-        hover:shadow-[0_18px_48px_rgba(0,0,0,0.26)]
+        hover:shadow-(--shadow-card-soft-hover)
 
         motion-reduce:transform-none
+        motion-reduce:transition-none
 
         min-[380px]:w-77.5
 
@@ -689,7 +766,9 @@ function ReviewCard({
         lg:w-95
       "
     >
-      {/* subtle hover glow */}
+      {/* =====================================================
+          LAYER 0 — GOLD HOVER GLOW
+      ====================================================== */}
 
       <div
         aria-hidden="true"
@@ -698,11 +777,11 @@ function ReviewCard({
 
           absolute
           inset-0
-          -z-10
+          z-0
 
           opacity-0
 
-          bg-[radial-gradient(circle_at_0%_0%,rgba(212,175,55,0.065),transparent_42%)]
+          bg-[radial-gradient(circle_at_0%_0%,var(--gold-08),transparent_42%)]
 
           transition-opacity
           duration-300
@@ -718,6 +797,9 @@ function ReviewCard({
 
       <div
         className="
+          relative
+          z-10
+
           flex
           shrink-0
           items-start
@@ -726,13 +808,18 @@ function ReviewCard({
           gap-3
         "
       >
+        {/* Rating */}
+
         <div
           className="
             flex
             items-center
+
             gap-0.5
           "
-          aria-label={`${review.rating} out of 5 stars`}
+          aria-label={
+            `${review.rating} out of 5 stars`
+          }
         >
           {Array.from({
             length: 5,
@@ -746,14 +833,13 @@ function ReviewCard({
 
                   sm:size-4
                 `,
-                index <
-                  review.rating
+                index < review.rating
                   ? `
                       fill-primary
                       text-primary
                     `
                   : `
-                      text-white/10
+                      text-foreground/10
                     `
               )}
             />
@@ -761,13 +847,16 @@ function ReviewCard({
         </div>
 
 
+        {/* Date */}
+
         <span
           className="
             shrink-0
 
             text-[9px]
             font-medium
-            text-zinc-600
+
+            text-text-faint
 
             sm:text-[10px]
           "
@@ -783,13 +872,17 @@ function ReviewCard({
 
       <h3
         className="
+          relative
+          z-10
+
           mt-3
 
           truncate
 
           text-[14px]
           font-bold
-          text-white
+
+          text-foreground
 
           transition-colors
           duration-300
@@ -809,13 +902,17 @@ function ReviewCard({
 
       <p
         className="
+          relative
+          z-10
+
           mt-2
 
           line-clamp-3
 
           text-[12px]
           leading-5
-          text-zinc-400
+
+          text-text-secondary
 
           sm:text-[13px]
           sm:leading-5.5
@@ -833,6 +930,9 @@ function ReviewCard({
 
       <footer
         className="
+          relative
+          z-10
+
           mt-auto
 
           flex
@@ -852,7 +952,7 @@ function ReviewCard({
             border
             border-primary/25
 
-            bg-[#181818]
+            bg-surface-card
 
             sm:size-10
           "
@@ -860,10 +960,11 @@ function ReviewCard({
           {review.image && (
             <AvatarImage
               src={review.image}
-              alt={review.name}
+              alt={`${review.name} profile`}
               className="object-cover"
             />
           )}
+
 
           <AvatarFallback
             className="
@@ -871,6 +972,7 @@ function ReviewCard({
 
               text-[9px]
               font-bold
+
               text-primary
 
               sm:text-[10px]
@@ -888,13 +990,15 @@ function ReviewCard({
 
               text-[12px]
               font-semibold
-              text-zinc-100
+
+              text-text-strong
 
               sm:text-[13px]
             "
           >
             {review.name}
           </p>
+
 
           <p
             className="
@@ -903,7 +1007,8 @@ function ReviewCard({
               truncate
 
               text-[9px]
-              text-zinc-600
+
+              text-text-faint
 
               sm:text-[10px]
             "

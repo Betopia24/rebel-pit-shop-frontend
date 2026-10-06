@@ -30,10 +30,25 @@ import {
 import { Separator } from "@/components/ui/separator"
 
 
+/* =========================================================
+   MOBILE NAVIGATION
+
+   Visible below:
+   1280px / xl
+
+   Desktop navigation takes over at xl.
+
+   IMPORTANT:
+   The parent Navbar is fixed, therefore this trigger
+   remains available while the user scrolls.
+========================================================= */
+
 export function MobileNav() {
   const pathname = usePathname()
 
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] =
+    useState(false)
+
 
   return (
     <div className="xl:hidden">
@@ -41,7 +56,9 @@ export function MobileNav() {
         open={open}
         onOpenChange={setOpen}
       >
-        {/* Trigger */}
+        {/* ===================================================
+            MENU TRIGGER
+        ==================================================== */}
 
         <SheetTrigger
           aria-label="Open navigation menu"
@@ -59,20 +76,21 @@ export function MobileNav() {
             border
             border-primary/35
 
-            bg-black/45
+            bg-background/45
 
             text-primary
 
-            shadow-[0_0_0_1px_rgba(212,175,55,0.04),0_8px_30px_rgba(0,0,0,0.30)]
+            shadow-[var(--shadow-navbar)]
 
             backdrop-blur-xl
 
             transition-[background-color,border-color,box-shadow,transform]
             duration-300
+            ease-out
 
             hover:border-primary/70
             hover:bg-primary/10
-            hover:shadow-[0_0_20px_rgba(212,175,55,0.10)]
+            hover:shadow-[var(--shadow-gold-xs)]
 
             active:scale-95
 
@@ -80,7 +98,7 @@ export function MobileNav() {
             focus-visible:ring-2
             focus-visible:ring-primary
             focus-visible:ring-offset-2
-            focus-visible:ring-offset-black
+            focus-visible:ring-offset-background
 
             motion-reduce:transform-none
             motion-reduce:transition-none
@@ -97,18 +115,22 @@ export function MobileNav() {
 
               group-hover:scale-110
 
+              motion-reduce:transform-none
               motion-reduce:transition-none
             "
           />
         </SheetTrigger>
 
 
-        {/* Menu */}
+        {/* ===================================================
+            MOBILE MENU PANEL
+        ==================================================== */}
 
         <SheetContent
           side="right"
           className="
             relative
+            isolate
 
             w-full
             max-w-none
@@ -119,7 +141,7 @@ export function MobileNav() {
             border-l
             border-primary/15
 
-            bg-[#070707]
+            bg-surface-dark
 
             p-0
 
@@ -129,7 +151,7 @@ export function MobileNav() {
 
             [&>button]:right-5
             [&>button]:top-6
-            [&>button]:z-50
+            [&>button]:z-[var(--z-modal)]
 
             [&>button]:flex
             [&>button]:size-11
@@ -141,7 +163,7 @@ export function MobileNav() {
             [&>button]:border
             [&>button]:border-primary/25
 
-            [&>button]:bg-black/45
+            [&>button]:bg-background/45
 
             [&>button]:text-primary
 
@@ -149,7 +171,7 @@ export function MobileNav() {
 
             [&>button]:backdrop-blur-xl
 
-            [&>button]:transition-all
+            [&>button]:transition-[background-color,border-color,color,transform]
             [&>button]:duration-200
 
             [&>button:hover]:border-primary/70
@@ -158,19 +180,24 @@ export function MobileNav() {
             [&>button:focus-visible]:outline-none
             [&>button:focus-visible]:ring-2
             [&>button:focus-visible]:ring-primary
+            [&>button:focus-visible]:ring-offset-2
+            [&>button:focus-visible]:ring-offset-background
 
             sm:[&>button]:right-7
           "
         >
-          {/* Background */}
+          {/* =================================================
+              BACKGROUND IMAGE
+          ================================================== */}
 
           <div
             aria-hidden="true"
             className="
               pointer-events-none
+
               absolute
               inset-0
-              -z-30
+              z-0
             "
           >
             <Image
@@ -181,54 +208,64 @@ export function MobileNav() {
               className="
                 object-cover
                 object-[58%_center]
+
                 opacity-25
               "
             />
           </div>
 
 
-          {/* Overlay */}
+          {/* =================================================
+              DARK OVERLAY
+          ================================================== */}
 
           <div
             aria-hidden="true"
             className="
               pointer-events-none
+
               absolute
               inset-0
-              -z-20
+              z-10
 
               bg-linear-to-b
-              from-black/72
-              via-black/94
-              to-black
+
+              from-background/72
+              via-background/94
+              to-background
             "
           />
 
 
-          {/* Gold ambient glow */}
+          {/* =================================================
+              GOLD AMBIENT GLOW
+          ================================================== */}
 
           <div
             aria-hidden="true"
             className="
               pointer-events-none
+
               absolute
               inset-y-0
               right-0
-              -z-10
+              z-10
 
               w-2/3
 
-              bg-[radial-gradient(circle_at_100%_45%,rgba(212,175,55,0.10),transparent_58%)]
+              bg-[radial-gradient(circle_at_100%_45%,var(--gold-10),transparent_58%)]
             "
           />
 
 
-          {/* Header */}
+          {/* =================================================
+              HEADER
+          ================================================== */}
 
           <SheetHeader
             className="
               relative
-              z-10
+              z-20
 
               px-5
               pb-4
@@ -245,6 +282,7 @@ export function MobileNav() {
                 flex
                 min-h-14
                 items-center
+
                 pr-16
               "
             >
@@ -259,6 +297,9 @@ export function MobileNav() {
               />
             </div>
 
+
+            {/* Accessibility only */}
+
             <SheetTitle className="sr-only">
               Rebel Boxing Club navigation
             </SheetTitle>
@@ -269,12 +310,14 @@ export function MobileNav() {
           </SheetHeader>
 
 
-          {/* Content */}
+          {/* =================================================
+              CONTENT
+          ================================================== */}
 
           <div
             className="
               relative
-              z-10
+              z-20
 
               flex
               min-h-[calc(100dvh-96px)]
@@ -287,186 +330,238 @@ export function MobileNav() {
               sm:px-7
             "
           >
+            {/* ===============================================
+                NAVIGATION
+            ================================================ */}
+
             <nav
               aria-label="Mobile navigation"
               className="mt-4"
             >
               <ul className="space-y-1">
-                {publicNavigation.map((item) => {
-                  const isActive =
-                    item.href === "/"
-                      ? pathname === "/"
-                      : pathname.startsWith(item.href)
+                {publicNavigation.map(
+                  (item) => {
+                    const isActive =
+                      item.href === "/"
+                        ? pathname === "/"
+                        : pathname.startsWith(
+                            item.href
+                          )
 
-                  return (
-                    <li key={item.id}>
-                      <Link
-                        href={item.href}
-                        aria-current={
-                          isActive
-                            ? "page"
-                            : undefined
-                        }
-                        onClick={() =>
-                          setOpen(false)
-                        }
-                        className={cn(
-                          `
-                            group
-                            relative
 
-                            flex
-                            min-h-15
-                            w-full
-                            items-center
-                            justify-between
-
-                            overflow-hidden
-                            rounded-md
-
-                            px-4
-                            py-3
-
-                            text-[17px]
-                            font-medium
-                            text-zinc-200
-
-                            transition-[background-color,color,transform]
-                            duration-200
-
-                            hover:bg-white/4
-                            hover:text-white
-
-                            focus-visible:outline-none
-                            focus-visible:ring-2
-                            focus-visible:ring-primary
-                            focus-visible:ring-offset-2
-                            focus-visible:ring-offset-black
-
-                            motion-reduce:transition-none
-                          `,
-                          isActive &&
-                            `
-                              bg-linear-to-r
-                              from-primary/15
-                              via-primary/7
-                              to-transparent
-
-                              text-primary
-                            `
-                        )}
-                      >
-                        {isActive && (
-                          <span
-                            aria-hidden="true"
-                            className="
-                              absolute
-                              inset-y-2
-                              left-0
-
-                              w-0.75
-
-                              rounded-full
-                              bg-primary
-
-                              shadow-[0_0_12px_rgba(212,175,55,0.45)]
-                            "
-                          />
-                        )}
-
-                        <span
-                          className={cn(
-                            "relative z-10",
-                            isActive && "pl-1"
-                          )}
-                        >
-                          {item.label}
-                        </span>
-
-                        <ChevronRight
-                          aria-hidden="true"
-                          strokeWidth={1.7}
+                    return (
+                      <li key={item.id}>
+                        <Link
+                          href={item.href}
+                          aria-current={
+                            isActive
+                              ? "page"
+                              : undefined
+                          }
+                          onClick={() =>
+                            setOpen(false)
+                          }
                           className={cn(
                             `
-                              size-5
-                              shrink-0
+                              group
 
-                              text-zinc-500
+                              relative
 
-                              transition-[transform,color]
+                              flex
+                              min-h-15
+                              w-full
+                              items-center
+                              justify-between
+
+                              overflow-hidden
+                              rounded-md
+
+                              px-4
+                              py-3
+
+                              text-[17px]
+                              font-medium
+
+                              transition-[background-color,color,transform]
                               duration-200
 
-                              group-hover:translate-x-0.5
-                              group-hover:text-primary
+                              hover:bg-foreground/4
+                              hover:text-foreground
+
+                              focus-visible:outline-none
+                              focus-visible:ring-2
+                              focus-visible:ring-primary
+                              focus-visible:ring-offset-2
+                              focus-visible:ring-offset-background
 
                               motion-reduce:transition-none
                             `,
-                            isActive &&
-                              "text-primary"
+                            isActive
+                              ? `
+                                  bg-linear-to-r
+
+                                  from-primary/15
+                                  via-primary/7
+                                  to-transparent
+
+                                  text-primary
+                                `
+                              : `
+                                  text-text-soft
+                                `
                           )}
-                        />
-                      </Link>
-                    </li>
-                  )
-                })}
+                        >
+                          {/* Active indicator */}
+
+                          {isActive && (
+                            <span
+                              aria-hidden="true"
+                              className="
+                                absolute
+                                inset-y-2
+                                left-0
+
+                                w-0.75
+
+                                rounded-full
+
+                                bg-primary
+
+                                shadow-[var(--shadow-gold-xs)]
+                              "
+                            />
+                          )}
+
+
+                          {/* Label */}
+
+                          <span
+                            className={cn(
+                              "relative z-10",
+                              isActive &&
+                                "pl-1"
+                            )}
+                          >
+                            {item.label}
+                          </span>
+
+
+                          {/* Arrow */}
+
+                          <ChevronRight
+                            aria-hidden="true"
+                            strokeWidth={1.7}
+                            className={cn(
+                              `
+                                size-5
+                                shrink-0
+
+                                text-text-faint
+
+                                transition-[transform,color]
+                                duration-200
+
+                                group-hover:translate-x-0.5
+                                group-hover:text-primary
+
+                                motion-reduce:transform-none
+                                motion-reduce:transition-none
+                              `,
+                              isActive &&
+                                "text-primary"
+                            )}
+                          />
+                        </Link>
+                      </li>
+                    )
+                  }
+                )}
               </ul>
             </nav>
 
 
-            <Separator className="my-7 bg-white/10" />
+            {/* ===============================================
+                DIVIDER
+            ================================================ */}
+
+            <Separator
+              className="
+                my-7
+                bg-foreground/10
+              "
+            />
 
 
-            {/* Theme */}
+            {/* ===============================================
+                APPEARANCE
 
-            <section
-              aria-labelledby="mobile-theme-heading"
+                This is UI utility content, not a page
+                content section. We use a semantic group
+                instead of adding an unnecessary H2.
+            ================================================ */}
+
+            <div
+              role="group"
+              aria-labelledby="mobile-theme-label"
               className="
                 flex
                 items-center
                 justify-between
+
                 gap-5
               "
             >
               <div className="min-w-0">
-                <h2
-                  id="mobile-theme-heading"
+                <p
+                  id="mobile-theme-label"
                   className="
                     text-[15px]
                     font-medium
-                    text-zinc-100
+                    text-foreground
                   "
                 >
                   Appearance
-                </h2>
+                </p>
 
                 <p
                   className="
                     mt-1
+
                     text-xs
                     leading-5
-                    text-zinc-500
+
+                    text-text-faint
                   "
                 >
                   Switch between light and dark mode
                 </p>
               </div>
 
+
               <div className="shrink-0">
                 <ThemeToggle />
               </div>
-            </section>
+            </div>
 
 
-            {/* Bottom accent */}
+            {/* ===============================================
+                BOTTOM BRAND ACCENT
+            ================================================ */}
 
             <div className="mt-auto pt-10">
-              <Separator className="bg-white/10" />
+              <Separator
+                className="
+                  bg-foreground/10
+                "
+              />
 
               <div
                 className="
                   flex
                   items-center
+
                   gap-3
+
                   pt-6
                 "
               >
@@ -476,6 +571,7 @@ export function MobileNav() {
                     h-px
                     w-8
                     shrink-0
+
                     bg-primary
                   "
                 />
@@ -485,7 +581,9 @@ export function MobileNav() {
                     text-[10px]
                     font-semibold
                     uppercase
+
                     tracking-[0.28em]
+
                     text-primary/80
                   "
                 >

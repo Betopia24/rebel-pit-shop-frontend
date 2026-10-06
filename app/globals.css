@@ -6,219 +6,768 @@
 
 
 /* =========================================================
-   TAILWIND THEME TOKENS
-   ========================================================= */
+   REBEL BOXING CLUB
+   GLOBAL DESIGN SYSTEM
 
-@theme inline {
-  /* Typography */
-  --font-sans: var(--font-inter, Inter, Arial, sans-serif);
-  --font-heading: var(--font-inter, Inter, Arial, sans-serif);
+   IMPORTANT:
+   Brand colors, surfaces, text colors, shadows,
+   gradients and z-index levels are controlled here.
 
-  /* Rebel brand */
-  --color-gold: var(--gold);
-  --color-gold-hover: var(--gold-hover);
-  --color-gold-dark: var(--gold-dark);
-
-  --color-surface: var(--surface);
-  --color-surface-elevated: var(--surface-elevated);
-
-  --color-text-secondary: var(--text-secondary);
-  --color-text-muted: var(--text-muted);
-
-  /* Shadcn */
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-
-  --color-foreground: var(--foreground);
-  --color-background: var(--background);
-
-  /* Radius */
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
-}
-
-
-/* =========================================================
-   REBEL — PREMIUM BLACK + GOLD
-   ========================================================= */
+   Components should consume these tokens instead
+   of hardcoding HEX / RGB / RGBA colors.
+========================================================= */
 
 :root {
-  /* Main */
+  /* =======================================================
+     CORE — RGB CHANNELS
+
+     Keep these available for alpha-based gradients,
+     shadows and Canvas rendering.
+  ======================================================= */
+
+  --rgb-background: 8 8 8;
+  --rgb-surface-deep: 5 5 5;
+  --rgb-surface-dark: 7 7 7;
+  --rgb-surface: 16 16 16;
+  --rgb-surface-canvas: 16 17 19;
+  --rgb-surface-card: 23 23 23;
+  --rgb-surface-raised: 32 32 32;
+
+  --rgb-foreground: 245 245 242;
+
+  --rgb-primary: 212 175 55;
+
+  --rgb-black: 0 0 0;
+  --rgb-white: 255 255 255;
+
+
+  /* =======================================================
+     MAIN BACKGROUNDS
+  ======================================================= */
+
   --background: #080808;
   --foreground: #f5f5f2;
 
-  /* Brand gold */
+  --surface-deep: #050505;
+  --surface-dark: #070707;
+
+  --surface: #101010;
+  --surface-canvas: #101113;
+
+  --surface-card: #171717;
+  --surface-card-hover: #1b1913;
+
+  --surface-raised: #202020;
+
+
+  /* =======================================================
+     REBEL GOLD SYSTEM
+  ======================================================= */
+
+  --gold-soft: #f7d96a;
+  --gold-highlight: #f4d768;
+
   --gold: #d4af37;
   --gold-hover: #e2bf4d;
+
+  --gold-deep: #b68a1e;
   --gold-dark: #8c7126;
 
-  /* Surfaces */
-  --surface: #101010;
-  --surface-elevated: #202020;
 
-  --card: #171717;
-  --card-foreground: #f5f5f2;
+  /* =======================================================
+     TEXT SYSTEM
+  ======================================================= */
 
-  --popover: #171717;
-  --popover-foreground: #f5f5f2;
+  --text-strong: #f5f5f2;
 
-  /* Primary */
-  --primary: #d4af37;
-  --primary-foreground: #080808;
-
-  /* Secondary */
-  --secondary: #202020;
-  --secondary-foreground: #f5f5f2;
-
-  /* Muted */
-  --muted: #171717;
-  --muted-foreground: #a3a3a3;
+  --text-soft: #d4d4d8;
 
   --text-secondary: #a3a3a3;
+
   --text-muted: #707070;
 
-  /* Accent */
-  --accent: #202020;
-  --accent-foreground: #f5f5f2;
+  --text-faint: #52525b;
 
-  /* Form / Border */
-  --border: #2c2c2c;
-  --input: #2c2c2c;
-  --ring: #d4af37;
 
-  /* Status */
+  /* =======================================================
+     SHADCN CORE
+  ======================================================= */
+
+  --card: var(--surface-card);
+  --card-foreground: var(--foreground);
+
+  --popover: var(--surface-card);
+  --popover-foreground: var(--foreground);
+
+  --primary: var(--gold);
+  --primary-foreground: var(--background);
+
+  --secondary: var(--surface-raised);
+  --secondary-foreground: var(--foreground);
+
+  --muted: var(--surface-card);
+  --muted-foreground: var(--text-secondary);
+
+  --accent: var(--surface-raised);
+  --accent-foreground: var(--foreground);
+
   --destructive: #ef4444;
 
-  /* Charts */
-  --chart-1: #d4af37;
-  --chart-2: #e2bf4d;
-  --chart-3: #8c7126;
-  --chart-4: #a3a3a3;
-  --chart-5: #707070;
 
-  /* Radius */
+  /* =======================================================
+     BORDER / INPUT / RING
+  ======================================================= */
+
+  --border: #2c2c2c;
+
+  --border-soft:
+    rgb(var(--rgb-foreground) / 0.08);
+
+  --border-medium:
+    rgb(var(--rgb-foreground) / 0.12);
+
+  --border-strong:
+    rgb(var(--rgb-foreground) / 0.18);
+
+  --border-gold-soft:
+    rgb(var(--rgb-primary) / 0.18);
+
+  --border-gold:
+    rgb(var(--rgb-primary) / 0.45);
+
+  --input: var(--border);
+
+  --ring: var(--gold);
+
+
+  /* =======================================================
+     STATUS / CHARTS
+  ======================================================= */
+
+  --chart-1: var(--gold);
+  --chart-2: var(--gold-hover);
+  --chart-3: var(--gold-dark);
+  --chart-4: var(--text-secondary);
+  --chart-5: var(--text-muted);
+
+
+  /* =======================================================
+     RADIUS
+  ======================================================= */
+
   --radius: 0.625rem;
 
-  /* Sidebar */
-  --sidebar: #101010;
-  --sidebar-foreground: #f5f5f2;
 
-  --sidebar-primary: #d4af37;
-  --sidebar-primary-foreground: #080808;
+  /* =======================================================
+     SHADOW SYSTEM
+  ======================================================= */
 
-  --sidebar-accent: #171717;
-  --sidebar-accent-foreground: #f5f5f2;
+  --shadow-navbar:
+    0 10px 40px
+    rgb(var(--rgb-black) / 0.22);
 
-  --sidebar-border: #2c2c2c;
-  --sidebar-ring: #d4af37;
+  --shadow-card:
+    0 24px 70px
+    rgb(var(--rgb-black) / 0.30);
+
+  --shadow-card-hover:
+    0 32px 90px
+    rgb(var(--rgb-black) / 0.42);
+
+  --shadow-card-soft:
+    0 14px 40px
+    rgb(var(--rgb-black) / 0.16);
+
+  --shadow-card-soft-hover:
+    0 18px 48px
+    rgb(var(--rgb-black) / 0.26);
+
+  --shadow-gold-xs:
+    0 0 12px
+    rgb(var(--rgb-primary) / 0.18);
+
+  --shadow-gold-sm:
+    0 8px 24px
+    rgb(var(--rgb-primary) / 0.16);
+
+  --shadow-gold-md:
+    0 14px 38px
+    rgb(var(--rgb-primary) / 0.26);
+
+  --shadow-gold-lg:
+    0 18px 48px
+    rgb(var(--rgb-primary) / 0.27);
+
+  --shadow-gold-glow:
+    0 0 28px
+    rgb(var(--rgb-primary) / 0.18);
+
+
+  /* =======================================================
+     GRADIENT SYSTEM
+  ======================================================= */
+
+  --gradient-gold-text:
+    linear-gradient(
+      90deg,
+      var(--gold-soft) 0%,
+      var(--gold) 52%,
+      var(--gold-deep) 100%
+    );
+
+  --gradient-gold-button:
+    linear-gradient(
+      90deg,
+      var(--gold-highlight) 0%,
+      var(--gold) 50%,
+      var(--gold-deep) 100%
+    );
+
+  --gradient-gold-line:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgb(var(--rgb-primary) / 0.35) 50%,
+      transparent 100%
+    );
+
+  --gradient-gold-fade-right:
+    linear-gradient(
+      90deg,
+      var(--gold) 0%,
+      transparent 100%
+    );
+
+  --gradient-gold-fade-left:
+    linear-gradient(
+      270deg,
+      var(--gold) 0%,
+      transparent 100%
+    );
+
+
+  /* =======================================================
+     OVERLAY COLORS
+  ======================================================= */
+
+  --overlay-black-05:
+    rgb(var(--rgb-black) / 0.05);
+
+  --overlay-black-10:
+    rgb(var(--rgb-black) / 0.10);
+
+  --overlay-black-15:
+    rgb(var(--rgb-black) / 0.15);
+
+  --overlay-black-20:
+    rgb(var(--rgb-black) / 0.20);
+
+  --overlay-black-25:
+    rgb(var(--rgb-black) / 0.25);
+
+  --overlay-black-30:
+    rgb(var(--rgb-black) / 0.30);
+
+  --overlay-black-35:
+    rgb(var(--rgb-black) / 0.35);
+
+  --overlay-black-40:
+    rgb(var(--rgb-black) / 0.40);
+
+  --overlay-black-45:
+    rgb(var(--rgb-black) / 0.45);
+
+  --overlay-black-50:
+    rgb(var(--rgb-black) / 0.50);
+
+  --overlay-black-55:
+    rgb(var(--rgb-black) / 0.55);
+
+  --overlay-black-60:
+    rgb(var(--rgb-black) / 0.60);
+
+  --overlay-black-65:
+    rgb(var(--rgb-black) / 0.65);
+
+  --overlay-black-70:
+    rgb(var(--rgb-black) / 0.70);
+
+  --overlay-black-75:
+    rgb(var(--rgb-black) / 0.75);
+
+  --overlay-black-80:
+    rgb(var(--rgb-black) / 0.80);
+
+  --overlay-black-85:
+    rgb(var(--rgb-black) / 0.85);
+
+  --overlay-black-90:
+    rgb(var(--rgb-black) / 0.90);
+
+  --overlay-black-95:
+    rgb(var(--rgb-black) / 0.95);
+
+
+  /* =======================================================
+     WHITE TRANSPARENCY TOKENS
+  ======================================================= */
+
+  --white-02:
+    rgb(var(--rgb-white) / 0.02);
+
+  --white-04:
+    rgb(var(--rgb-white) / 0.04);
+
+  --white-06:
+    rgb(var(--rgb-white) / 0.06);
+
+  --white-08:
+    rgb(var(--rgb-white) / 0.08);
+
+  --white-10:
+    rgb(var(--rgb-white) / 0.10);
+
+  --white-12:
+    rgb(var(--rgb-white) / 0.12);
+
+  --white-15:
+    rgb(var(--rgb-white) / 0.15);
+
+  --white-20:
+    rgb(var(--rgb-white) / 0.20);
+
+  --white-25:
+    rgb(var(--rgb-white) / 0.25);
+
+
+  /* =======================================================
+     GOLD TRANSPARENCY TOKENS
+  ======================================================= */
+
+  --gold-04:
+    rgb(var(--rgb-primary) / 0.04);
+
+  --gold-05:
+    rgb(var(--rgb-primary) / 0.05);
+
+  --gold-06:
+    rgb(var(--rgb-primary) / 0.06);
+
+  --gold-08:
+    rgb(var(--rgb-primary) / 0.08);
+
+  --gold-10:
+    rgb(var(--rgb-primary) / 0.10);
+
+  --gold-12:
+    rgb(var(--rgb-primary) / 0.12);
+
+  --gold-15:
+    rgb(var(--rgb-primary) / 0.15);
+
+  --gold-20:
+    rgb(var(--rgb-primary) / 0.20);
+
+  --gold-25:
+    rgb(var(--rgb-primary) / 0.25);
+
+  --gold-30:
+    rgb(var(--rgb-primary) / 0.30);
+
+  --gold-35:
+    rgb(var(--rgb-primary) / 0.35);
+
+  --gold-40:
+    rgb(var(--rgb-primary) / 0.40);
+
+  --gold-45:
+    rgb(var(--rgb-primary) / 0.45);
+
+  --gold-55:
+    rgb(var(--rgb-primary) / 0.55);
+
+  --gold-70:
+    rgb(var(--rgb-primary) / 0.70);
+
+
+  /* =======================================================
+     Z-INDEX SYSTEM
+
+     Do not randomly use -z-40 / z-50 throughout
+     individual sections anymore.
+
+     Section backgrounds: 0
+     Decorative overlays: 10
+     Main content: 20
+     Local floating UI: 30
+     Navbar: 40
+     Modal / sheet: 50
+     Accessibility UI: 60
+  ======================================================= */
+
+  --z-background: 0;
+  --z-overlay: 10;
+  --z-content: 20;
+  --z-floating: 30;
+  --z-navbar: 40;
+  --z-modal: 50;
+  --z-accessibility: 60;
+
+
+  /* =======================================================
+     NAVBAR
+  ======================================================= */
+
+  --navbar-height: 5rem;
+  --navbar-height-desktop: 6rem;
+
+  --navbar-background:
+    rgb(var(--rgb-background) / 0.78);
+
+  --navbar-border:
+    rgb(var(--rgb-foreground) / 0.08);
+
+
+  /* =======================================================
+     SIDEBAR
+  ======================================================= */
+
+  --sidebar: var(--surface);
+  --sidebar-foreground: var(--foreground);
+
+  --sidebar-primary: var(--gold);
+  --sidebar-primary-foreground: var(--background);
+
+  --sidebar-accent: var(--surface-card);
+  --sidebar-accent-foreground: var(--foreground);
+
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--gold);
 }
 
 
 /* =========================================================
    DARK MODE
-   ========================================================= */
+
+   Rebel currently uses the same premium dark identity
+   as the default theme.
+
+   If a real light theme is added later, only this token
+   layer / :root layer needs to change.
+========================================================= */
 
 .dark {
   --background: #080808;
   --foreground: #f5f5f2;
 
-  --gold: #d4af37;
-  --gold-hover: #e2bf4d;
-  --gold-dark: #8c7126;
+  --surface-deep: #050505;
+  --surface-dark: #070707;
 
   --surface: #101010;
-  --surface-elevated: #202020;
+  --surface-canvas: #101113;
 
-  --card: #171717;
-  --card-foreground: #f5f5f2;
+  --surface-card: #171717;
+  --surface-card-hover: #1b1913;
 
-  --popover: #171717;
-  --popover-foreground: #f5f5f2;
+  --surface-raised: #202020;
 
-  --primary: #d4af37;
-  --primary-foreground: #080808;
+  --gold-soft: #f7d96a;
+  --gold-highlight: #f4d768;
 
-  --secondary: #202020;
-  --secondary-foreground: #f5f5f2;
+  --gold: #d4af37;
+  --gold-hover: #e2bf4d;
 
-  --muted: #171717;
-  --muted-foreground: #a3a3a3;
+  --gold-deep: #b68a1e;
+  --gold-dark: #8c7126;
 
+  --text-strong: #f5f5f2;
+  --text-soft: #d4d4d8;
   --text-secondary: #a3a3a3;
   --text-muted: #707070;
+  --text-faint: #52525b;
 
-  --accent: #202020;
-  --accent-foreground: #f5f5f2;
+  --card: var(--surface-card);
+  --card-foreground: var(--foreground);
+
+  --popover: var(--surface-card);
+  --popover-foreground: var(--foreground);
+
+  --primary: var(--gold);
+  --primary-foreground: var(--background);
+
+  --secondary: var(--surface-raised);
+  --secondary-foreground: var(--foreground);
+
+  --muted: var(--surface-card);
+  --muted-foreground: var(--text-secondary);
+
+  --accent: var(--surface-raised);
+  --accent-foreground: var(--foreground);
+
+  --border: #2c2c2c;
+  --input: var(--border);
+  --ring: var(--gold);
 
   --destructive: #ef4444;
 
-  --border: #2c2c2c;
-  --input: #2c2c2c;
-  --ring: #d4af37;
+  --chart-1: var(--gold);
+  --chart-2: var(--gold-hover);
+  --chart-3: var(--gold-dark);
+  --chart-4: var(--text-secondary);
+  --chart-5: var(--text-muted);
 
-  --chart-1: #d4af37;
-  --chart-2: #e2bf4d;
-  --chart-3: #8c7126;
-  --chart-4: #a3a3a3;
-  --chart-5: #707070;
+  --sidebar: var(--surface);
+  --sidebar-foreground: var(--foreground);
 
-  --sidebar: #101010;
-  --sidebar-foreground: #f5f5f2;
+  --sidebar-primary: var(--gold);
+  --sidebar-primary-foreground: var(--background);
 
-  --sidebar-primary: #d4af37;
-  --sidebar-primary-foreground: #080808;
+  --sidebar-accent: var(--surface-card);
+  --sidebar-accent-foreground: var(--foreground);
 
-  --sidebar-accent: #171717;
-  --sidebar-accent-foreground: #f5f5f2;
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--gold);
+}
 
-  --sidebar-border: #2c2c2c;
-  --sidebar-ring: #d4af37;
+
+/* =========================================================
+   TAILWIND THEME TOKENS
+========================================================= */
+
+@theme inline {
+  /* =======================================================
+     TYPOGRAPHY
+  ======================================================= */
+
+  --font-sans:
+    var(
+      --font-inter,
+      Inter,
+      Arial,
+      sans-serif
+    );
+
+  --font-heading:
+    var(
+      --font-inter,
+      Inter,
+      Arial,
+      sans-serif
+    );
+
+
+  /* =======================================================
+     CORE
+  ======================================================= */
+
+  --color-background:
+    var(--background);
+
+  --color-foreground:
+    var(--foreground);
+
+
+  /* =======================================================
+     SURFACES
+  ======================================================= */
+
+  --color-surface-deep:
+    var(--surface-deep);
+
+  --color-surface-dark:
+    var(--surface-dark);
+
+  --color-surface:
+    var(--surface);
+
+  --color-surface-canvas:
+    var(--surface-canvas);
+
+  --color-surface-card:
+    var(--surface-card);
+
+  --color-surface-card-hover:
+    var(--surface-card-hover);
+
+  --color-surface-raised:
+    var(--surface-raised);
+
+
+  /* =======================================================
+     TEXT
+  ======================================================= */
+
+  --color-text-strong:
+    var(--text-strong);
+
+  --color-text-soft:
+    var(--text-soft);
+
+  --color-text-secondary:
+    var(--text-secondary);
+
+  --color-text-muted:
+    var(--text-muted);
+
+  --color-text-faint:
+    var(--text-faint);
+
+
+  /* =======================================================
+     GOLD
+  ======================================================= */
+
+  --color-gold-soft:
+    var(--gold-soft);
+
+  --color-gold-highlight:
+    var(--gold-highlight);
+
+  --color-gold:
+    var(--gold);
+
+  --color-gold-hover:
+    var(--gold-hover);
+
+  --color-gold-deep:
+    var(--gold-deep);
+
+  --color-gold-dark:
+    var(--gold-dark);
+
+
+  /* =======================================================
+     SHADCN
+  ======================================================= */
+
+  --color-primary:
+    var(--primary);
+
+  --color-primary-foreground:
+    var(--primary-foreground);
+
+  --color-secondary:
+    var(--secondary);
+
+  --color-secondary-foreground:
+    var(--secondary-foreground);
+
+  --color-muted:
+    var(--muted);
+
+  --color-muted-foreground:
+    var(--muted-foreground);
+
+  --color-accent:
+    var(--accent);
+
+  --color-accent-foreground:
+    var(--accent-foreground);
+
+  --color-destructive:
+    var(--destructive);
+
+  --color-border:
+    var(--border);
+
+  --color-input:
+    var(--input);
+
+  --color-ring:
+    var(--ring);
+
+  --color-card:
+    var(--card);
+
+  --color-card-foreground:
+    var(--card-foreground);
+
+  --color-popover:
+    var(--popover);
+
+  --color-popover-foreground:
+    var(--popover-foreground);
+
+
+  /* =======================================================
+     CHARTS
+  ======================================================= */
+
+  --color-chart-1:
+    var(--chart-1);
+
+  --color-chart-2:
+    var(--chart-2);
+
+  --color-chart-3:
+    var(--chart-3);
+
+  --color-chart-4:
+    var(--chart-4);
+
+  --color-chart-5:
+    var(--chart-5);
+
+
+  /* =======================================================
+     SIDEBAR
+  ======================================================= */
+
+  --color-sidebar:
+    var(--sidebar);
+
+  --color-sidebar-foreground:
+    var(--sidebar-foreground);
+
+  --color-sidebar-primary:
+    var(--sidebar-primary);
+
+  --color-sidebar-primary-foreground:
+    var(--sidebar-primary-foreground);
+
+  --color-sidebar-accent:
+    var(--sidebar-accent);
+
+  --color-sidebar-accent-foreground:
+    var(--sidebar-accent-foreground);
+
+  --color-sidebar-border:
+    var(--sidebar-border);
+
+  --color-sidebar-ring:
+    var(--sidebar-ring);
+
+
+  /* =======================================================
+     RADIUS
+  ======================================================= */
+
+  --radius-sm:
+    calc(var(--radius) * 0.6);
+
+  --radius-md:
+    calc(var(--radius) * 0.8);
+
+  --radius-lg:
+    var(--radius);
+
+  --radius-xl:
+    calc(var(--radius) * 1.4);
+
+  --radius-2xl:
+    calc(var(--radius) * 1.8);
+
+  --radius-3xl:
+    calc(var(--radius) * 2.2);
+
+  --radius-4xl:
+    calc(var(--radius) * 2.6);
 }
 
 
 /* =========================================================
    BASE
-   ========================================================= */
+========================================================= */
 
 @layer base {
   *,
@@ -231,18 +780,22 @@
 
 
   html {
-    @apply font-sans;
-
     min-height: 100%;
 
-    background: var(--background);
+    background:
+      var(--background);
 
-    /*
-     * Page scrolling থাকবে,
-     * কিন্তু scrollbar visually hide থাকবে.
-     */
     overflow-x: clip;
     overflow-y: auto;
+
+    /*
+     * Sticky-navbar anchor offset.
+     */
+    scroll-padding-top:
+      calc(
+        var(--navbar-height) +
+        1rem
+      );
 
     /*
      * Firefox
@@ -254,16 +807,20 @@
      */
     -ms-overflow-style: none;
 
-    text-rendering: optimizeLegibility;
+    text-rendering:
+      optimizeLegibility;
 
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing:
+      antialiased;
+
+    -moz-osx-font-smoothing:
+      grayscale;
+
+    @apply font-sans;
   }
 
 
   body {
-    @apply bg-background text-foreground;
-
     min-height: 100dvh;
     width: 100%;
 
@@ -271,23 +828,29 @@
 
     overflow-x: clip;
 
+    background:
+      var(--background);
+
+    color:
+      var(--foreground);
+
     /*
-     * Firefox fallback
+     * Firefox
      */
     scrollbar-width: none;
 
     /*
-     * Legacy Edge / IE fallback
+     * Legacy Edge / IE
      */
     -ms-overflow-style: none;
   }
 
 
   /*
-   * Chrome / Chromium Edge / Safari
+   * Chrome / Chromium / Safari
    *
-   * Scrolling works normally,
-   * scrollbar শুধু দেখা যাবে না।
+   * Page remains fully scrollable.
+   * Only scrollbar chrome is hidden.
    */
   html::-webkit-scrollbar,
   body::-webkit-scrollbar {
@@ -299,7 +862,7 @@
 
 
   /*
-   * Prevent media from exceeding containers
+   * Media cannot exceed its container.
    */
   img,
   video,
@@ -310,41 +873,105 @@
 
 
   /*
-   * Better button/link touch behavior
+   * Better touch behavior.
    */
   a,
   button {
-    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color:
+      transparent;
   }
 
 
   /*
-   * Rebel selection color
+   * Consistent Rebel selection.
    */
   ::selection {
-    background: rgb(212 175 55 / 30%);
-    color: #f5f5f2;
+    background:
+      rgb(
+        var(--rgb-primary) /
+        0.30
+      );
+
+    color:
+      var(--foreground);
+  }
+
+
+  /*
+   * Desktop navbar is taller.
+   */
+  @media (min-width: 1280px) {
+    html {
+      scroll-padding-top:
+        calc(
+          var(--navbar-height-desktop) +
+          1rem
+        );
+    }
   }
 }
 
 
 /* =========================================================
-   OPTIONAL REUSABLE SCROLLBAR-HIDE UTILITY
-   ========================================================= */
+   REUSABLE BRAND UTILITIES
+========================================================= */
 
 /*
- * ভবিষ্যতে Sheet, modal, carousel বা অন্য কোনো container-এ
- * scrollbar hide করতে চাইলে:
+ * Premium gold text.
  *
- * className="scrollbar-hidden"
+ * Usage:
+ *
+ * className="rebel-gold-text"
  */
+
+.rebel-gold-text {
+  background:
+    var(--gradient-gold-text);
+
+  background-clip: text;
+
+  color: transparent;
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+/*
+ * Premium gold button / surface.
+ */
+
+.rebel-gold-surface {
+  background:
+    var(--gradient-gold-button);
+
+  color:
+    var(--primary-foreground);
+}
+
+
+/*
+ * Standard centered gold divider.
+ */
+
+.rebel-gold-divider {
+  background:
+    var(--gradient-gold-line);
+}
+
+
+/* =========================================================
+   OPTIONAL SCROLLBAR-HIDE UTILITY
+========================================================= */
 
 @utility scrollbar-hidden {
   scrollbar-width: none;
+
   -ms-overflow-style: none;
 
   &::-webkit-scrollbar {
     display: none;
+
     width: 0;
     height: 0;
   }
@@ -352,110 +979,136 @@
 
 
 /* =========================================================
-   REDUCED MOTION
-   ========================================================= */
+   SUCCESS STORIES MARQUEE
+========================================================= */
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
+@keyframes rebel-review-scroll {
+  from {
+    transform:
+      translate3d(
+        0,
+        0,
+        0
+      );
+  }
+
+  to {
+    transform:
+      translate3d(
+        -50%,
+        0,
+        0
+      );
   }
 }
 
-/* =========================================================
-   REBEL SUCCESS STORIES MARQUEE
-   ========================================================= */
-
-@keyframes rebel-review-scroll {
-    from {
-        transform: translate3d(0, 0, 0);
-    }
-
-    to {
-        transform: translate3d(-50%, 0, 0);
-    }
-}
-
 
 /* ---------------------------------------------------------
-   Track
+   GPU-STABLE TRACK
 --------------------------------------------------------- */
 
 .rebel-review-track {
-    backface-visibility: hidden;
-    transform: translateZ(0);
-}
+  backface-visibility:
+    hidden;
 
-
-/* Top row:
-   right -> left
-*/
-
-.rebel-review-track-forward {
-    animation:
-        rebel-review-scroll
-        38s
-        linear
-        infinite;
-}
-
-
-/* Bottom row:
-   left -> right
-*/
-
-.rebel-review-track-reverse {
-    animation:
-        rebel-review-scroll
-        42s
-        linear
-        infinite
-        reverse;
+  transform:
+    translateZ(0);
 }
 
 
 /* ---------------------------------------------------------
-   Pause only the hovered/focused row
+   TOP ROW
+   Right → Left
 --------------------------------------------------------- */
 
-.rebel-review-row:hover .rebel-review-track,
-.rebel-review-row:focus-within .rebel-review-track {
-    animation-play-state: paused;
+.rebel-review-track-forward {
+  animation:
+    rebel-review-scroll
+    38s
+    linear
+    infinite;
 }
 
 
 /* ---------------------------------------------------------
-   Slight performance optimization
+   BOTTOM ROW
+   Left → Right
+--------------------------------------------------------- */
+
+.rebel-review-track-reverse {
+  animation:
+    rebel-review-scroll
+    42s
+    linear
+    infinite
+    reverse;
+}
+
+
+/* ---------------------------------------------------------
+   Pause only hovered / keyboard-focused row
+--------------------------------------------------------- */
+
+.rebel-review-row:hover
+  .rebel-review-track,
+.rebel-review-row:focus-within
+  .rebel-review-track {
+  animation-play-state:
+    paused;
+}
+
+
+/* ---------------------------------------------------------
+   Performance containment
 --------------------------------------------------------- */
 
 .rebel-review-set {
-    contain: layout paint;
+  contain:
+    layout paint;
 }
 
 
-/* ---------------------------------------------------------
-   Reduced motion
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
 
-   Animation stops and row becomes manually scrollable.
---------------------------------------------------------- */
+@media (
+  prefers-reduced-motion:
+    reduce
+) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior:
+      auto !important;
+  }
 
-@media (prefers-reduced-motion: reduce) {
 
-    .rebel-review-row {
-        overflow-x: auto;
-        overscroll-behavior-inline: contain;
+  /*
+   * Review marquee becomes manual horizontal scroll.
+   */
+  .rebel-review-row {
+    overflow-x: auto;
 
-        scrollbar-width: none;
-    }
+    overscroll-behavior-inline:
+      contain;
 
-    .rebel-review-row::-webkit-scrollbar {
-        display: none;
-    }
+    scrollbar-width:
+      none;
+  }
 
-    .rebel-review-track-forward,
-    .rebel-review-track-reverse {
-        animation: none !important;
-        transform: none !important;
-    }
+
+  .rebel-review-row::-webkit-scrollbar {
+    display: none;
+  }
+
+
+  .rebel-review-track-forward,
+  .rebel-review-track-reverse {
+    animation:
+      none !important;
+
+    transform:
+      none !important;
+  }
 }

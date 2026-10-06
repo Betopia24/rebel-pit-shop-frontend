@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useMemo, useState, useSyncExternalStore } from "react"
 
 import Link from "next/link"
 
@@ -63,7 +63,6 @@ import { cn } from "@/lib/utils"
 
 type ScheduleEventsClientProps = {
   data: ScheduleEventsData
-  initialDay: ScheduleDayId
 }
 
 type ScheduleCardProps = {
@@ -120,10 +119,25 @@ type CoachProfileDialogProps = {
 
 export function ScheduleEventsClient({
   data,
-  initialDay,
 }: ScheduleEventsClientProps) {
-  const [activeDay, setActiveDay] =
-    useState<ScheduleDayId>(initialDay)
+  const fallbackDay =
+    data.schedule.days[0]?.id ?? "mon"
+
+  const currentDay = useSyncExternalStore(
+    subscribeToScheduleClock,
+    () =>
+      getCurrentScheduleDay(
+        data.timeZone,
+        data.schedule.days
+      ) ?? fallbackDay,
+    () => fallbackDay
+  )
+
+  const [selectedDayOverride, setSelectedDayOverride] =
+    useState<ScheduleDayId | null>(null)
+
+  const activeDay =
+    selectedDayOverride ?? currentDay
 
   const [selectedCoachId, setSelectedCoachId] =
     useState<string | null>(null)
@@ -153,12 +167,13 @@ export function ScheduleEventsClient({
       <section
         id="schedule-events"
         aria-labelledby="schedule-events-heading"
+        aria-describedby="schedule-events-description"
         className="
           relative
           isolate
           w-full
           overflow-hidden
-          bg-[#080808]
+          bg-background
 
           py-16
           sm:py-20
@@ -177,9 +192,9 @@ export function ScheduleEventsClient({
             pointer-events-none
             absolute
             inset-0
-            -z-30
+            z-0
 
-            bg-[radial-gradient(circle_at_5%_35%,rgba(212,175,55,0.055),transparent_25%),radial-gradient(circle_at_95%_75%,rgba(212,175,55,0.045),transparent_24%)]
+            bg-[radial-gradient(circle_at_5%_35%,var(--gold-06),transparent_25%),radial-gradient(circle_at_95%_75%,var(--gold-05),transparent_24%)]
           "
         />
 
@@ -189,12 +204,12 @@ export function ScheduleEventsClient({
             pointer-events-none
             absolute
             inset-0
-            -z-30
+            z-0
 
             hidden
             opacity-20
 
-            bg-[linear-gradient(rgba(255,255,255,0.014)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.014)_1px,transparent_1px)]
+            bg-[linear-gradient(var(--white-02)_1px,transparent_1px),linear-gradient(90deg,var(--white-02)_1px,transparent_1px)]
             bg-size-[80px_80px]
 
             md:block
@@ -207,6 +222,9 @@ export function ScheduleEventsClient({
 
         <div
           className="
+            relative
+            z-20
+
             mx-auto
             w-full
             min-w-0
@@ -308,7 +326,7 @@ export function ScheduleEventsClient({
             >
               {hasEvents ? (
                 <>
-                  <span className="text-white">
+                  <span className="text-foreground">
                     Schedule
                   </span>
 
@@ -319,9 +337,9 @@ export function ScheduleEventsClient({
                   <span
                     className="
                       bg-linear-to-r
-                      from-[#F7D96A]
+                      from-gold-soft
                       via-primary
-                      to-[#B68A1E]
+                      to-gold-deep
 
                       bg-clip-text
                       text-transparent
@@ -332,7 +350,7 @@ export function ScheduleEventsClient({
                 </>
               ) : (
                 <>
-                  <span className="text-white">
+                  <span className="text-foreground">
                     Class
                   </span>{" "}
 
@@ -344,6 +362,7 @@ export function ScheduleEventsClient({
             </h2>
 
             <p
+              id="schedule-events-description"
               className="
                 mx-auto
                 mt-4
@@ -353,7 +372,7 @@ export function ScheduleEventsClient({
 
                 text-[13px]
                 leading-6
-                text-zinc-500
+                text-text-muted
 
                 sm:mt-5
                 sm:text-[15px]
@@ -411,7 +430,7 @@ export function ScheduleEventsClient({
               data={data}
               activeDay={activeDay}
               selectedDay={selectedDay}
-              onDayChange={setActiveDay}
+              onDayChange={setSelectedDayOverride}
               onCoachSelect={setSelectedCoachId}
             />
 
@@ -466,13 +485,13 @@ function ScheduleCard({
         rounded-[22px]
 
         border
-        border-white/10
+        border-foreground/10
 
-        bg-[#090A0A]
+        bg-surface-dark
 
         py-0
 
-        shadow-[0_28px_90px_rgba(0,0,0,0.30)]
+        shadow-(--shadow-card)
 
         sm:rounded-3xl
       "
@@ -509,7 +528,7 @@ function ScheduleCard({
           absolute
           -left-32
           -top-32
-          -z-10
+          z-0
 
           size-80
 
@@ -523,6 +542,9 @@ function ScheduleCard({
 
       <CardHeader
         className="
+          relative
+          z-20
+
           min-w-0
 
           px-4
@@ -627,7 +649,7 @@ function ScheduleCard({
                 leading-none
                 tracking-[-0.04em]
 
-                text-white
+                text-foreground
 
                 min-[380px]:text-[30px]
 
@@ -646,7 +668,7 @@ function ScheduleCard({
 
                 text-[12px]
                 leading-5
-                text-zinc-500
+                text-text-muted
 
                 min-[380px]:text-[13px]
 
@@ -688,7 +710,7 @@ function ScheduleCard({
                 hover:border-primary/60
                 hover:bg-primary/8
                 hover:text-primary
-                hover:shadow-[0_8px_24px_rgba(0,0,0,0.18)]
+                hover:shadow-(--shadow-card-soft)
 
                 focus-visible:ring-primary
 
@@ -736,13 +758,13 @@ function ScheduleCard({
               rounded-2xl
 
               border
-              border-white/8
+              border-foreground/8
 
-              bg-[#0D0D0D]
+              bg-surface
 
               p-1.5
 
-              shadow-[inset_0_1px_0_rgba(255,255,255,0.025)]
+              shadow-[inset_0_1px_0_var(--white-02)]
 
               sm:gap-1
             "
@@ -782,7 +804,7 @@ function ScheduleCard({
                       font-semibold
                       leading-none
 
-                      text-zinc-400
+                      text-text-secondary
 
                       shadow-none
 
@@ -790,9 +812,9 @@ function ScheduleCard({
                       duration-300
                       ease-out
 
-                      hover:border-white/8
-                      hover:bg-white/4
-                      hover:text-white
+                      hover:border-foreground/8
+                      hover:bg-foreground/4
+                      hover:text-foreground
 
                       focus-visible:outline-none
                       focus-visible:ring-2
@@ -814,7 +836,7 @@ function ScheduleCard({
                         bg-primary/7!
                         text-primary!
 
-                        shadow-[inset_0_0_0_1px_rgba(212,175,55,0.025)]
+                        shadow-[inset_0_0_0_1px_var(--gold-04)]
                       `
                   )}
                 >
@@ -854,7 +876,7 @@ function ScheduleCard({
                         rounded-full
                         bg-primary
 
-                        shadow-[0_0_9px_rgba(212,175,55,0.45)]
+                        shadow-(--shadow-gold-xs)
 
                         sm:w-7
                       "
@@ -895,6 +917,9 @@ function ScheduleCard({
 
       <CardContent
         className="
+          relative
+          z-20
+
           min-w-0
 
           px-4
@@ -1014,19 +1039,19 @@ function ScheduleClassRow({
         rounded-2xl
 
         border
-        border-white/8
+        border-foreground/8
 
-        bg-[#101010]
+        bg-surface
 
         transition-[transform,border-color,background-color,box-shadow]
         duration-300
         ease-out
 
         hover:border-primary/30
-        hover:bg-[#12110D]
+        hover:bg-surface-card-hover
 
         sm:hover:-translate-y-0.5
-        sm:hover:shadow-[0_14px_40px_rgba(0,0,0,0.28)]
+        sm:hover:shadow-(--shadow-card-soft)
 
         motion-reduce:transform-none
         motion-reduce:transition-none
@@ -1041,11 +1066,11 @@ function ScheduleClassRow({
 
           absolute
           inset-0
-          -z-10
+          z-0
 
           opacity-0
 
-          bg-[linear-gradient(100deg,rgba(212,175,55,0.065),transparent_48%)]
+          bg-[linear-gradient(100deg,var(--gold-06),transparent_48%)]
 
           transition-opacity
           duration-300
@@ -1087,6 +1112,9 @@ function ScheduleClassRow({
 
       <div
         className="
+          relative
+          z-20
+
           p-4
 
           min-[380px]:p-5
@@ -1103,7 +1131,7 @@ function ScheduleClassRow({
             gap-3
 
             border-b
-            border-white/8
+            border-foreground/8
 
             pb-4
           "
@@ -1113,7 +1141,7 @@ function ScheduleClassRow({
               className="
                 text-base
                 font-black
-                text-white
+                text-foreground
 
                 min-[380px]:text-[17px]
               "
@@ -1125,7 +1153,7 @@ function ScheduleClassRow({
               className="
                 mt-1
                 text-[11px]
-                text-zinc-600
+                text-text-faint
               "
             >
               {classItem.endTime}
@@ -1142,7 +1170,7 @@ function ScheduleClassRow({
             className="
               text-[15px]
               font-bold
-              text-white
+              text-foreground
 
               transition-colors
               duration-300
@@ -1161,7 +1189,7 @@ function ScheduleClassRow({
 
               text-[12px]
               leading-5
-              text-zinc-500
+              text-text-muted
 
               min-[380px]:text-[13px]
             "
@@ -1200,6 +1228,9 @@ function ScheduleClassRow({
 
       <div
         className="
+          relative
+          z-20
+
           hidden
 
           min-w-0
@@ -1221,7 +1252,7 @@ function ScheduleClassRow({
             row-span-2
 
             border-r
-            border-white/8
+            border-foreground/8
 
             pr-5
           "
@@ -1230,7 +1261,7 @@ function ScheduleClassRow({
             className="
               text-[16px]
               font-bold
-              text-white
+              text-foreground
             "
           >
             {classItem.startTime}
@@ -1240,7 +1271,7 @@ function ScheduleClassRow({
             className="
               mt-1
               text-xs
-              text-zinc-600
+              text-text-faint
             "
           >
             {classItem.endTime}
@@ -1254,7 +1285,7 @@ function ScheduleClassRow({
             className="
               text-[15px]
               font-bold
-              text-white
+              text-foreground
 
               transition-colors
               duration-300
@@ -1275,7 +1306,7 @@ function ScheduleClassRow({
 
               text-[12px]
               leading-5
-              text-zinc-500
+              text-text-muted
 
               lg:text-[13px]
             "
@@ -1319,6 +1350,9 @@ function ScheduleClassRow({
 
       <div
         className="
+          relative
+          z-20
+
           hidden
 
           min-w-0
@@ -1337,7 +1371,7 @@ function ScheduleClassRow({
         <div
           className="
             border-r
-            border-white/8
+            border-foreground/8
 
             pr-5
           "
@@ -1346,7 +1380,7 @@ function ScheduleClassRow({
             className="
               text-[16px]
               font-bold
-              text-white
+              text-foreground
             "
           >
             {classItem.startTime}
@@ -1356,7 +1390,7 @@ function ScheduleClassRow({
             className="
               mt-1
               text-xs
-              text-zinc-600
+              text-text-faint
             "
           >
             {classItem.endTime}
@@ -1372,7 +1406,7 @@ function ScheduleClassRow({
 
               text-[15px]
               font-bold
-              text-white
+              text-foreground
 
               transition-colors
               duration-300
@@ -1393,7 +1427,7 @@ function ScheduleClassRow({
 
               text-[13px]
               leading-5
-              text-zinc-500
+              text-text-muted
             "
           >
             {classItem.description}
@@ -1469,13 +1503,13 @@ function CoachDisplay({
         transition-[background-color,transform]
         duration-300
 
-        hover:bg-white/4
+        hover:bg-foreground/4
 
         focus-visible:outline-none
         focus-visible:ring-2
         focus-visible:ring-primary
         focus-visible:ring-offset-2
-        focus-visible:ring-offset-[#101010]
+        focus-visible:ring-offset-surface
 
         motion-reduce:transform-none
       "
@@ -1488,14 +1522,14 @@ function CoachDisplay({
           border
           border-primary/25
 
-          bg-[#181818]
+          bg-surface-card
 
           transition-[border-color,box-shadow,transform]
           duration-300
 
           group-hover/coach:scale-105
           group-hover/coach:border-primary/65
-          group-hover/coach:shadow-[0_0_20px_rgba(212,175,55,0.15)]
+          group-hover/coach:shadow-(--shadow-gold-xs)
 
           sm:size-10
 
@@ -1512,7 +1546,7 @@ function CoachDisplay({
 
         <AvatarFallback
           className="
-            bg-[#181818]
+            bg-surface-card
 
             text-[9px]
             font-bold
@@ -1534,7 +1568,7 @@ function CoachDisplay({
             font-bold
             uppercase
             tracking-[0.18em]
-            text-zinc-600
+            text-text-faint
 
             transition-colors
             duration-300
@@ -1556,7 +1590,7 @@ function CoachDisplay({
 
             text-[11px]
             font-semibold
-            text-zinc-200
+            text-text-soft
 
             transition-colors
             duration-300
@@ -1590,7 +1624,7 @@ function JoinedCount({
         gap-1.5
 
         text-[10px]
-        text-zinc-500
+        text-text-muted
 
         sm:text-xs
       "
@@ -1657,37 +1691,37 @@ function getLevelClassName(
   switch (level) {
     case "Beginner":
       return `
-        border-emerald-500/35
-        bg-emerald-500/8
-        text-emerald-300
+        border-chart-2/35
+        bg-chart-2/8
+        text-chart-2
       `
 
     case "Intermediate":
       return `
-        border-amber-500/40
-        bg-amber-500/8
-        text-amber-300
+        border-chart-1/40
+        bg-chart-1/8
+        text-chart-1
       `
 
     case "Advanced":
       return `
-        border-red-500/40
-        bg-red-500/8
-        text-red-300
+        border-destructive/40
+        bg-destructive/8
+        text-destructive
       `
 
     case "Youth":
       return `
-        border-sky-500/35
-        bg-sky-500/8
-        text-sky-300
+        border-chart-4/35
+        bg-chart-4/8
+        text-chart-4
       `
 
     case "Members Only":
       return `
-        border-violet-500/35
-        bg-violet-500/8
-        text-violet-300
+        border-chart-3/35
+        bg-chart-3/8
+        text-chart-3
       `
 
     default:
@@ -1720,13 +1754,13 @@ function UpcomingEventsCard({
         rounded-[22px]
 
         border
-        border-white/10
+        border-foreground/10
 
-        bg-[#090A0A]
+        bg-surface-dark
 
         py-0
 
-        shadow-[0_28px_90px_rgba(0,0,0,0.30)]
+        shadow-(--shadow-card)
 
         sm:rounded-3xl
       "
@@ -1751,6 +1785,9 @@ function UpcomingEventsCard({
 
       <CardHeader
         className="
+          relative
+          z-20
+
           px-4
           pb-0
           pt-5
@@ -1802,7 +1839,7 @@ function UpcomingEventsCard({
                 leading-[0.95]
                 tracking-[-0.04em]
 
-                text-white
+                text-foreground
 
                 sm:text-4xl
                 lg:text-[40px]
@@ -1820,7 +1857,7 @@ function UpcomingEventsCard({
 
                 text-[12px]
                 leading-5
-                text-zinc-500
+                text-text-muted
 
                 sm:text-sm
                 sm:leading-6
@@ -1855,7 +1892,7 @@ function UpcomingEventsCard({
 
               hover:border-primary
               hover:bg-primary
-              hover:text-black
+              hover:text-primary-foreground
 
               sm:size-10
               sm:hover:scale-105
@@ -1864,7 +1901,7 @@ function UpcomingEventsCard({
               focus-visible:ring-2
               focus-visible:ring-primary
               focus-visible:ring-offset-2
-              focus-visible:ring-offset-black
+              focus-visible:ring-offset-background
 
               motion-reduce:transform-none
             "
@@ -1886,6 +1923,9 @@ function UpcomingEventsCard({
 
       <CardContent
         className="
+          relative
+          z-20
+
           px-4
           pb-5
           pt-5
@@ -1944,9 +1984,9 @@ function EventCard({
         rounded-2xl
 
         border
-        border-white/8
+        border-foreground/8
 
-        bg-[#101010]
+        bg-surface
 
         p-4
 
@@ -1954,11 +1994,11 @@ function EventCard({
         duration-300
 
         hover:border-primary/30
-        hover:bg-[#12110D]
+        hover:bg-surface-card-hover
 
         sm:p-5
         sm:hover:-translate-y-0.5
-        sm:hover:shadow-[0_14px_40px_rgba(0,0,0,0.26)]
+        sm:hover:shadow-(--shadow-card-soft)
 
         motion-reduce:transform-none
         motion-reduce:transition-none
@@ -1971,11 +2011,11 @@ function EventCard({
 
           absolute
           inset-0
-          -z-10
+          z-0
 
           opacity-0
 
-          bg-[radial-gradient(circle_at_0%_0%,rgba(212,175,55,0.07),transparent_45%)]
+          bg-[radial-gradient(circle_at_0%_0%,var(--gold-08),transparent_45%)]
 
           transition-opacity
           duration-300
@@ -1986,6 +2026,9 @@ function EventCard({
 
       <div
         className="
+          relative
+          z-20
+
           flex
           min-w-0
           flex-col
@@ -2052,7 +2095,7 @@ function EventCard({
               text-[24px]
               font-black
               leading-none
-              text-white
+              text-foreground
 
               min-[430px]:mt-1
               min-[430px]:text-[28px]
@@ -2067,7 +2110,7 @@ function EventCard({
               font-semibold
               uppercase
               tracking-[0.16em]
-              text-zinc-600
+              text-text-faint
 
               min-[430px]:mt-2
             "
@@ -2107,7 +2150,7 @@ function EventCard({
 
               text-[15px]
               font-bold
-              text-white
+              text-foreground
 
               transition-colors
               duration-300
@@ -2128,7 +2171,7 @@ function EventCard({
 
               text-[12px]
               leading-5
-              text-zinc-500
+              text-text-muted
 
               sm:text-[13px]
             "
@@ -2146,7 +2189,7 @@ function EventCard({
               gap-2
 
               text-[10px]
-              text-zinc-500
+              text-text-muted
 
               min-[430px]:flex-row
               min-[430px]:flex-wrap
@@ -2215,13 +2258,13 @@ function EventCard({
               transition-colors
               duration-200
 
-              hover:text-[#F5D568]
+              hover:text-gold-soft
 
               focus-visible:outline-none
               focus-visible:ring-2
               focus-visible:ring-primary
               focus-visible:ring-offset-4
-              focus-visible:ring-offset-black
+              focus-visible:ring-offset-background
             "
           >
             {event.ctaLabel}
@@ -2270,18 +2313,18 @@ function CoachProfileDialog({
           overflow-x-hidden
 
           border
-          border-white/10
+          border-foreground/10
 
-          bg-[#090909]
+          bg-surface-dark
 
           p-0
 
-          text-white
+          text-foreground
 
-          shadow-[0_40px_120px_rgba(0,0,0,0.72)]
+          shadow-[0_40px_120px_var(--overlay-black-75)]
 
           scrollbar-thin
-          [scrollbar-color:rgba(212,175,55,0.32)_transparent]
+          [scrollbar-color:var(--gold-30)_transparent]
 
           sm:w-[calc(100%-48px)]
           sm:max-w-255
@@ -2322,9 +2365,9 @@ function CoachProfileDialog({
                   overflow-hidden
 
                   border-b
-                  border-white/10
+                  border-foreground/10
 
-                  bg-[#101010]
+                  bg-surface
 
                   sm:min-h-85
 
@@ -2362,14 +2405,14 @@ function CoachProfileDialog({
                         inset-0
 
                         bg-linear-to-t
-                        from-black
-                        via-black/10
-                        to-black/5
+                        from-background
+                        via-background/10
+                        to-background/5
 
                         lg:bg-linear-to-r
                         lg:from-transparent
                         lg:via-transparent
-                        lg:to-black/30
+                        lg:to-background/30
                       "
                     />
                   </>
@@ -2439,7 +2482,7 @@ function CoachProfileDialog({
                       leading-none
                       tracking-[-0.04em]
 
-                      text-white
+                      text-foreground
 
                       sm:text-4xl
                     "
@@ -2455,7 +2498,7 @@ function CoachProfileDialog({
 
                       text-[12px]
                       leading-5
-                      text-zinc-300
+                      text-text-soft
 
                       sm:text-sm
                       sm:leading-6
@@ -2483,7 +2526,7 @@ function CoachProfileDialog({
                   lg:p-9
 
                   scrollbar-thin
-                  [scrollbar-color:rgba(212,175,55,0.25)_transparent]
+                  [scrollbar-color:var(--gold-25)_transparent]
                 "
               >
                 <div className="max-w-155">
@@ -2530,7 +2573,7 @@ function CoachProfileDialog({
                         leading-[0.96]
                         tracking-[-0.045em]
 
-                        text-white
+                        text-foreground
                       "
                     >
                       Coach {coach.name}
@@ -2578,7 +2621,7 @@ function CoachProfileDialog({
                           font-bold
                           uppercase
                           tracking-[0.22em]
-                          text-zinc-500
+                          text-text-muted
 
                           sm:text-[10px]
                         "
@@ -2652,7 +2695,7 @@ function CoachProfileDialog({
                             font-bold
                             uppercase
                             tracking-[0.22em]
-                            text-zinc-500
+                            text-text-muted
 
                             sm:text-[10px]
                           "
@@ -2680,9 +2723,9 @@ function CoachProfileDialog({
                                 rounded-xl
 
                                 border
-                                border-white/7
+                                border-foreground/7
 
-                                bg-white/2
+                                bg-foreground/2
 
                                 px-3.5
                                 py-3
@@ -2704,7 +2747,7 @@ function CoachProfileDialog({
                                 className="
                                   text-[11px]
                                   leading-5
-                                  text-zinc-300
+                                  text-text-soft
 
                                   sm:text-[12px]
                                 "
@@ -2729,7 +2772,7 @@ function CoachProfileDialog({
                         font-bold
                         uppercase
                         tracking-[0.22em]
-                        text-zinc-500
+                        text-text-muted
 
                         sm:text-[10px]
                       "
@@ -2750,7 +2793,7 @@ function CoachProfileDialog({
                             className="
                               text-[12px]
                               leading-6
-                              text-zinc-400
+                              text-text-secondary
 
                               sm:text-sm
                               sm:leading-7
@@ -2772,7 +2815,7 @@ function CoachProfileDialog({
                       mt-8
 
                       border-t
-                      border-white/8
+                      border-foreground/8
 
                       pb-1
                       pt-6
@@ -2784,7 +2827,7 @@ function CoachProfileDialog({
 
                         text-[11px]
                         leading-5
-                        text-zinc-500
+                        text-text-muted
 
                         sm:text-xs
                       "
@@ -2814,9 +2857,9 @@ function CoachProfileDialog({
                           font-bold
                           uppercase
                           tracking-[0.06em]
-                          text-black
+                          text-primary-foreground
 
-                          shadow-[0_10px_30px_rgba(212,175,55,0.15)]
+                          shadow-(--shadow-gold-sm)
 
                           transition-[transform,box-shadow,filter]
                           duration-300
@@ -2824,7 +2867,7 @@ function CoachProfileDialog({
                           hover:-translate-y-0.5
                           hover:bg-primary
                           hover:brightness-105
-                          hover:shadow-[0_16px_40px_rgba(212,175,55,0.22)]
+                          hover:shadow-(--shadow-gold-md)
 
                           motion-reduce:transform-none
                         `
@@ -2864,9 +2907,9 @@ function ScheduleEmptyState() {
 
         border
         border-dashed
-        border-white/10
+        border-foreground/10
 
-        bg-white/2
+        bg-foreground/2
 
         px-5
 
@@ -2905,7 +2948,7 @@ function ScheduleEmptyState() {
 
           text-sm
           font-semibold
-          text-zinc-200
+          text-text-soft
         "
       >
         No classes scheduled
@@ -2919,13 +2962,87 @@ function ScheduleEmptyState() {
 
           text-xs
           leading-5
-          text-zinc-600
+          text-text-faint
         "
       >
         Choose another day to find an
         available training session.
       </p>
     </div>
+  )
+}
+
+
+/* =========================================================
+   SCHEDULE CLOCK SUBSCRIPTION
+
+   useSyncExternalStore lets us read browser time without
+   calling setState synchronously inside an effect.
+
+   - Server snapshot stays deterministic for hydration.
+   - Browser snapshot uses the schedule timezone.
+   - The store checks once per minute and whenever the tab
+     becomes visible again, so the selected day can roll over
+     correctly at midnight.
+========================================================= */
+
+function subscribeToScheduleClock(
+  onStoreChange: () => void
+) {
+  const intervalId = window.setInterval(
+    onStoreChange,
+    60_000
+  )
+
+  const handleVisibilityChange = () => {
+    if (document.visibilityState === "visible") {
+      onStoreChange()
+    }
+  }
+
+  document.addEventListener(
+    "visibilitychange",
+    handleVisibilityChange
+  )
+
+  return () => {
+    window.clearInterval(intervalId)
+
+    document.removeEventListener(
+      "visibilitychange",
+      handleVisibilityChange
+    )
+  }
+}
+
+
+/* =========================================================
+   CURRENT SCHEDULE DAY
+
+   Runs in the browser after hydration so the selected tab
+   reflects the real current weekday in the schedule's
+   configured timezone, not the build-time weekday.
+========================================================= */
+
+function getCurrentScheduleDay(
+  timeZone: string,
+  days: ScheduleDay[]
+): ScheduleDayId | null {
+  const weekday = new Intl.DateTimeFormat(
+    "en-US",
+    {
+      weekday: "short",
+      timeZone,
+    }
+  )
+    .format(new Date())
+    .toLowerCase()
+    .slice(0, 3)
+
+  return (
+    days.find(
+      (day) => day.id === weekday
+    )?.id ?? null
   )
 }
 

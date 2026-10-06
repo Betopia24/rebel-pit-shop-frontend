@@ -19,26 +19,19 @@ export const publicNavigation = [
     label: "Personal Training",
     href: "/personal-training",
   },
-] as const
-
-
-const footerOnlyNavigation = [
-  {
-    id: "sign-waiver",
-    label: "Sign Waiver",
-    href: "/sign-waiver",
-  },
   {
     id: "contact",
     label: "Contact",
-    href: "/message",
+    href: "/contact",
   },
 ] as const
+
+
+
 
 
 export const footerNavigation = [
   ...publicNavigation,
-  ...footerOnlyNavigation,
 ] as const
 
 
