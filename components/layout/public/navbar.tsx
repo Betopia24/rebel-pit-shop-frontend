@@ -1,11 +1,12 @@
 "use client"
 
+import { useSyncExternalStore } from "react"
+
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 import { MobileNav } from "@/components/layout/public/mobile-nav"
 import { Logo } from "@/components/shared/logo"
-import { ThemeToggle } from "@/components/shared/theme-toggle"
 
 import { publicNavigation } from "@/config/navigation"
 
@@ -13,41 +14,150 @@ import { cn } from "@/lib/utils"
 
 
 /* =========================================================
+   VIEWPORT STORE
+
+   We use useSyncExternalStore instead of setState inside
+   an effect. The snapshot stays boolean, so React only
+   re-renders when the navbar actually crosses the Hero
+   boundary.
+========================================================= */
+
+function subscribeToViewport(
+  onStoreChange: () => void
+) {
+  window.addEventListener(
+    "scroll",
+    onStoreChange,
+    {
+      passive: true,
+    }
+  )
+
+  window.addEventListener(
+    "resize",
+    onStoreChange
+  )
+
+  return () => {
+    window.removeEventListener(
+      "scroll",
+      onStoreChange
+    )
+
+    window.removeEventListener(
+      "resize",
+      onStoreChange
+    )
+  }
+}
+
+
+function hasCrossedHomeHero() {
+  const hero =
+    document.querySelector<HTMLElement>(
+      "#main-content > section:first-of-type"
+    )
+
+  /*
+   * Fallback:
+   * If the homepage Hero cannot be found, use a small
+   * scroll threshold instead of leaving the navbar
+   * permanently transparent.
+   */
+  if (!hero) {
+    return window.scrollY > 24
+  }
+
+  return (
+    hero.getBoundingClientRect().bottom <= 0
+  )
+}
+
+
+/* =========================================================
    PUBLIC NAVBAR
 
    Behaviour:
    - Fixed at the top of the viewport
-   - Remains visible while scrolling
-   - Keeps the existing transparent / floating design
+   - Transparent while the homepage Hero is visible
+   - Premium glass bar after the Hero has been crossed
+   - Glass bar is enabled immediately on non-home pages
    - Desktop navigation: 1280px+
    - Mobile / tablet navigation: below 1280px
-
-   IMPORTANT:
-   We intentionally use `fixed` instead of `sticky`.
-
-   A normal sticky header remains in document flow and
-   would push the Hero section downward.
-
-   Fixed positioning keeps the current Hero-overlay design
-   exactly as it is while still keeping the navbar visible
-   during scrolling.
+   - Dark-only UI; no theme toggle
 ========================================================= */
 
 export function Navbar() {
   const pathname = usePathname()
 
 
+  const hasGlassBackground =
+    useSyncExternalStore(
+      subscribeToViewport,
+
+      () => {
+        /*
+         * The cinematic transparent navbar is specifically
+         * for the homepage Hero.
+         *
+         * Other public pages receive the readable glass
+         * navbar immediately.
+         */
+        if (pathname !== "/") {
+          return true
+        }
+
+        return hasCrossedHomeHero()
+      },
+
+      /*
+       * Server snapshot:
+       * Homepage starts transparent.
+       * Internal pages can start with the glass treatment.
+       */
+      () => pathname !== "/"
+    )
+
+
   return (
     <header
-      className="
-        fixed
-        inset-x-0
-        top-0
+      className={cn(
+        `
+          fixed
+          inset-x-0
+          top-0
 
-        z-[var(--z-navbar)]
+          z-[var(--z-navbar)]
 
-        w-full
-      "
+          w-full
+
+          border-b
+
+          transition-[background-color,border-color,box-shadow,backdrop-filter]
+          duration-300
+          ease-out
+
+          motion-reduce:transition-none
+        `,
+        hasGlassBackground
+          ? `
+              border-foreground/10
+
+              bg-background/75
+
+              shadow-(--shadow-navbar)
+
+              backdrop-blur-2xl
+              backdrop-saturate-150
+            `
+          : `
+              border-transparent
+
+              bg-transparent
+
+              shadow-none
+            `
+      )}
     >
       {/* =====================================================
           NAVBAR CONTAINER
@@ -113,7 +223,7 @@ export function Navbar() {
 
             p-1.5
 
-            shadow-[var(--shadow-navbar)]
+            shadow-(--shadow-navbar)
 
             backdrop-blur-xl
 
@@ -124,7 +234,9 @@ export function Navbar() {
             const isActive =
               item.href === "/"
                 ? pathname === "/"
-                : pathname.startsWith(item.href)
+                : pathname.startsWith(
+                    item.href
+                  )
 
 
             return (
@@ -198,30 +310,6 @@ export function Navbar() {
               </Link>
             )
           })}
-
-
-          {/* =================================================
-              NAV DIVIDER
-          ================================================== */}
-
-          <div
-            aria-hidden="true"
-            className="
-              mx-2
-
-              h-5
-              w-px
-
-              bg-foreground/15
-            "
-          />
-
-
-          {/* =================================================
-              THEME
-          ================================================== */}
-
-          <ThemeToggle />
         </nav>
 
 
@@ -231,9 +319,8 @@ export function Navbar() {
             MobileNav internally uses:
             xl:hidden
 
-            Therefore:
             < 1280px  → MobileNav
-            >=1280px  → Desktop nav
+            >=1280px  → Desktop navigation
         ==================================================== */}
 
         <MobileNav />
