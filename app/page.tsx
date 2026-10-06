@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/public/footer"
 import { HeroSection } from "./(public)/_components/hero-section"
 import { TrainingOptionsSection } from "./(public)/_components/training-options-section"
 import { ScheduleEventsSection } from "./(public)/_components/schedule-events-section"
+import { SuccessStoriesSection } from "./(public)/_components/success-stories-section"
 
 export default function Page() {
   return (
@@ -13,6 +14,7 @@ export default function Page() {
       <HeroSection />
       <TrainingOptionsSection />
       <ScheduleEventsSection />
+      <SuccessStoriesSection/>
       <Footer />
     </div>
   )

@@ -1,0 +1,108 @@
+{
+  "summary": {
+    "rating": 4.9,
+    "reviewCountLabel": "500+ member reviews"
+  },
+  "reviews": [
+    {
+      "id": "sarah-m",
+      "title": "Life-changing experience",
+      "quote": "Rebel has completely changed my life. I’m stronger, more confident, and happier than I’ve ever been.",
+      "name": "Sarah M.",
+      "memberSince": "2023",
+      "dateLabel": "2d ago",
+      "rating": 5,
+      "image": null
+    },
+    {
+      "id": "james-t",
+      "title": "Incredible atmosphere",
+      "quote": "The atmosphere at Rebel is unmatched. Every class is challenging, fun, and motivates me to be better.",
+      "name": "James T.",
+      "memberSince": "2022",
+      "dateLabel": "1w ago",
+      "rating": 5,
+      "image": null
+    },
+    {
+      "id": "ashley-r",
+      "title": "More than just a gym",
+      "quote": "Rebel isn’t just a gym, it’s a family. The coaches, members, and energy here keep me coming back.",
+      "name": "Ashley R.",
+      "memberSince": "2024",
+      "dateLabel": "3d ago",
+      "rating": 5,
+      "image": null
+    },
+    {
+      "id": "michael-k",
+      "title": "Stronger every week",
+      "quote": "I’ve gained so much strength, discipline, and confidence since joining Rebel. The difference is incredible.",
+      "name": "Michael K.",
+      "memberSince": "2021",
+      "dateLabel": "14 Sep",
+      "rating": 5,
+      "image": null
+    },
+    {
+      "id": "tina-k",
+      "title": "Best decision I’ve made",
+      "quote": "The community here is something special. I feel supported, challenged, and stronger every time I train.",
+      "name": "Tina K.",
+      "memberSince": "2024",
+      "dateLabel": "21 Feb",
+      "rating": 5,
+      "image": null
+    },
+    {
+      "id": "daniel-l",
+      "title": "Results speak for themselves",
+      "quote": "Rebel changed my lifestyle for the better. I feel healthier, sharper, and more disciplined every day.",
+      "name": "Daniel L.",
+      "memberSince": "2022",
+      "dateLabel": "3d ago",
+      "rating": 5,
+      "image": null
+    },
+    {
+      "id": "nicole-p",
+      "title": "Amazing coaches",
+      "quote": "Amazing coaches, a positive environment, and real progress. I’ve never felt stronger or more capable.",
+      "name": "Nicole P.",
+      "memberSince": "2023",
+      "dateLabel": "4d ago",
+      "rating": 5,
+      "image": null
+    },
+    {
+      "id": "ryan-b",
+      "title": "A better version of myself",
+      "quote": "Every class pushes me to be better. I’m grateful for the confidence and community I’ve found here.",
+      "name": "Ryan B.",
+      "memberSince": "2021",
+      "dateLabel": "6d ago",
+      "rating": 5,
+      "image": null
+    },
+    {
+      "id": "emma-l",
+      "title": "Supportive and professional",
+      "quote": "Clean facility, great people, and seriously good workouts. The coaches make everyone feel welcome.",
+      "name": "Emma L.",
+      "memberSince": "2024",
+      "dateLabel": "2w ago",
+      "rating": 5,
+      "image": null
+    },
+    {
+      "id": "jason-m",
+      "title": "Rebel feels like home",
+      "quote": "I joined to get in shape, but I stayed for the people. The training is excellent and the community is real.",
+      "name": "Jason M.",
+      "memberSince": "2022",
+      "dateLabel": "3d ago",
+      "rating": 5,
+      "image": null
+    }
+  ]
+}

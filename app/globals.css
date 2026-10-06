@@ -363,3 +363,99 @@
   }
 }
 
+/* =========================================================
+   REBEL SUCCESS STORIES MARQUEE
+   ========================================================= */
+
+@keyframes rebel-review-scroll {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        transform: translate3d(-50%, 0, 0);
+    }
+}
+
+
+/* ---------------------------------------------------------
+   Track
+--------------------------------------------------------- */
+
+.rebel-review-track {
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+
+/* Top row:
+   right -> left
+*/
+
+.rebel-review-track-forward {
+    animation:
+        rebel-review-scroll
+        38s
+        linear
+        infinite;
+}
+
+
+/* Bottom row:
+   left -> right
+*/
+
+.rebel-review-track-reverse {
+    animation:
+        rebel-review-scroll
+        42s
+        linear
+        infinite
+        reverse;
+}
+
+
+/* ---------------------------------------------------------
+   Pause only the hovered/focused row
+--------------------------------------------------------- */
+
+.rebel-review-row:hover .rebel-review-track,
+.rebel-review-row:focus-within .rebel-review-track {
+    animation-play-state: paused;
+}
+
+
+/* ---------------------------------------------------------
+   Slight performance optimization
+--------------------------------------------------------- */
+
+.rebel-review-set {
+    contain: layout paint;
+}
+
+
+/* ---------------------------------------------------------
+   Reduced motion
+
+   Animation stops and row becomes manually scrollable.
+--------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .rebel-review-row {
+        overflow-x: auto;
+        overscroll-behavior-inline: contain;
+
+        scrollbar-width: none;
+    }
+
+    .rebel-review-row::-webkit-scrollbar {
+        display: none;
+    }
+
+    .rebel-review-track-forward,
+    .rebel-review-track-reverse {
+        animation: none !important;
+        transform: none !important;
+    }
+}
