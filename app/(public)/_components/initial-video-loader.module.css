@@ -6,7 +6,8 @@
   place-items: center;
   align-content: center;
   gap: 1rem;
-  background: #090909;
+  background: rgb(9 9 9 / 48%);
+  backdrop-filter: blur(1px);
   color: #f4f1ea;
   pointer-events: none;
   animation: loaderIn 220ms ease-out both;

@@ -3,9 +3,6 @@
 import { useEffect, useState } from "react"
 import styles from "./initial-video-loader.module.css"
 
-const MIN_INITIAL_BUFFER_SECONDS = 2.5
-const VIDEO_READY_TIMEOUT_MS = 30000
-
 export function InitialVideoLoader() {
   const [isVisible, setIsVisible] = useState(true)
 
@@ -19,61 +16,76 @@ export function InitialVideoLoader() {
 
     video.pause()
 
-    let dismissed = false
-    let playbackStarted = false
+    const sourceUrl = video.currentSrc || video.querySelector("source")?.src || video.src
+    const controller = new AbortController()
+    let objectUrl: string | null = null
+    let cancelled = false
 
-    const dismiss = () => {
-      if (dismissed) return
-      dismissed = true
-      setIsVisible(false)
+    const onPlaying = () => {
+      if (!cancelled) setIsVisible(false)
     }
 
-    const hasEnoughInitialBuffer = () => {
-      if (!Number.isFinite(video.duration) || video.buffered.length === 0) {
-        return false
+    video.addEventListener("playing", onPlaying, { once: true })
+
+    const downloadAndPlay = async () => {
+      if (!sourceUrl) {
+        setIsVisible(false)
+        return
       }
 
-      const bufferedAhead = video.buffered.end(video.buffered.length - 1) - video.currentTime
-      return bufferedAhead >= Math.min(MIN_INITIAL_BUFFER_SECONDS, video.duration)
-    }
-
-    const startPlayback = () => {
-      if (playbackStarted || !hasEnoughInitialBuffer()) return
-
-      playbackStarted = true
-      void video.play().catch(() => {
-        playbackStarted = false
-        dismiss()
-      })
-    }
-
-    const checkBuffer = () => {
-      if (hasEnoughInitialBuffer()) startPlayback()
-    }
-
-    const bufferCheckId = window.setInterval(checkBuffer, 100)
-    video.addEventListener("loadedmetadata", checkBuffer)
-    video.addEventListener("progress", checkBuffer)
-    video.addEventListener("canplay", checkBuffer)
-    video.addEventListener("playing", dismiss)
-    const timeoutId = window.setTimeout(() => {
-      if (!playbackStarted) {
-        playbackStarted = true
-        void video.play().catch(() => {
-          playbackStarted = false
+      try {
+        const response = await fetch(sourceUrl, {
+          cache: "force-cache",
+          signal: controller.signal,
         })
-      }
 
-      dismiss()
-    }, VIDEO_READY_TIMEOUT_MS)
+        if (!response.ok) throw new Error(`Video request failed with ${response.status}`)
+
+        const chunks: ArrayBuffer[] = []
+
+        if (response.body) {
+          const reader = response.body.getReader()
+
+          while (true) {
+            const { done, value } = await reader.read()
+            if (done) break
+            if (value) {
+              const chunk = new ArrayBuffer(value.byteLength)
+              new Uint8Array(chunk).set(value)
+              chunks.push(chunk)
+            }
+          }
+        } else {
+          chunks.push(await response.arrayBuffer())
+        }
+
+        if (cancelled) return
+
+        objectUrl = URL.createObjectURL(
+          new Blob(chunks, {
+            type: response.headers.get("content-type") || "video/mp4",
+          }),
+        )
+        video.src = objectUrl
+        video.load()
+        await video.play()
+      } catch {
+        if (cancelled) return
+
+        // Keep the original source as a last-resort fallback if the full download fails.
+        video.preload = "auto"
+        video.load()
+        void video.play().catch(() => setIsVisible(false))
+      }
+    }
+
+    void downloadAndPlay()
 
     return () => {
-      window.clearTimeout(timeoutId)
-      window.clearInterval(bufferCheckId)
-      video.removeEventListener("loadedmetadata", checkBuffer)
-      video.removeEventListener("progress", checkBuffer)
-      video.removeEventListener("canplay", checkBuffer)
-      video.removeEventListener("playing", dismiss)
+      cancelled = true
+      controller.abort()
+      video.removeEventListener("playing", onPlaying)
+      if (objectUrl) URL.revokeObjectURL(objectUrl)
     }
   }, [])
 
