@@ -1,104 +1,51 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import styles from "./initial-video-loader.module.css"
+import { useEffect } from "react"
+
+const MIN_INITIAL_BUFFER_SECONDS = 3
 
 export function InitialVideoLoader() {
-  const [isVisible, setIsVisible] = useState(true)
-
   useEffect(() => {
     const video = document.querySelector<HTMLVideoElement>("[data-hero-video]")
 
-    if (!video) {
-      const noVideoId = window.setTimeout(() => setIsVisible(false), 0)
-      return () => window.clearTimeout(noVideoId)
-    }
+    if (!video) return
 
     video.pause()
 
-    const sourceUrl = video.currentSrc || video.querySelector("source")?.src || video.src
-    const controller = new AbortController()
-    let objectUrl: string | null = null
-    let cancelled = false
+    let playbackStarted = false
 
-    const onPlaying = () => {
-      if (!cancelled) setIsVisible(false)
+    const hasEnoughInitialBuffer = () => {
+      if (video.buffered.length === 0) return false
+
+      const bufferedEnd = video.buffered.end(video.buffered.length - 1)
+      return bufferedEnd - video.currentTime >= MIN_INITIAL_BUFFER_SECONDS
     }
 
-    video.addEventListener("playing", onPlaying, { once: true })
+    const startPlayback = () => {
+      if (playbackStarted || !hasEnoughInitialBuffer()) return
 
-    const downloadAndPlay = async () => {
-      if (!sourceUrl) {
-        setIsVisible(false)
-        return
-      }
-
-      try {
-        const response = await fetch(sourceUrl, {
-          cache: "force-cache",
-          signal: controller.signal,
-        })
-
-        if (!response.ok) throw new Error(`Video request failed with ${response.status}`)
-
-        const chunks: ArrayBuffer[] = []
-
-        if (response.body) {
-          const reader = response.body.getReader()
-
-          while (true) {
-            const { done, value } = await reader.read()
-            if (done) break
-            if (value) {
-              const chunk = new ArrayBuffer(value.byteLength)
-              new Uint8Array(chunk).set(value)
-              chunks.push(chunk)
-            }
-          }
-        } else {
-          chunks.push(await response.arrayBuffer())
-        }
-
-        if (cancelled) return
-
-        objectUrl = URL.createObjectURL(
-          new Blob(chunks, {
-            type: response.headers.get("content-type") || "video/mp4",
-          }),
-        )
-        video.src = objectUrl
-        video.load()
-        await video.play()
-      } catch {
-        if (cancelled) return
-
-        // Keep the original source as a last-resort fallback if the full download fails.
-        video.preload = "auto"
-        video.load()
-        void video.play().catch(() => setIsVisible(false))
-      }
+      playbackStarted = true
+      void video.play().catch(() => {
+        playbackStarted = false
+      })
     }
 
-    void downloadAndPlay()
+    const checkBuffer = () => {
+      if (hasEnoughInitialBuffer()) startPlayback()
+    }
+
+    const bufferCheckId = window.setInterval(checkBuffer, 100)
+    video.addEventListener("loadeddata", checkBuffer)
+    video.addEventListener("progress", checkBuffer)
+    video.addEventListener("canplay", checkBuffer)
 
     return () => {
-      cancelled = true
-      controller.abort()
-      video.removeEventListener("playing", onPlaying)
-      if (objectUrl) URL.revokeObjectURL(objectUrl)
+      window.clearInterval(bufferCheckId)
+      video.removeEventListener("loadeddata", checkBuffer)
+      video.removeEventListener("progress", checkBuffer)
+      video.removeEventListener("canplay", checkBuffer)
     }
   }, [])
 
-  if (!isVisible) return null
-
-  return (
-    <div className={styles.loader} role="status" aria-live="polite" aria-label="Loading Rebel Pit">
-      <div className={styles.mark} aria-hidden="true">
-        <span />
-        <span />
-        <span />
-      </div>
-      <p className={styles.label}>Loading the pit</p>
-    </div>
-  )
+  return null
 }

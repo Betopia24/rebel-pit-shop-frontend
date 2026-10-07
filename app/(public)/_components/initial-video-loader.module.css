@@ -1,22 +1,25 @@
 .loader {
   position: fixed;
-  inset: 0;
+  top: 5.5rem;
+  right: 1rem;
   z-index: 1000;
-  display: grid;
-  place-items: center;
-  align-content: center;
-  gap: 1rem;
-  background: rgb(9 9 9 / 48%);
-  backdrop-filter: blur(1px);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid rgb(244 241 234 / 18%);
+  border-radius: 999px;
+  background: rgb(9 9 9 / 78%);
   color: #f4f1ea;
   pointer-events: none;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 18%);
   animation: loaderIn 220ms ease-out both;
 }
 
 .label {
   margin: 0;
   color: rgb(244 241 234 / 72%);
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -26,25 +29,25 @@
   display: flex;
   align-items: flex-end;
   gap: 0.28rem;
-  height: 2rem;
+  height: 1.1rem;
 }
 
 .mark span {
   display: block;
   width: 0.3rem;
-  height: 0.9rem;
+  height: 0.55rem;
   border-radius: 999px;
   background: currentColor;
   animation: pulse 900ms ease-in-out infinite;
 }
 
 .mark span:nth-child(2) {
-  height: 1.5rem;
+  height: 0.9rem;
   animation-delay: 120ms;
 }
 
 .mark span:nth-child(3) {
-  height: 1.1rem;
+  height: 0.7rem;
   animation-delay: 240ms;
 }
 

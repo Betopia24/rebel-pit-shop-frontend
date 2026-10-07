@@ -105,7 +105,7 @@ export function HeroSection() {
           muted
           loop
           playsInline
-          preload="none"
+          preload="auto"
           poster={hero.media.poster}
           disablePictureInPicture
           disableRemotePlayback
