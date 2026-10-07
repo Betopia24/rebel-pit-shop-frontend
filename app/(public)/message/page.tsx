@@ -2,6 +2,13 @@
 import type { Metadata } from "next"
 
 import { siteConfig } from "@/config/site"
+import {
+  absoluteUrl,
+  createBreadcrumbSchema,
+  createOrganizationSchema,
+  createWebsiteSchema,
+  serializeJsonLd,
+} from "@/lib/seo"
 
 import { ContactPageHeroSection } from "@/app/(public)/message/_components/contact-page-hero-section"
 import { ContactInformationSection } from "./_components/contact-information-section"
@@ -62,20 +69,11 @@ const PAGE_IMAGE_ALT =
    when deploying.
 ========================================================= */
 
-const siteUrl = new URL(
-  "/",
-  siteConfig.url
-).toString()
+const siteUrl = absoluteUrl("/")
 
-const pageUrl = new URL(
-  PAGE_PATH,
-  siteConfig.url
-).toString()
+const pageUrl = absoluteUrl(PAGE_PATH)
 
-const imageUrl = new URL(
-  PAGE_IMAGE,
-  siteConfig.url
-).toString()
+const imageUrl = absoluteUrl(PAGE_IMAGE)
 
 const fullPageTitle =
   `${PAGE_TITLE} | ${siteConfig.name}`
@@ -169,68 +167,9 @@ export const metadata: Metadata = {
    the updated business information automatically.
 ========================================================= */
 
-const businessSchema = {
-  "@type": "HealthClub",
-
-  "@id": `${siteUrl}#organization`,
-
-  name: siteConfig.business.name,
-
-  url: siteUrl,
-
-  description: siteConfig.description,
-
-  telephone: siteConfig.contact.phone,
-
-  email: siteConfig.contact.email,
-
-  image: imageUrl,
-
-  address: {
-    "@type": "PostalAddress",
-
-    streetAddress:
-      siteConfig.business.address.street,
-
-    addressLocality:
-      siteConfig.business.address.city,
-
-    addressRegion:
-      siteConfig.business.address.region,
-
-    postalCode:
-      siteConfig.business.address.postalCode,
-
-    addressCountry:
-      siteConfig.business.address.country,
-  },
-
-  openingHoursSpecification:
-    siteConfig.hours.map((schedule) => ({
-      "@type": "OpeningHoursSpecification",
-
-      dayOfWeek:
-        schedule.dayOfWeek.map(
-          (day) => `https://schema.org/${day}`
-        ),
-
-      opens: schedule.opens,
-
-      closes: schedule.closes,
-    })),
-
-  contactPoint: {
-    "@type": "ContactPoint",
-
-    telephone: siteConfig.contact.phone,
-
-    email: siteConfig.contact.email,
-
-    contactType: "customer service",
-
-    availableLanguage: ["English"],
-  },
-}
+const businessSchema = createOrganizationSchema(
+  PAGE_IMAGE
+)
 
 
 /* =========================================================
@@ -293,23 +232,7 @@ const contactPageSchema = {
    Uses the same stable ID across website pages.
 ========================================================= */
 
-const websiteSchema = {
-  "@type": "WebSite",
-
-  "@id": `${siteUrl}#website`,
-
-  name: siteConfig.name,
-
-  url: siteUrl,
-
-  description: siteConfig.description,
-
-  inLanguage: "en-US",
-
-  publisher: {
-    "@id": `${siteUrl}#organization`,
-  },
-}
+const websiteSchema = createWebsiteSchema()
 
 
 /* =========================================================
@@ -320,33 +243,19 @@ const websiteSchema = {
    Represents the real page hierarchy.
 ========================================================= */
 
-const breadcrumbSchema = {
-  "@type": "BreadcrumbList",
-
-  "@id": `${pageUrl}#breadcrumb`,
-
-  itemListElement: [
+const breadcrumbSchema = createBreadcrumbSchema(
+  [
     {
-      "@type": "ListItem",
-
-      position: 1,
-
       name: "Home",
-
-      item: siteUrl,
+      path: "/",
     },
-
     {
-      "@type": "ListItem",
-
-      position: 2,
-
       name: "Contact Us",
-
-      item: pageUrl,
+      path: PAGE_PATH,
     },
   ],
-}
+  PAGE_PATH
+)
 
 
 /* =========================================================
@@ -384,16 +293,6 @@ const structuredData = {
    Escaping '<' prevents HTML/script-breaking content
    from being interpreted as markup.
 ========================================================= */
-
-function serializeJsonLd(
-  value: object
-): string {
-  return JSON.stringify(value)
-    .replace(/</g, "\\u003c")
-    .replace(/>/g, "\\u003e")
-    .replace(/&/g, "\\u0026")
-}
-
 
 /* =========================================================
    CONTACT PAGE

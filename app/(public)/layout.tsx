@@ -24,7 +24,7 @@ type PublicLayoutProps = {
    /
    /about
    /schedule
-   /personal-training
+   /classes
    /message
    /sign-waiver
 

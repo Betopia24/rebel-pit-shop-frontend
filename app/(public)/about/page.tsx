@@ -2,6 +2,10 @@
 import type { Metadata } from "next"
 
 import { siteConfig } from "@/config/site"
+import {
+  absoluteUrl,
+  serializeJsonLd,
+} from "@/lib/seo"
 
 import { AboutHeroSection } from "./_components/about-hero-section"
 import { AboutStorySection } from "./_components/about-story-section"
@@ -36,20 +40,11 @@ const PAGE_DESCRIPTION =
    ABSOLUTE URLS
 ========================================================= */
 
-const homeUrl = new URL(
-  "/",
-  siteConfig.url
-).toString()
+const homeUrl = absoluteUrl("/")
 
-const aboutUrl = new URL(
-  PAGE_PATH,
-  siteConfig.url
-).toString()
+const aboutUrl = absoluteUrl(PAGE_PATH)
 
-const aboutImageUrl = new URL(
-  ABOUT_IMAGE,
-  siteConfig.url
-).toString()
+const aboutImageUrl = absoluteUrl(ABOUT_IMAGE)
 
 const fullPageTitle =
   `${PAGE_TITLE} | ${siteConfig.name}`
@@ -254,9 +249,9 @@ export default function AboutPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
+          __html: serializeJsonLd(
             structuredData
-          ).replace(/</g, "\\u003c"),
+          ),
         }}
       />
 

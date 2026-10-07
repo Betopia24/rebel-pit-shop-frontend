@@ -72,7 +72,7 @@ export const siteConfig = {
       "Train at Rebel Boxing Club in Wichita, Kansas with professional boxing classes, personal training, expert coaching, and fitness programs for all levels.",
 
     openGraphImage:
-      "/opengraph-image.jpg",
+      "/images/hero/hero-poster.png",
 
     openGraphImageAlt:
       "Rebel Boxing Club",
@@ -245,7 +245,7 @@ export const siteConfig = {
         "Start Training",
 
       href:
-        "/personal-training",
+        "/classes",
     },
 
 
@@ -355,7 +355,7 @@ export const siteConfig = {
           "/images/training/personal-training.jpg",
 
         href:
-          "/personal-training",
+        "/classes#personal-training",
       },
 
       {

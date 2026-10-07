@@ -63,6 +63,14 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description:
       siteConfig.description,
+    images: [
+      {
+        url: siteConfig.seo.openGraphImage,
+        width: 1672,
+        height: 941,
+        alt: siteConfig.seo.openGraphImageAlt,
+      },
+    ],
   },
 
   twitter: {
@@ -70,6 +78,9 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description:
       siteConfig.description,
+    images: [
+      siteConfig.seo.openGraphImage,
+    ],
   },
 
   robots: {

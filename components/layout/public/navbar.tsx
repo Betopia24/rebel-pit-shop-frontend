@@ -29,6 +29,7 @@ const heroSelectors: Record<string, string> = {
   "/about": "#about-hero",
   "/message": "#contact-hero",
   "/schedule": "#schedule-hero",
+   "/classes": "#classes-hero",
 }
 
 

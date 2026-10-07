@@ -15,9 +15,9 @@ export const publicNavigation = [
     href: "/about",
   },
   {
-    id: "personal-training",
-    label: "Personal Training",
-    href: "/personal-training",
+    id: "classes",
+    label: "Classes",
+    href: "/classes",
   },
   {
     id: "contact",
@@ -44,7 +44,7 @@ export const programNavigation = [
   {
     id: "personal-training-program",
     label: "Personal Training",
-    href: "/personal-training",
+    href: "/classes#personal-training",
   },
   {
     id: "youth-boxing",
@@ -60,16 +60,6 @@ export const programNavigation = [
 
 
 export const legalNavigation = [
-  {
-    id: "privacy-policy",
-    label: "Privacy Policy",
-    href: "/privacy",
-  },
-  {
-    id: "terms-conditions",
-    label: "Terms & Conditions",
-    href: "/terms",
-  },
   {
     id: "sitemap",
     label: "Sitemap",

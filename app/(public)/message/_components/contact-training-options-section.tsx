@@ -43,7 +43,7 @@ const trainingOptions = [
     description:
       "Work directly with a Rebel coach and build a training experience around your goals, ability, and lifestyle.",
 
-    href: "/personal-training",
+    href: "/classes#personal-training",
 
     cta: "Explore Training",
 

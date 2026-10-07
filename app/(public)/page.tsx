@@ -56,9 +56,8 @@ export const metadata: Metadata = {
      - messaging apps
      - other social platforms
 
-     The social image will later be supplied through
-     Next.js file-based metadata:
-     app/opengraph-image.jpg
+     The shared social image is configured in siteConfig
+     and reused by the root and homepage metadata.
   ======================================================= */
 
   openGraph: {
@@ -77,16 +76,28 @@ export const metadata: Metadata = {
 
     description:
       siteConfig.seo.homeDescription,
+
+    images: [
+      {
+        url:
+          siteConfig.seo.openGraphImage,
+
+        width: 1672,
+
+        height: 941,
+
+        alt:
+          siteConfig.seo.openGraphImageAlt,
+      },
+    ],
   },
 
 
   /* =======================================================
      TWITTER / X
 
-     Image will later be provided through:
-     app/twitter-image.jpg
-
-     or inherited from Open Graph metadata.
+     Twitter reuses the shared social image configured in
+     siteConfig.
   ======================================================= */
 
   twitter: {
@@ -98,6 +109,10 @@ export const metadata: Metadata = {
 
     description:
       siteConfig.seo.homeDescription,
+
+    images: [
+      siteConfig.seo.openGraphImage,
+    ],
   },
 }
 

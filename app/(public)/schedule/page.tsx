@@ -1,6 +1,12 @@
 import type { Metadata } from "next"
 
 import { siteConfig } from "@/config/site"
+import {
+  absoluteUrl,
+  createBreadcrumbSchema,
+  createOrganizationSchema,
+  createWebsiteSchema,
+} from "@/lib/seo"
 
 import { ScheduleHeroSection } from "./_components/schedule-hero-section"
 import { ScheduleMainSection } from "./_components/schedule-main-section"
@@ -64,20 +70,11 @@ const PAGE_IMAGE_ALT =
    ABSOLUTE URLS
 ========================================================= */
 
-const siteUrl = new URL(
-  "/",
-  siteConfig.url
-).toString()
+const siteUrl = absoluteUrl("/")
 
-const pageUrl = new URL(
-  PAGE_PATH,
-  siteConfig.url
-).toString()
+const pageUrl = absoluteUrl(PAGE_PATH)
 
-const imageUrl = new URL(
-  PAGE_IMAGE,
-  siteConfig.url
-).toString()
+const imageUrl = absoluteUrl(PAGE_IMAGE)
 
 const fullPageTitle =
   `${PAGE_TITLE} | ${siteConfig.name}`
@@ -177,23 +174,7 @@ export const metadata: Metadata = {
    Stable website entity.
 ========================================================= */
 
-const websiteSchema = {
-  "@type": "WebSite",
-
-  "@id": `${siteUrl}#website`,
-
-  url: siteUrl,
-
-  name: siteConfig.name,
-
-  description: siteConfig.description,
-
-  inLanguage: "en-US",
-
-  publisher: {
-    "@id": `${siteUrl}#organization`,
-  },
-}
+const websiteSchema = createWebsiteSchema()
 
 /* =========================================================
    HEALTH CLUB SCHEMA
@@ -208,60 +189,9 @@ const websiteSchema = {
    - Schedule
 ========================================================= */
 
-const healthClubSchema = {
-  "@type": "HealthClub",
-
-  "@id": `${siteUrl}#organization`,
-
-  name: siteConfig.business.name,
-
-  url: siteUrl,
-
-  description: siteConfig.description,
-
-  telephone: siteConfig.contact.phone,
-
-  email: siteConfig.contact.email,
-
-  image: imageUrl,
-
-  address: {
-    "@type": "PostalAddress",
-
-    streetAddress:
-      siteConfig.business.address.street,
-
-    addressLocality:
-      siteConfig.business.address.city,
-
-    addressRegion:
-      siteConfig.business.address.region,
-
-    postalCode:
-      siteConfig.business.address.postalCode,
-
-    addressCountry:
-      siteConfig.business.address.country,
-  },
-
-  openingHoursSpecification:
-    siteConfig.hours.map(
-      (schedule) => ({
-        "@type":
-          "OpeningHoursSpecification",
-
-        dayOfWeek:
-          schedule.dayOfWeek.map(
-            (day) =>
-              `https://schema.org/${day}`
-          ),
-
-        opens: schedule.opens,
-
-        closes: schedule.closes,
-      })
-    ),
-}
+const healthClubSchema = createOrganizationSchema(
+  PAGE_IMAGE
+)
 
 /* =========================================================
    SCHEDULE PAGE SCHEMA
@@ -342,33 +272,19 @@ const primaryImageSchema = {
    Home → Schedule
 ========================================================= */
 
-const breadcrumbSchema = {
-  "@type": "BreadcrumbList",
-
-  "@id": `${pageUrl}#breadcrumb`,
-
-  itemListElement: [
+const breadcrumbSchema = createBreadcrumbSchema(
+  [
     {
-      "@type": "ListItem",
-
-      position: 1,
-
       name: "Home",
-
-      item: siteUrl,
+      path: "/",
     },
-
     {
-      "@type": "ListItem",
-
-      position: 2,
-
       name: "Class Schedule",
-
-      item: pageUrl,
+      path: PAGE_PATH,
     },
   ],
-}
+  PAGE_PATH
+)
 
 /* =========================================================
    JSON-LD GRAPH
@@ -497,15 +413,13 @@ export default function SchedulePage() {
             #schedule-main
         ==================================================== */}
 
-        <section
-          id="schedule-main"
-          aria-label="Rebel Boxing Club class schedule"
+        <div
           className="
             scroll-mt-24
           "
         >
           <ScheduleMainSection />
-        </section>
+        </div>
 
         {/* ===================================================
             SECTION 03 — BOOKING UI
