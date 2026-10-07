@@ -27,6 +27,7 @@ const heroSelectors: Record<string, string> = {
   "/": "#main-content > section:first-of-type",
 
   "/about": "#about-hero",
+  "/message": "#contact-hero",
 }
 
 

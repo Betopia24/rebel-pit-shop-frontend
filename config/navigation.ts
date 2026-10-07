@@ -22,7 +22,7 @@ export const publicNavigation = [
   {
     id: "contact",
     label: "Contact",
-    href: "/contact",
+    href: "/message",
   },
 ] as const
 
