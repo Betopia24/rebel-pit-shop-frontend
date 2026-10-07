@@ -102,7 +102,6 @@ export function HeroSection() {
       >
       <video
         data-hero-video
-          autoPlay
           muted
           loop
           playsInline
