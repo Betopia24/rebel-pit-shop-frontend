@@ -511,7 +511,6 @@ export function AboutStorySection() {
                   src={boxingClassesImage}
                   alt="A Rebel Boxing Club member practicing boxing with a heavy bag during a fitness class."
                   placeholder="blur"
-                  quality={90}
                   sizes="
                     (max-width: 639px) 100vw,
                     (max-width: 1023px) 85vw,

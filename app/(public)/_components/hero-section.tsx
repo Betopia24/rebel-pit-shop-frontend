@@ -100,12 +100,13 @@ export function HeroSection() {
             `url(${hero.media.poster})`,
         }}
       >
-        <video
+      <video
+        data-hero-video
           autoPlay
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
           poster={hero.media.poster}
           disablePictureInPicture
           disableRemotePlayback

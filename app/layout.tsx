@@ -6,6 +6,7 @@ import type {
 import { Inter } from "next/font/google"
 import { siteConfig } from "@/config/site"
 import "./globals.css"
+import { InitialVideoLoader } from "./(public)/_components/initial-video-loader"
 
 
 const inter = Inter({
@@ -137,7 +138,8 @@ export default function RootLayout({
           text-foreground
         `}
       >
-          {children}
+        <InitialVideoLoader />
+        {children}
       </body>
     </html>
   )

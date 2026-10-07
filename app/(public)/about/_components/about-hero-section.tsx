@@ -107,7 +107,6 @@ export function AboutHeroSection() {
           fill
           priority
           fetchPriority="high"
-          quality={90}
           sizes="100vw"
           className="
             object-cover

@@ -499,7 +499,6 @@ export function AllLevelsSection() {
                 (max-width: 1023px) 100vw,
                 47vw
               "
-              quality={90}
               className="
                 block
                 h-auto

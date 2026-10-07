@@ -241,7 +241,6 @@ export function HowClassesWorkSection() {
                   src={classFormatImage}
                   alt="Rebel Boxing Club training space with hanging heavy bags, boxing gloves, and a gym dog."
                   placeholder="blur"
-                  quality={90}
                   sizes="
                     (max-width: 639px) 100vw,
                     (max-width: 1023px) 85vw,

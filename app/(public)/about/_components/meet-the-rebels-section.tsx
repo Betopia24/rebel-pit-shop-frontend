@@ -652,7 +652,6 @@ function CoachProfile({
                   src={coach.image.src}
                   alt={coach.image.alt}
                   fill
-                  quality={90}
                   sizes="
                     (max-width: 639px) 100vw,
                     (max-width: 1023px) 470px,
