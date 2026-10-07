@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useSyncExternalStore } from "react"
@@ -14,12 +15,28 @@ import { cn } from "@/lib/utils"
 
 
 /* =========================================================
-   VIEWPORT STORE
+   NAVBAR CONFIGURATION
 
-   We use useSyncExternalStore instead of setState inside
-   an effect. The snapshot stays boolean, so React only
-   re-renders when the navbar actually crosses the Hero
-   boundary.
+   Routes with cinematic Hero sections.
+
+   Navbar stays transparent while these Hero sections
+   remain visible, and switches to glass after they pass.
+========================================================= */
+
+const heroSelectors: Record<string, string> = {
+  "/": "#main-content > section:first-of-type",
+
+  "/about": "#about-hero",
+}
+
+
+/* =========================================================
+   SCROLL STORE
+
+   Uses useSyncExternalStore instead of setState/useEffect.
+
+   React only updates the component when the returned
+   boolean changes.
 ========================================================= */
 
 function subscribeToViewport(
@@ -28,9 +45,7 @@ function subscribeToViewport(
   window.addEventListener(
     "scroll",
     onStoreChange,
-    {
-      passive: true,
-    }
+    { passive: true }
   )
 
   window.addEventListener(
@@ -52,21 +67,53 @@ function subscribeToViewport(
 }
 
 
-function hasCrossedHomeHero() {
-  const hero =
-    document.querySelector<HTMLElement>(
-      "#main-content > section:first-of-type"
-    )
+/* =========================================================
+   HERO DETECTION
+========================================================= */
+
+function hasCrossedHero(
+  pathname: string
+): boolean {
+  const normalizedPath =
+    pathname === "/"
+      ? "/"
+      : pathname.replace(/\/+$/, "")
+
+  const heroSelector =
+    heroSelectors[normalizedPath]
+
 
   /*
-   * Fallback:
-   * If the homepage Hero cannot be found, use a small
-   * scroll threshold instead of leaving the navbar
-   * permanently transparent.
+   * Pages without a registered cinematic hero
+   * get the readable glass navbar immediately.
    */
-  if (!hero) {
-    return window.scrollY > 24
+
+  if (!heroSelector) {
+    return true
   }
+
+
+  const hero =
+    document.querySelector<HTMLElement>(
+      heroSelector
+    )
+
+
+  /*
+   * Avoid showing glass before the hero has mounted.
+   */
+
+  if (!hero) {
+    return false
+  }
+
+
+  /*
+   * Hero bottom:
+   *
+   * > 0  → Hero remains in viewport
+   * <= 0 → Hero has passed
+   */
 
   return (
     hero.getBoundingClientRect().bottom <= 0
@@ -75,16 +122,39 @@ function hasCrossedHomeHero() {
 
 
 /* =========================================================
+   SERVER SNAPSHOT
+
+   Ensures consistent initial rendering during SSR.
+
+   Home/About start transparent.
+   Other pages start with glass.
+========================================================= */
+
+function getInitialGlassState(
+  pathname: string
+) {
+  const normalizedPath =
+    pathname === "/"
+      ? "/"
+      : pathname.replace(/\/+$/, "")
+
+  return !Object.prototype.hasOwnProperty.call(
+    heroSelectors,
+    normalizedPath
+  )
+}
+
+
+/* =========================================================
    PUBLIC NAVBAR
 
-   Behaviour:
-   - Fixed at the top of the viewport
-   - Transparent while the homepage Hero is visible
-   - Premium glass bar after the Hero has been crossed
-   - Glass bar is enabled immediately on non-home pages
-   - Desktop navigation: 1280px+
-   - Mobile / tablet navigation: below 1280px
-   - Dark-only UI; no theme toggle
+   Design:
+   - Fixed overlay
+   - Transparent on Hero
+   - Glass after Hero
+   - Dark Rebel Boxing design system
+   - Desktop navigation >= 1280px
+   - Mobile navigation < 1280px
 ========================================================= */
 
 export function Navbar() {
@@ -95,27 +165,9 @@ export function Navbar() {
     useSyncExternalStore(
       subscribeToViewport,
 
-      () => {
-        /*
-         * The cinematic transparent navbar is specifically
-         * for the homepage Hero.
-         *
-         * Other public pages receive the readable glass
-         * navbar immediately.
-         */
-        if (pathname !== "/") {
-          return true
-        }
+      () => hasCrossedHero(pathname),
 
-        return hasCrossedHomeHero()
-      },
-
-      /*
-       * Server snapshot:
-       * Homepage starts transparent.
-       * Internal pages can start with the glass treatment.
-       */
-      () => pathname !== "/"
+      () => getInitialGlassState(pathname)
     )
 
 
@@ -134,11 +186,12 @@ export function Navbar() {
           border-b
 
           transition-[background-color,border-color,box-shadow,backdrop-filter]
-          duration-300
+          duration-500
           ease-out
 
           motion-reduce:transition-none
         `,
+
         hasGlassBackground
           ? `
               border-foreground/10
@@ -156,6 +209,8 @@ export function Navbar() {
               bg-transparent
 
               shadow-none
+
+              backdrop-blur-none
             `
       )}
     >
@@ -165,18 +220,19 @@ export function Navbar() {
 
       <div
         className="
+          mx-auto
+
           flex
+          h-20
           w-full
+
           items-center
           justify-between
 
-          h-20
           px-5
 
           sm:px-7
-
           md:px-10
-
           lg:px-14
 
           xl:h-24
@@ -205,37 +261,58 @@ export function Navbar() {
 
         {/* ===================================================
             DESKTOP NAVIGATION
-            Visible: >= 1280px
         ==================================================== */}
 
         <nav
           aria-label="Main navigation"
-          className="
-            hidden
-            items-center
+          className={cn(
+            `
+              hidden
+              items-center
 
-            rounded-full
+              rounded-full
 
-            border
-            border-foreground/20
+              border
 
-            bg-background/35
+              p-1.5
 
-            p-1.5
+              transition-[background-color,border-color,box-shadow,backdrop-filter]
+              duration-500
+              ease-out
 
-            shadow-(--shadow-navbar)
+              motion-reduce:transition-none
 
-            backdrop-blur-xl
+              xl:flex
+            `,
 
-            xl:flex
-          "
+            hasGlassBackground
+              ? `
+                  border-foreground/20
+
+                  bg-background/35
+
+                  shadow-(--shadow-navbar)
+
+                  backdrop-blur-xl
+                `
+              : `
+                  border-foreground/20
+
+                  bg-transparent
+
+                  shadow-none
+
+                  backdrop-blur-none
+                `
+          )}
         >
           {publicNavigation.map((item) => {
             const isActive =
               item.href === "/"
                 ? pathname === "/"
-                : pathname.startsWith(
-                    item.href
+                : pathname === item.href ||
+                  pathname.startsWith(
+                    `${item.href}/`
                   )
 
 
@@ -274,8 +351,11 @@ export function Navbar() {
 
                     motion-reduce:transition-none
                   `,
+
                   isActive
-                    ? "text-primary"
+                    ? `
+                        text-primary
+                      `
                     : `
                         text-foreground/80
 
@@ -286,7 +366,7 @@ export function Navbar() {
                 {item.label}
 
 
-                {/* Active indicator */}
+                {/* ACTIVE INDICATOR */}
 
                 {isActive && (
                   <span
@@ -302,7 +382,6 @@ export function Navbar() {
                       -translate-x-1/2
 
                       rounded-full
-
                       bg-primary
                     "
                   />
@@ -314,13 +393,7 @@ export function Navbar() {
 
 
         {/* ===================================================
-            MOBILE + TABLET NAVIGATION
-
-            MobileNav internally uses:
-            xl:hidden
-
-            < 1280px  → MobileNav
-            >=1280px  → Desktop navigation
+            MOBILE / TABLET NAVIGATION
         ==================================================== */}
 
         <MobileNav />
