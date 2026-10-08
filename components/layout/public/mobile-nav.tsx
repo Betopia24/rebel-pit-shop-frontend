@@ -258,8 +258,6 @@ export function MobileNav() {
 
           className="
 
-            relative
-
             isolate
 
 
