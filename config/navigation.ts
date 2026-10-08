@@ -61,6 +61,16 @@ export const programNavigation = [
 
 export const legalNavigation = [
   {
+    id: "terms",
+    label: "Terms & Conditions",
+    href: "/terms",
+  },
+  {
+    id: "privacy",
+    label: "Privacy Policy",
+    href: "/privacy",
+  },
+  {
     id: "sitemap",
     label: "Sitemap",
     href: "/sitemap.xml",
