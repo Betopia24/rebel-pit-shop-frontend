@@ -1,51 +1,48 @@
 "use client"
 
 import { useEffect } from "react"
-
-const MIN_INITIAL_BUFFER_SECONDS = 3
+import { usePathname } from "next/navigation"
 
 export function InitialVideoLoader() {
+  const pathname = usePathname()
+
   useEffect(() => {
     const video = document.querySelector<HTMLVideoElement>("[data-hero-video]")
 
     if (!video) return
 
     video.pause()
+    video.muted = true
+    video.playsInline = true
+    video.autoplay = true
 
     let playbackStarted = false
-
-    const hasEnoughInitialBuffer = () => {
-      if (video.buffered.length === 0) return false
-
-      const bufferedEnd = video.buffered.end(video.buffered.length - 1)
-      return bufferedEnd - video.currentTime >= MIN_INITIAL_BUFFER_SECONDS
-    }
+    let retryId: number | undefined
 
     const startPlayback = () => {
-      if (playbackStarted || !hasEnoughInitialBuffer()) return
+      if (playbackStarted || video.readyState < HTMLMediaElement.HAVE_FUTURE_DATA) return
 
       playbackStarted = true
       void video.play().catch(() => {
         playbackStarted = false
+        retryId = window.setTimeout(startPlayback, 250)
       })
     }
 
-    const checkBuffer = () => {
-      if (hasEnoughInitialBuffer()) startPlayback()
-    }
-
-    const bufferCheckId = window.setInterval(checkBuffer, 100)
-    video.addEventListener("loadeddata", checkBuffer)
-    video.addEventListener("progress", checkBuffer)
-    video.addEventListener("canplay", checkBuffer)
+    const bufferCheckId = window.setInterval(startPlayback, 100)
+    video.addEventListener("loadeddata", startPlayback)
+    video.addEventListener("canplay", startPlayback)
+    video.addEventListener("canplaythrough", startPlayback)
+    video.load()
 
     return () => {
       window.clearInterval(bufferCheckId)
-      video.removeEventListener("loadeddata", checkBuffer)
-      video.removeEventListener("progress", checkBuffer)
-      video.removeEventListener("canplay", checkBuffer)
+      if (retryId) window.clearTimeout(retryId)
+      video.removeEventListener("loadeddata", startPlayback)
+      video.removeEventListener("canplay", startPlayback)
+      video.removeEventListener("canplaythrough", startPlayback)
     }
-  }, [])
+  }, [pathname])
 
   return null
 }
