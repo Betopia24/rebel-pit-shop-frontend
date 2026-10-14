@@ -5,6 +5,7 @@ import Link from "next/link"
 import {
   ArrowUpRight,
   MoveDownRight,
+  Smartphone,
 } from "lucide-react"
 
 import { siteConfig } from "@/config/site"
@@ -103,7 +104,7 @@ export async function MeetTheRebelsSection() {
             mx-auto
             flex
             w-full
-            max-w-[1450px]
+            max-w-362.5
             flex-col
             items-center
 
@@ -184,7 +185,7 @@ export async function MeetTheRebelsSection() {
           <p
             className="
               mt-5
-              max-w-[720px]
+              max-w-180
 
               text-sm
               leading-7
@@ -326,7 +327,7 @@ export async function MeetTheRebelsSection() {
             2xl:px-24
           "
         >
-          <div className="max-w-[800px]">
+          <div className="max-w-200">
             <span
               className="
                 text-[10px]
@@ -361,87 +362,104 @@ export async function MeetTheRebelsSection() {
             <p
               className="
                 mt-3
-                max-w-[690px]
+                max-w-172.5
 
                 text-sm
                 leading-7
                 text-text-secondary
               "
             >
-              Get in contact with us today for
-              information about private/group training
-              if you want a deeper dive into technique
-              and conditioning.
+              Message us if you have questions about individual or private group training.
             </p>
           </div>
 
-          <Link
-            href={siteConfig.contactCta.button.href}
+          <div
             className="
-              group
-
-              inline-flex
-              min-h-12
-              shrink-0
-
+              flex
               items-center
-              justify-center
               gap-5
 
               self-start
 
-              rounded-md
-
-              border
-              border-primary/70
-
-              bg-primary
-
-              px-6
-
-              text-[11px]
-              font-bold
-              uppercase
-              tracking-[0.08em]
-
-              text-primary-foreground
-
-              shadow-(--shadow-gold-sm)
-
-              transition-[background-color,box-shadow]
-              duration-300
-
-              hover:bg-gold-hover
-              hover:shadow-(--shadow-gold-md)
-
-              focus-visible:outline-none
-              focus-visible:ring-2
-              focus-visible:ring-primary
-              focus-visible:ring-offset-2
-              focus-visible:ring-offset-background
-
-              motion-reduce:transition-none
-
               lg:self-center
             "
           >
-            Talk to Our Team
-
-            <ArrowUpRight
+            <Smartphone
               aria-hidden="true"
               className="
-                size-4
+                size-14
+                shrink-0
+                stroke-[1.5]
+                text-foreground
 
-                transition-transform
-                duration-300
-
-                group-hover:translate-x-0.5
-                group-hover:-translate-y-0.5
-
-                motion-reduce:transform-none
+                sm:size-16
               "
             />
-          </Link>
+
+            <Link
+              href={siteConfig.contactCta.button.href}
+              className="
+                group
+
+                inline-flex
+                min-h-12
+                shrink-0
+
+                items-center
+                justify-center
+                gap-5
+
+                rounded-md
+
+                border
+                border-primary/70
+
+                bg-primary
+
+                px-6
+
+                text-[11px]
+                font-bold
+                uppercase
+                tracking-[0.08em]
+
+                text-primary-foreground
+
+                shadow-(--shadow-gold-sm)
+
+                transition-[background-color,box-shadow]
+                duration-300
+
+                hover:bg-gold-hover
+                hover:shadow-(--shadow-gold-md)
+
+                focus-visible:outline-none
+                focus-visible:ring-2
+                focus-visible:ring-primary
+                focus-visible:ring-offset-2
+                focus-visible:ring-offset-background
+
+                motion-reduce:transition-none
+              "
+            >
+              Talk to Our Team
+
+              <ArrowUpRight
+                aria-hidden="true"
+                className="
+                  size-4
+
+                  transition-transform
+                  duration-300
+
+                  group-hover:translate-x-0.5
+                  group-hover:-translate-y-0.5
+
+                  motion-reduce:transform-none
+                "
+              />
+            </Link>
+          </div>
         </div>
       </div>
     </section>
@@ -581,7 +599,7 @@ function CoachProfile({
 
               w-full
               min-w-0
-              max-w-[470px]
+              max-w-117.5
             `,
             isReversed
               ? `
@@ -783,7 +801,7 @@ function CoachProfile({
               relative
 
               min-w-0
-              max-w-[760px]
+              max-w-190
             `,
             isReversed
               ? "lg:order-1"
@@ -930,7 +948,7 @@ function CoachProfile({
             className="
               mt-5
 
-              max-w-[720px]
+              max-w-180
 
               space-y-4
 

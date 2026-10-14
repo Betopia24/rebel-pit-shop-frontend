@@ -179,7 +179,7 @@ export function HowClassesWorkSection() {
             mx-auto
             w-full
             min-w-0
-            max-w-[610px]
+            max-w-152.5
 
             lg:mr-auto
           "
@@ -471,7 +471,7 @@ export function HowClassesWorkSection() {
           className="
             relative
             min-w-0
-            max-w-[710px]
+            max-w-177.5
           "
         >
           {/* EYEBROW */}
@@ -560,7 +560,7 @@ export function HowClassesWorkSection() {
           <div
             className="
               mt-5
-              max-w-[660px]
+              max-w-165
 
               space-y-3.5
 

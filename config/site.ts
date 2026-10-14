@@ -131,7 +131,7 @@ export const siteConfig = {
       "(316) 558-5385",
 
     email:
-      "info@rebelboxing.com",
+      "info@rebelboxingclub.com",
 
     address:
       "8909 W Central Ave, Wichita, KS 67212",
@@ -151,13 +151,13 @@ export const siteConfig = {
 
   hours: [
     {
-      id: "weekdays",
+      id: "mon-thu",
 
       days:
-        "Mon–Fri",
+        "Mon-Thu",
 
       time:
-        "6:00 AM – 9:00 PM",
+        "6:00 AM - 9:00 PM",
 
       opens:
         "06:00",
@@ -170,27 +170,65 @@ export const siteConfig = {
         "Tuesday",
         "Wednesday",
         "Thursday",
+      ],
+    },
+
+    {
+      id: "friday",
+
+      days:
+        "Fri",
+
+      time:
+        "6:00 AM - 7:00 PM",
+
+      opens:
+        "06:00",
+
+      closes:
+        "19:00",
+
+      dayOfWeek: [
         "Friday",
       ],
     },
 
     {
-      id: "weekend",
+      id: "saturday",
 
       days:
-        "Sat–Sun",
+        "Sat",
 
       time:
-        "8:00 AM – 4:00 PM",
+        "8:00 AM - 12:00 PM",
 
       opens:
         "08:00",
 
       closes:
-        "16:00",
+        "12:00",
 
       dayOfWeek: [
         "Saturday",
+      ],
+    },
+
+    {
+      id: "sunday",
+
+      days:
+        "Sun",
+
+      time:
+        "11:30 AM - 3:00 PM",
+
+      opens:
+        "11:30",
+
+      closes:
+        "15:00",
+
+      dayOfWeek: [
         "Sunday",
       ],
     },
@@ -206,10 +244,10 @@ export const siteConfig = {
       "Rebel Boxing Club",
 
     title:
-      "Train Hard.",
+      "Come As You Are.",
 
     accentTitle:
-      "Fight Smart.",
+      "Leave Stronger.",
 
     description:
       "Professional boxing training, personal coaching, and fitness programs for all levels.",
@@ -346,7 +384,7 @@ export const siteConfig = {
           "One-on-One",
 
         title:
-          "Personal Training",
+          "Weights, Boxing, Kickboxing, Mittwork",
 
         description:
           "Take your fitness to the next level with individualized coaching and nutrition training. Programs tailored to fit your lifestyle.",
@@ -392,7 +430,7 @@ export const siteConfig = {
           "All Levels",
 
         title:
-          "Discover a Workout You’ll Love",
+          "Nutrition Online Coaching",
 
         description:
           "Rebel Boxing isn't just about getting your sweat on. Build technique, burn calories, improve confidence, and enjoy the energy of our boxing community.",
@@ -421,7 +459,7 @@ export const siteConfig = {
         "Is On Us.",
 
       description:
-        "Start your fitness journey with a free class for new members.",
+        "Start your fitness journey with a free class for first time guests.",
 
       label:
         "Claim Your Free Class",
@@ -451,10 +489,10 @@ export const siteConfig = {
 
   contactCta: {
     title:
-      "Ready to",
+      "Text Us",
 
     accentTitle:
-      "Train?",
+      "we reply fast",
 
     button: {
       label:

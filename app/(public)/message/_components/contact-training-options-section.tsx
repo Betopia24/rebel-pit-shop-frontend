@@ -159,7 +159,7 @@ export function ContactTrainingOptionsSection() {
 
           mx-auto
           w-full
-          max-w-[1500px]
+          max-w-375
 
           px-5
 
@@ -264,7 +264,7 @@ export function ContactTrainingOptionsSection() {
 
           <p
             className="
-              max-w-[460px]
+              max-w-115
 
               text-sm
               leading-7
@@ -396,14 +396,14 @@ export function ContactTrainingOptionsSection() {
                         z-10
 
                         flex
-                        min-h-[285px]
+                        min-h-71.25
                         flex-col
 
                         p-6
 
                         sm:p-7
 
-                        lg:min-h-[310px]
+                        lg:min-h-77.5
                         lg:p-8
                       "
                     >
@@ -499,7 +499,7 @@ export function ContactTrainingOptionsSection() {
                             font-black
                             uppercase
 
-                            leading-[1]
+                            leading-none
                             tracking-[-0.035em]
 
                             text-foreground
@@ -512,7 +512,7 @@ export function ContactTrainingOptionsSection() {
                           className="
                             mt-4
 
-                            max-w-[330px]
+                            max-w-82.5
 
                             text-[13px]
                             leading-6
@@ -543,7 +543,7 @@ export function ContactTrainingOptionsSection() {
                             font-bold
                             uppercase
 
-                            tracking-[0.1em]
+                            tracking-widest
 
                             text-foreground
 

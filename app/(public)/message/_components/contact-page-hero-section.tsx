@@ -1,14 +1,14 @@
 
 import Image from "next/image"
-import Link from "next/link"
+// import Link from "next/link"
 
-import {
-  ArrowDownRight,
-  ArrowUpRight,
-  Phone,
-} from "lucide-react"
+// import {
+//   ArrowDownRight,
+//   ArrowUpRight,
+//   Phone,
+// } from "lucide-react"
 
-import { siteConfig } from "@/config/site"
+// import { siteConfig } from "@/config/site"
 
 
 /* =========================================================
@@ -38,8 +38,8 @@ const CONTACT_HERO_IMAGE =
   "/images/contact/contact-header.jpg"
 
 
-const phoneHref =
-  `tel:${siteConfig.contact.phone.replace(/[^\d+]/g, "")}`
+// const phoneHref =
+//   `tel:${siteConfig.contact.phone.replace(/[^\d+]/g, "")}`
 
 
 export function ContactPageHeroSection() {
@@ -53,7 +53,7 @@ export function ContactPageHeroSection() {
         isolate
 
         flex
-        min-h-[610px]
+        min-h-152.5
         w-full
         flex-col
 
@@ -62,11 +62,11 @@ export function ContactPageHeroSection() {
         bg-background
         text-foreground
 
-        sm:min-h-[570px]
+        sm:min-h-142.5
 
-        lg:min-h-[580px]
+        lg:min-h-145
 
-        xl:min-h-[610px]
+        xl:min-h-152.5
       "
     >
       {/* =====================================================
@@ -267,7 +267,7 @@ export function ContactPageHeroSection() {
         <div
           className="
             relative
-            max-w-[700px]
+            max-w-175
           "
         >
           {/* ===============================================
@@ -406,7 +406,7 @@ export function ContactPageHeroSection() {
               mt-6
 
               flex
-              max-w-[590px]
+              max-w-147.5
               gap-4
 
               sm:mt-7
@@ -470,7 +470,7 @@ export function ContactPageHeroSection() {
               CTA 2 — Call the gym directly
           ================================================ */}
 
-          <div
+          {/* <div
             className="
               mt-7
 
@@ -481,10 +481,10 @@ export function ContactPageHeroSection() {
 
               sm:mt-8
             "
-          >
+          > */}
             {/* PRIMARY CTA */}
 
-            <Link
+            {/* <Link
               href="#contact-form"
               className="
                 group
@@ -549,12 +549,12 @@ export function ContactPageHeroSection() {
                   motion-reduce:transform-none
                 "
               />
-            </Link>
+            </Link> */}
 
 
             {/* SECONDARY CTA */}
 
-            <a
+            {/* <a
               href={phoneHref}
               className="
                 group
@@ -625,7 +625,7 @@ export function ContactPageHeroSection() {
                 "
               />
             </a>
-          </div>
+          </div> */}
         </div>
       </div>
 

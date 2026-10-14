@@ -69,20 +69,20 @@ export function AboutHeroSection() {
         isolate
 
         flex
-        min-h-[680px]
+        min-h-170
         w-full
         flex-col
 
         overflow-hidden
         bg-background
 
-        sm:min-h-[660px]
+        sm:min-h-165
 
-        lg:min-h-[580px]
+        lg:min-h-145
 
-        xl:min-h-[610px]
+        xl:min-h-152.5
 
-        2xl:min-h-[625px]
+        2xl:min-h-156.25
       "
     >
       {/* =====================================================
@@ -280,7 +280,7 @@ export function AboutHeroSection() {
           2xl:px-24
         "
       >
-        <div className="max-w-[790px]">
+        <div className="max-w-197.5">
           {/* =================================================
               EYEBROW
           ================================================== */}
@@ -430,7 +430,7 @@ export function AboutHeroSection() {
               mt-6
 
               flex
-              max-w-[620px]
+              max-w-155
               gap-4
 
               sm:mt-7
@@ -474,7 +474,7 @@ export function AboutHeroSection() {
                 className="
                   mt-2.5
 
-                  max-w-[550px]
+                  max-w-137.5
 
                   text-[13px]
                   leading-6
@@ -720,9 +720,9 @@ export function AboutHeroSection() {
                 drop-shadow-[0_4px_18px_var(--overlay-black-70)]
               "
             >
-              Get Better.
+              Do something different  for
               <span className="block">
-                Be Better.
+                Different results.
               </span>
             </p>
           </div>

@@ -327,7 +327,7 @@ export function ScheduleFirstVisitSection() {
             {/* PRIMARY CTA */}
 
             <Link
-              href="#schedule-main"
+              href="/message"
               className={cn(
                 buttonVariants(),
                 `
@@ -359,7 +359,7 @@ export function ScheduleFirstVisitSection() {
                 `
               )}
             >
-              Find A Class
+              Text us - we reply fast
 
               <ArrowUpRight
                 aria-hidden={true}
@@ -380,7 +380,7 @@ export function ScheduleFirstVisitSection() {
 
             {/* SECONDARY CTA */}
 
-            <Link
+            {/* <Link
               href="/message"
               className="
                 group
@@ -434,7 +434,7 @@ export function ScheduleFirstVisitSection() {
                   motion-reduce:transform-none
                 "
               />
-            </Link>
+            </Link> */}
           </div>
         </div>
 

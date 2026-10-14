@@ -389,7 +389,7 @@ export function HeroSection() {
 
               text-foreground
 
-              text-[clamp(2.45rem,11.8vw,4.65rem)]
+              text-[clamp(2rem,10vw,4.65rem)]
 
               sm:text-[clamp(3.5rem,9vw,5.05rem)]
 
@@ -512,7 +512,7 @@ export function HeroSection() {
 
                 tracking-[0.075em]
 
-                shadow-[var(--shadow-gold-sm)]
+                shadow-(--shadow-gold-sm)
 
                 transition-[transform,box-shadow,filter]
                 duration-300
@@ -520,7 +520,7 @@ export function HeroSection() {
 
                 hover:-translate-y-0.5
                 hover:brightness-105
-                hover:shadow-[var(--shadow-gold-md)]
+                hover:shadow-(--shadow-gold-md)
 
                 focus-visible:outline-none
                 focus-visible:ring-2
@@ -716,7 +716,7 @@ export function HeroSection() {
           hidden
           h-px
 
-          bg-[var(--gradient-gold-line)]
+          bg-(--gradient-gold-line)
 
           xl:block
         "

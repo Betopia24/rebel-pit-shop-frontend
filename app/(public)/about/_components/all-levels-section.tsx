@@ -137,7 +137,7 @@ export function AllLevelsSection() {
             LEFT — INTRODUCTION
         ==================================================== */}
 
-        <div className="min-w-0 max-w-[670px]">
+        <div className="min-w-0 max-w-167.5">
           {/* EYEBROW */}
 
           <div
@@ -182,7 +182,7 @@ export function AllLevelsSection() {
               uppercase
 
               leading-[0.94]
-              tracking-[-0.05em]
+              tracking-tighter
 
               text-[clamp(2.5rem,10vw,4rem)]
 
@@ -212,7 +212,7 @@ export function AllLevelsSection() {
             id="all-levels-description"
             className="
               mt-6
-              max-w-[620px]
+              max-w-155
 
               space-y-4
 
@@ -265,7 +265,7 @@ export function AllLevelsSection() {
               mt-6
               h-px
               w-full
-              max-w-[540px]
+              max-w-135
 
               bg-linear-to-r
               from-gold-dark/45

@@ -14,7 +14,7 @@ import { ContactPageHeroSection } from "@/app/(public)/message/_components/conta
 import { ContactInformationSection } from "./_components/contact-information-section"
 import { ContactLocationSection } from "./_components/contact-location-section"
 import { ContactTrainingOptionsSection } from "./_components/contact-training-options-section"
-import { ContactFaqSection } from "./_components/contact-faq-section"
+// import { ContactFaqSection } from "./_components/contact-faq-section"
 
 
 /* =========================================================
@@ -398,7 +398,7 @@ export default function ContactPage() {
             Add FAQ content without changing this
             page-level SEO architecture.
         ================================================== */}
-        <ContactFaqSection />
+        {/* <ContactFaqSection /> */}
 
         {/* =================================================
             SECTION 06 — FINAL CTA
