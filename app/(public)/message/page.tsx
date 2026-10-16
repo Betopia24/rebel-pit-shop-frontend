@@ -13,7 +13,7 @@ import {
 import { ContactPageHeroSection } from "@/app/(public)/message/_components/contact-page-hero-section"
 import { ContactInformationSection } from "./_components/contact-information-section"
 import { ContactLocationSection } from "./_components/contact-location-section"
-import { ContactTrainingOptionsSection } from "./_components/contact-training-options-section"
+// import { ContactTrainingOptionsSection } from "./_components/contact-training-options-section"
 // import { ContactFaqSection } from "./_components/contact-faq-section"
 
 
@@ -338,77 +338,10 @@ export default function ContactPage() {
           text-foreground
         "
       >
-        {/* =================================================
-            SECTION 01 — CONTACT HERO
-
-            H1:
-            Let's Talk Training.
-
-            Image:
-            /images/contact/contact-header.jpg
-        ================================================== */}
-
         <ContactPageHeroSection />
-
-
-        {/* =================================================
-            SECTION 02 — CONTACT INFORMATION + FORM
-
-            Future component:
-            ContactInformationSection
-
-            Required anchor:
-            id="contact-form"
-
-            The Hero's "Send a Message" button
-            links to this anchor.
-        ================================================== */}
         <ContactInformationSection />
-
-        {/* =================================================
-            SECTION 03 — OUR LOCATION
-
-            Future component:
-            ContactLocationSection
-
-            Use real business address and map data
-            sourced from siteConfig.
-        ================================================== */}
         <ContactLocationSection />
-
-
-        {/* =================================================
-            SECTION 04 — TRAINING OPTIONS
-
-            Future component:
-            ContactTrainingOptionsSection
-
-            Private Training
-            Group Fitness Classes
-            Class Schedule
-        ================================================== */}
-        <ContactTrainingOptionsSection />
-
-        {/* =================================================
-            SECTION 05 — FREQUENTLY ASKED QUESTIONS
-
-            Future component:
-            ContactFaqSection
-
-            Add FAQ content without changing this
-            page-level SEO architecture.
-        ================================================== */}
-        {/* <ContactFaqSection /> */}
-
-        {/* =================================================
-            SECTION 06 — FINAL CTA
-
-            Future component:
-            ContactClosingSection
-
-            Can reuse the existing ContactCtaSection
-            or a page-specific wrapper.
-        ================================================== */}
+        {/* <ContactTrainingOptionsSection /> */}
       </main>
     </>
   )

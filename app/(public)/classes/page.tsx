@@ -600,93 +600,18 @@ export default function ClassesPage() {
           text-foreground
         "
       >
-        {/* ===============================================
-            01 — HERO
-        ================================================ */}
 
         <ClassesHeroSection />
-
-        {/* ===============================================
-            02 — FIND YOUR FIT
-
-            Future:
-           
-        ================================================ */}
         <ClassesGoalFinderSection />
-
-        <ClassesFormatsSection />
-
-        {/* ===============================================
-            03 — GROUP CLASSES
-
-            Boxing Fitness
-            Kickboxing Fitness
-
-            Future:
-            <GroupClassesSection />
-        ================================================ */}
-
-        <GroupClassesSection />
-
-        {/* ===============================================
-            04 — HOW A CLASS WORKS
-
-            Warm-up
-            3-minute rounds
-            1-minute active rest
-            Core finisher
-            Cool down
-
-            Future:
-            
-        ================================================ */}
-        <ClassStructureSection />
-
-        {/* ===============================================
-            05 — PERSONAL TRAINING
-
-            Weights Training
-            Nutrition Coaching
-            Technical Boxing / Mitts
-            Youth Conditioning
-            Online Training
-
-            Future:
-            <PersonalTrainingSection />
-        ================================================ */}
-        <PersonalTrainingSection />
-        {/* ===============================================
-            06 — OPEN GYM
-
-            Future:
-            <ClassesOpenGymSection />
-        ================================================ */}
-
-        <OpenGymSection />
-
-        {/* ===============================================
-            07 — FIRST VISIT
-
-            Future:
-            <ClassesFirstVisitSection />
-        ================================================ */}
         <ClassesFirstVisitSection />
-
-        {/* ===============================================
-            08 — FAQ
-
-            Future:
-            <ClassesFaqSection />
-        ================================================ */}
-
-        {/* ===============================================
-            09 — FINAL CTA
-
-            Existing reusable component can be added here.
-
-            Future:
-            <ContactCtaSection />
-        ================================================ */}
+        <ClassStructureSection />
+        <GroupClassesSection />
+        <ClassesFormatsSection />
+        
+        
+        <PersonalTrainingSection />
+        <OpenGymSection />
+        
       </main>
     </>
   )

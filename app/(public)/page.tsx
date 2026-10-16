@@ -4,8 +4,8 @@ import { siteConfig } from "@/config/site"
 
 import { ContactCtaSection } from "./_components/contact-cta-section"
 import { HeroSection } from "./_components/hero-section"
-import { ScheduleEventsSection } from "./_components/schedule-events-section"
-import { SuccessStoriesSection } from "./_components/success-stories-section"
+// import { ScheduleEventsSection } from "./_components/schedule-events-section"
+// import { SuccessStoriesSection } from "./_components/success-stories-section"
 import { TrainingOptionsSection } from "./_components/training-options-section"
 
 
@@ -170,7 +170,7 @@ export default function HomePage() {
           "When can I train?"
       ==================================================== */}
 
-      <ScheduleEventsSection />
+      {/* <ScheduleEventsSection /> */}
 
 
       {/* ===================================================
@@ -180,7 +180,7 @@ export default function HomePage() {
           "What do members think?"
       ==================================================== */}
 
-      <SuccessStoriesSection />
+      {/* <SuccessStoriesSection /> */}
 
 
       {/* ===================================================
