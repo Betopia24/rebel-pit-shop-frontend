@@ -137,8 +137,7 @@ export function LoginForm({ onSubmit, error }: LoginFormProps) {
                   aria-label={showPassword ? "Hide password" : "Show password"}
                   aria-pressed={showPassword}
                   onClick={() => setShowPassword((previous) => !previous)}
-                  style={{ transform: "translateY(-50%)" }}
-                  className="absolute top-1/2 right-1.5 size-8 -translate-y-1/2 text-muted-foreground hover:bg-accent hover:text-foreground"
+                  className="absolute top-1/2 right-1.5 size-8 -translate-y-1/2 text-muted-foreground hover:bg-accent hover:text-foreground active:-translate-y-1/2!"
                 >
                   {showPassword ? (
                     <EyeOff aria-hidden="true" className="size-4" />
