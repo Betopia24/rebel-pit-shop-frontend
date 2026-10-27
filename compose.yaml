@@ -28,7 +28,7 @@ services:
 
     tmpfs:
       - /tmp
-      - /app/.next/cache
+      - "/app/.next/cache:uid=1001,gid=1001,mode=0755"
 
     healthcheck:
       test:

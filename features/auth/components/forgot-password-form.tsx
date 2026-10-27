@@ -740,6 +740,7 @@ export function ForgotPasswordForm({
                         showPassword ? "Hide new password" : "Show new password"
                       }
                       aria-pressed={showPassword}
+                      style={{ transform: "translateY(-50%)" }}
                       className="absolute top-1/2 right-1.5 size-8 -translate-y-1/2 text-muted-foreground"
                     >
                       {showPassword ? (
@@ -797,6 +798,7 @@ export function ForgotPasswordForm({
                           : "Show confirmation password"
                       }
                       aria-pressed={showConfirmPassword}
+                      style={{ transform: "translateY(-50%)" }}
                       className="absolute top-1/2 right-1.5 size-8 -translate-y-1/2 text-muted-foreground"
                     >
                       {showConfirmPassword ? (
