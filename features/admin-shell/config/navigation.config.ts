@@ -30,11 +30,13 @@ export const sidebarBrand = {
 const ALL_ROLES = [
   "admin",
   "coach",
+  "staff",
 ] as const satisfies readonly SidebarUserRole[]
 
 const MANAGEMENT_ROLES = [
   "admin",
   "coach",
+  "staff",
 ] as const satisfies readonly SidebarUserRole[]
 
 const ADMIN_ONLY = ["admin"] as const satisfies readonly SidebarUserRole[]

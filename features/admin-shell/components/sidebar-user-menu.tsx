@@ -44,6 +44,10 @@ function getInitials(name: string): string {
     .toUpperCase()
 }
 
+function getRoleLabel(role: SidebarUser["role"]): string {
+  return role === "admin" ? "Administrator" : "Staff"
+}
+
 function UserAvatar({
   user,
   className,
@@ -85,7 +89,7 @@ export function SidebarUserMenu({ user, logoutAction }: SidebarUserMenuProps) {
                 <span className="truncate font-semibold">{user.name}</span>
 
                 <span className="truncate text-xs text-text-secondary">
-                  {user.email}
+                  {getRoleLabel(user.role)} · {user.email}
                 </span>
               </div>
 
@@ -113,7 +117,7 @@ export function SidebarUserMenu({ user, logoutAction }: SidebarUserMenuProps) {
                       </span>
 
                       <span className="truncate text-xs text-muted-foreground">
-                        {user.email}
+                        {getRoleLabel(user.role)} · {user.email}
                       </span>
                     </div>
                   </div>

@@ -6,33 +6,30 @@ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/features/admin-shell/components/app-sidebar"
 import { DashboardHeader } from "@/features/admin-shell/components/dashboard-header"
 
-import type { SidebarUser } from "@/features/admin-shell/types/navigation.types"
+import {
+  clearDemoSession,
+  getDemoSessionUser,
+} from "@/features/auth/lib/demo-auth"
 
 interface DashboardLayoutProps {
   children: ReactNode
 }
 
-const developmentUser: SidebarUser = {
-  id: "dev-admin",
-  name: "Demo Admin",
-  email: "demo@example.com",
-  avatarUrl: null,
-  role: "admin",
-}
-
 async function handlePreviewLogout() {
   "use server"
 
+  await clearDemoSession()
   redirect("/login")
 }
 
 export default async function DashboardLayout({
   children,
 }: DashboardLayoutProps) {
-  if (process.env.NODE_ENV === "production") {
+  const user = await getDemoSessionUser()
+
+  if (!user) {
     redirect("/login")
   }
-  const user = developmentUser
 
   return (
     <SidebarProvider defaultOpen>

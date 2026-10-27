@@ -23,7 +23,6 @@ const logos = {
   },
 } as const
 
-
 export function Logo({
   variant = "header",
   className,
@@ -35,17 +34,7 @@ export function Logo({
     <Link
       href="/"
       aria-label="Rebel Boxing Club home"
-      className="
-        inline-flex
-        shrink-0
-        rounded-sm
-
-        focus-visible:outline-none
-        focus-visible:ring-2
-        focus-visible:ring-primary
-        focus-visible:ring-offset-4
-        focus-visible:ring-offset-black
-      "
+      className="inline-flex shrink-0 rounded-sm focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-black focus-visible:outline-none"
     >
       <Image
         src={logo.src}
@@ -54,10 +43,11 @@ export function Logo({
         height={logo.height}
         priority={priority}
         draggable={false}
-        className={cn(
-          "h-auto w-auto select-none object-contain",
-          className
-        )}
+        style={{
+          width: "auto",
+          height: "auto",
+        }}
+        className={cn("h-auto w-auto object-contain select-none", className)}
       />
     </Link>
   )
