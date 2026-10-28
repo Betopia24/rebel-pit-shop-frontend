@@ -54,24 +54,16 @@ export function AuthShell({
               "motion-reduce:transition-none"
             )}
           >
-            <Image
-              src="/images/branding/rebel-boxing-logo.webp"
-              alt="Rebel Boxing Club"
-              width={220}
-              height={80}
-              priority
-              sizes="220px"
-              style={{
-                width: "auto",
-                height: "auto",
-              }}
-              className={cn(
-                "block h-auto w-auto",
-                "max-h-20 max-w-full",
-                "object-contain",
-                "select-none"
-              )}
-            />
+            <span className="relative block h-20 w-[220px] max-w-full">
+              <Image
+                src="/images/branding/rebel-boxing-logo.webp"
+                alt="Rebel Boxing Club"
+                fill
+                priority
+                sizes="220px"
+                className={cn("object-contain", "select-none")}
+              />
+            </span>
           </Link>
         </div>
 
