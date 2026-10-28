@@ -1,10 +1,5 @@
-import { DashboardPageShell } from "@/features/admin-shell/components/dashboard-page-shell"
+import LeadsOverview from "@/features/leads/leads-overview"
 
 export default function LeadsProspect() {
-  return (
-    <DashboardPageShell
-      title="Leads & Prospects"
-      description="Track potential members and move them through your sales pipeline."
-    />
-  )
+  return <LeadsOverview />
 }
