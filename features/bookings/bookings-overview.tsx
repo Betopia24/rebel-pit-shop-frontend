@@ -874,7 +874,9 @@ export function BookingsOverview({ className }: { className?: string }) {
             selectedBookingId={selectedBookingId}
             selectedBookingIds={selectedBookingIds}
             onBookingSelect={handleBookingSelect}
-            onSelectionChange={setSelectedBookingIds}
+            onSelectionChange={(bookingIds) =>
+              setSelectedBookingIds([...bookingIds])
+            }
             onBookingAction={handleBookingAction}
             getAvailableActions={(booking) =>
               ROW_ACTIONS.filter((action) => isActionEnabled(booking, action))
