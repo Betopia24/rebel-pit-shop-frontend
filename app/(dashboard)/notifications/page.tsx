@@ -1,10 +1,5 @@
-import { DashboardPageShell } from "@/features/admin-shell/components/dashboard-page-shell"
+import { NotificationsOverview } from "@/features/notifications/notifications-overview"
 
 export default function Notifications() {
-  return (
-    <DashboardPageShell
-      title="Notifications"
-      description="Keep track of important updates and activity in your workspace."
-    />
-  )
+  return <NotificationsOverview />
 }
