@@ -2,7 +2,7 @@
 
 import { useCallback, useMemo, useState } from "react"
 
-import { LayoutDashboard, RotateCcw } from "lucide-react"
+import { LayoutDashboard, RotateCcw, SearchX } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 
@@ -15,6 +15,7 @@ import {
 } from "./components/filters/lead-filters"
 
 import { LeadsBoard } from "./components/board/leads-board"
+import { LeadPipelinePagination } from "./components/board/lead-pipeline-pagination"
 import { LeadDetailsPanel } from "./components/details/lead-details-panel"
 
 import { LeadDetailsTab } from "./components/details/tabs/details-tab"
@@ -22,11 +23,7 @@ import { LeadAIInsightsTab } from "./components/details/tabs/ai-insights-tab"
 import { LeadConversationsTab } from "./components/details/tabs/conversations-tab"
 import { LeadBookingsTab } from "./components/details/tabs/bookings-tab"
 
-import {
-  LEADS_MOCK,
-  LEAD_COACHES_MOCK,
-  LEAD_PIPELINE_STAGE_COUNTS_MOCK,
-} from "./data/leads.mock"
+import { LEADS_MOCK, LEAD_COACHES_MOCK } from "./data/leads.mock"
 
 import { getLeadDetailsMockById } from "./data/lead-details.mock"
 
@@ -234,6 +231,8 @@ export function LeadsOverview({ className }: LeadsOverviewProps) {
   })
 
   const [selectedLeadId, setSelectedLeadId] = useState<LeadId | null>(null)
+  const [page, setPage] = useState(1)
+  const [pageSize, setPageSize] = useState(10)
 
   /* ==========================================================
      DERIVED DATA
@@ -266,6 +265,15 @@ export function LeadsOverview({ className }: LeadsOverviewProps) {
       lead: selectedLead,
     }
   }, [selectedLead])
+
+  const totalPages = Math.max(1, Math.ceil(filteredLeads.length / pageSize))
+  const currentPage = Math.min(page, totalPages)
+
+  const visibleLeads = useMemo(() => {
+    const start = (currentPage - 1) * pageSize
+
+    return filteredLeads.slice(start, start + pageSize)
+  }, [currentPage, filteredLeads, pageSize])
 
   const panelOpen = selectedLeadId !== null
 
@@ -344,21 +352,19 @@ export function LeadsOverview({ className }: LeadsOverviewProps) {
   ========================================================== */
 
   /**
-   * Full pipeline counts and preview cards
-   * are different mock datasets.
-   *
-   * Once filters or local mutations are active,
-   * use visible sample counts to avoid implying
-   * server aggregates have been recomputed.
+   * Keep stage totals aligned with the current filtered
+   * dataset so column badges never contradict the results.
    */
 
   const stageCounts = useMemo(() => {
-    if (filtersActive) {
-      return undefined
+    const counts: Partial<Record<LeadStage, number>> = {}
+
+    for (const lead of filteredLeads) {
+      counts[lead.stage] = (counts[lead.stage] ?? 0) + 1
     }
 
-    return LEAD_PIPELINE_STAGE_COUNTS_MOCK
-  }, [filtersActive])
+    return counts
+  }, [filteredLeads])
 
   /* ==========================================================
      EVENTS
@@ -366,6 +372,12 @@ export function LeadsOverview({ className }: LeadsOverviewProps) {
 
   const handleLeadSelect = useCallback((leadId: LeadId) => {
     setSelectedLeadId(leadId)
+  }, [])
+
+  const handleFiltersChange = useCallback((next: LeadFilterValues) => {
+    setFilters(next)
+    setPage(1)
+    setSelectedLeadId(null)
   }, [])
 
   const handleCloseDetails = useCallback(() => {
@@ -392,12 +404,15 @@ export function LeadsOverview({ className }: LeadsOverviewProps) {
     setFilters({
       ...DEFAULT_LEAD_FILTERS,
     })
+    setPage(1)
+    setSelectedLeadId(null)
   }, [])
 
   const handleResetDemo = useCallback(() => {
     setLeads([...LEADS_MOCK])
     setFilters({ ...DEFAULT_LEAD_FILTERS })
     setSelectedLeadId(null)
+    setPage(1)
   }, [])
 
   /* ==========================================================
@@ -444,7 +459,7 @@ export function LeadsOverview({ className }: LeadsOverviewProps) {
                 "tracking-tight text-foreground"
               )}
             >
-              Leads Pipeline
+              Leads & Prospects
             </h1>
 
             <p className="text-[11px] text-muted-foreground">
@@ -494,40 +509,9 @@ export function LeadsOverview({ className }: LeadsOverviewProps) {
 
             <LeadFilters
               value={filters}
-              onChange={setFilters}
+              onChange={handleFiltersChange}
               coaches={LEAD_COACH_OPTIONS}
             />
-
-            <div className="flex items-center justify-between gap-3">
-              <p
-                className={cn(
-                  "text-[11px]",
-                  "text-muted-foreground",
-                  "tabular-nums"
-                )}
-              >
-                Showing{" "}
-                <span className="font-semibold text-foreground">
-                  {filteredLeads.length}
-                </span>{" "}
-                of {leads.length} sample leads
-              </p>
-
-              {filtersActive && (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleClearFilters}
-                  className={cn(
-                    "h-7 px-2",
-                    "text-[10px]",
-                    "text-muted-foreground"
-                  )}
-                >
-                  Clear filters
-                </Button>
-              )}
-            </div>
           </div>
 
           {/* ==================================================
@@ -536,18 +520,74 @@ export function LeadsOverview({ className }: LeadsOverviewProps) {
 
           <div
             className={cn(
-              "min-h-0 min-w-0 flex-1",
-              "overflow-hidden",
-              "px-4 py-4 lg:px-5"
+              "flex min-h-0 min-w-0 flex-1 flex-col gap-3",
+              "overflow-hidden px-4 py-4 lg:px-5"
             )}
           >
-            <LeadsBoard
-              leads={filteredLeads}
-              stageCounts={stageCounts}
-              selectedLeadId={selectedLeadId}
-              onSelectLead={handleLeadSelect}
-              onStageChange={handleStageChange}
-              timezone={BUSINESS_TIMEZONE}
+            <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-3 overflow-hidden">
+              <div className="flex shrink-0 flex-wrap items-end justify-between gap-2">
+                <div>
+                  <h2 className="text-sm font-semibold text-foreground">
+                    Pipeline
+                  </h2>
+                  <p className="mt-0.5 text-[11px] text-muted-foreground">
+                    Move prospects from first inquiry to membership conversion.
+                  </p>
+                </div>
+
+                <span className="text-[11px] text-muted-foreground tabular-nums">
+                  Page {currentPage} of {totalPages}
+                </span>
+              </div>
+
+              <div className="min-h-0 min-w-0 flex-1 overflow-hidden">
+                {filteredLeads.length === 0 ? (
+                  <div className="flex h-full min-h-64 flex-col items-center justify-center rounded-xl border border-dashed border-border bg-card px-5 py-10 text-center">
+                    <span className="flex size-11 items-center justify-center rounded-xl bg-muted text-muted-foreground">
+                      <SearchX aria-hidden="true" className="size-5" />
+                    </span>
+                    <h3 className="mt-3 text-sm font-semibold text-foreground">
+                      No leads found
+                    </h3>
+                    <p className="mt-1 max-w-sm text-xs leading-relaxed text-muted-foreground">
+                      Try adjusting your search or filters to see more
+                      prospects.
+                    </p>
+                    {filtersActive && (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={handleClearFilters}
+                        className="mt-4 h-8 text-[11px]"
+                      >
+                        Clear filters
+                      </Button>
+                    )}
+                  </div>
+                ) : (
+                  <LeadsBoard
+                    leads={visibleLeads}
+                    stageCounts={stageCounts}
+                    selectedLeadId={selectedLeadId}
+                    onSelectLead={handleLeadSelect}
+                    onStageChange={handleStageChange}
+                    timezone={BUSINESS_TIMEZONE}
+                  />
+                )}
+              </div>
+            </div>
+
+            <LeadPipelinePagination
+              page={currentPage}
+              pageSize={pageSize}
+              totalItems={filteredLeads.length}
+              totalPages={totalPages}
+              onPageChange={setPage}
+              onPageSizeChange={(nextPageSize) => {
+                setPageSize(nextPageSize)
+                setPage(1)
+              }}
             />
           </div>
         </main>

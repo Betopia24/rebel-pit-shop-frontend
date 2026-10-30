@@ -1,8 +1,4 @@
-
-import type {
-  Lead,
-  LeadId,
-} from "../types/lead.types";
+import type { Lead, LeadId } from "../types/lead.types"
 
 import type {
   LeadAIInsightsData,
@@ -16,12 +12,13 @@ import type {
   LeadDetailsTabData,
   LeadFollowUpDetails,
   LeadQualificationDetails,
-} from "../types/lead-details.types";
+} from "../types/lead-details.types"
 
 import {
+  BOOKING_LINKED_LEADS_MOCK,
   getLeadMockById,
   LEADS_MOCK,
-} from "./leads.mock";
+} from "./leads.mock"
 
 /**
  * ============================================================
@@ -55,19 +52,15 @@ import {
    CONSTANTS
 ============================================================ */
 
-export const LEAD_DETAILS_MOCK_TIMEZONE =
-  "America/Chicago";
+export const LEAD_DETAILS_MOCK_TIMEZONE = "America/Chicago"
 
-export const LEAD_DETAILS_MOCK_UPDATED_AT =
-  "2024-04-22T16:00:00-05:00";
+export const LEAD_DETAILS_MOCK_UPDATED_AT = "2024-04-22T16:00:00-05:00"
 
 /* ============================================================
    SHARED HELPERS
 ============================================================ */
 
-function createDefaultQualification(
-  lead: Lead,
-): LeadQualificationDetails {
+function createDefaultQualification(lead: Lead): LeadQualificationDetails {
   return {
     experienceLevel: lead.experienceLevel,
 
@@ -79,9 +72,7 @@ function createDefaultQualification(
 
     budget: null,
 
-    tags: [
-      lead.interest.title,
-    ],
+    tags: [lead.interest.title],
 
     updatedAt: lead.updatedAt,
 
@@ -90,15 +81,11 @@ function createDefaultQualification(
     isQualified: lead.stage !== "new_inquiry",
 
     missingFields:
-      lead.stage === "new_inquiry"
-        ? ["Weekly training frequency"]
-        : [],
-  };
+      lead.stage === "new_inquiry" ? ["Weekly training frequency"] : [],
+  }
 }
 
-function createDefaultBookingInterest(
-  lead: Lead,
-): LeadBookingInterestDetails {
+function createDefaultBookingInterest(lead: Lead): LeadBookingInterestDetails {
   return {
     preferredStartsAt: null,
 
@@ -122,12 +109,10 @@ function createDefaultBookingInterest(
       lead.stage === "booking_confirmed" ||
       lead.stage === "trial_attended" ||
       lead.stage === "membership_converted",
-  };
+  }
 }
 
-function createDefaultAISummary(
-  lead: Lead,
-): LeadAISummary {
+function createDefaultAISummary(lead: Lead): LeadAISummary {
   return {
     summary: `${lead.customer.name} is interested in ${lead.interest.title.toLowerCase()}.`,
 
@@ -139,23 +124,15 @@ function createDefaultAISummary(
 
     detectedIntent: lead.interest.title,
 
-    keyPoints: [
-      lead.interest.description ??
-        lead.interest.title,
-    ],
-  };
+    keyPoints: [lead.interest.description ?? lead.interest.title],
+  }
 }
 
-function createDefaultReadiness(
-  lead: Lead,
-): LeadConversionReadiness {
-  const converted =
-    lead.stage === "membership_converted";
+function createDefaultReadiness(lead: Lead): LeadConversionReadiness {
+  const converted = lead.stage === "membership_converted"
 
   return {
-    status: converted
-      ? "converted"
-      : "in_progress",
+    status: converted ? "converted" : "in_progress",
 
     score: converted ? 100 : null,
 
@@ -176,19 +153,15 @@ function createDefaultReadiness(
 
         completed: converted,
 
-        description: converted
-          ? null
-          : "Customer has not yet converted.",
+        description: converted ? null : "Customer has not yet converted.",
       },
     ],
 
     evaluatedAt: lead.updatedAt,
-  };
+  }
 }
 
-function createDefaultAIInsights(
-  lead: Lead,
-): LeadAIInsightsData {
+function createDefaultAIInsights(lead: Lead): LeadAIInsightsData {
   return {
     summary:
       `${lead.customer.name} has shown interest in ` +
@@ -199,7 +172,7 @@ function createDefaultAIInsights(
     recommendedNextAction: null,
 
     analyzedAt: lead.updatedAt,
-  };
+  }
 }
 
 /* ============================================================
@@ -217,12 +190,7 @@ const SARAH_QUALIFICATION: LeadQualificationDetails = {
 
   budget: null,
 
-  tags: [
-    "Beginner",
-    "Fitness",
-    "Weight Loss",
-    "Free Class",
-  ],
+  tags: ["Beginner", "Fitness", "Weight Loss", "Free Class"],
 
   updatedAt: "2024-04-22T09:00:00-05:00",
 
@@ -231,16 +199,14 @@ const SARAH_QUALIFICATION: LeadQualificationDetails = {
   isQualified: true,
 
   missingFields: [],
-};
+}
 
 /* ============================================================
    SARAH M. — BOOKING INTEREST
 ============================================================ */
 
-const SARAH_BOOKING_INTEREST:
-  LeadBookingInterestDetails = {
-  preferredStartsAt:
-    "2024-04-22T09:00:00-05:00",
+const SARAH_BOOKING_INTEREST: LeadBookingInterestDetails = {
+  preferredStartsAt: "2024-04-22T09:00:00-05:00",
 
   requestedClassId: "class_beginner_boxing",
 
@@ -253,26 +219,21 @@ const SARAH_BOOKING_INTEREST:
 
   preferredClassType: "Group Class",
 
-  preferredDays: [
-    "monday",
-    "wednesday",
-  ],
+  preferredDays: ["monday", "wednesday"],
 
   preferredTimeOfDay: "morning",
 
   trialRequested: true,
-};
+}
 
 /* ============================================================
    SARAH M. — FOLLOW-UP
 ============================================================ */
 
-const SARAH_FOLLOW_UP:
-  LeadFollowUpDetails = {
+const SARAH_FOLLOW_UP: LeadFollowUpDetails = {
   id: "followup_sarah_001",
 
-  nextFollowUpAt:
-    "2024-04-22T18:00:00-05:00",
+  nextFollowUpAt: "2024-04-22T18:00:00-05:00",
 
   assignedCoach: {
     id: "coach_nichole",
@@ -292,7 +253,7 @@ const SARAH_FOLLOW_UP:
   lastFollowUpAt: null,
 
   lastFollowUpBy: null,
-};
+}
 
 /* ============================================================
    SARAH M. — AI SUMMARY
@@ -305,14 +266,12 @@ const SARAH_AI_SUMMARY: LeadAISummary = {
   recommendedNextAction:
     "Contact Sarah to confirm a suitable beginner trial class and help her complete the booking.",
 
-  lastAnalyzedAt:
-    "2024-04-22T09:05:00-05:00",
+  lastAnalyzedAt: "2024-04-22T09:05:00-05:00",
 
   temperatureReason:
     "Strong intent to attend a free class, clear fitness goals, and a preferred training schedule.",
 
-  detectedIntent:
-    "Book a free beginner boxing trial",
+  detectedIntent: "Book a free beginner boxing trial",
 
   keyPoints: [
     "First-time boxing participant",
@@ -321,14 +280,13 @@ const SARAH_AI_SUMMARY: LeadAISummary = {
     "Prefers morning sessions",
     "Available 2–3 times per week",
   ],
-};
+}
 
 /* ============================================================
    SARAH M. — CONVERSION READINESS
 ============================================================ */
 
-const SARAH_CONVERSION_READINESS:
-  LeadConversionReadiness = {
+const SARAH_CONVERSION_READINESS: LeadConversionReadiness = {
   status: "in_progress",
 
   score: 60,
@@ -356,34 +314,28 @@ const SARAH_CONVERSION_READINESS:
       id: "trial_booked",
       label: "Trial class booked",
       completed: false,
-      description:
-        "Trial time still needs confirmation.",
+      description: "Trial time still needs confirmation.",
     },
     {
       id: "membership_selected",
       label: "Membership plan selected",
       completed: false,
-      description:
-        "Discuss membership options after the trial.",
+      description: "Discuss membership options after the trial.",
     },
   ],
 
-  evaluatedAt:
-    "2024-04-22T09:05:00-05:00",
-};
+  evaluatedAt: "2024-04-22T09:05:00-05:00",
+}
 
 /* ============================================================
    SARAH M. — DETAILS TAB
 ============================================================ */
 
-const SARAH_DETAILS_TAB:
-  LeadDetailsTabData = {
+const SARAH_DETAILS_TAB: LeadDetailsTabData = {
   basicInformation: {
-    customerSince:
-      "2024-04-21T14:30:00-05:00",
+    customerSince: "2024-04-21T14:30:00-05:00",
 
-    notes:
-      "Interested in beginner boxing classes.",
+    notes: "Interested in beginner boxing classes.",
 
     assignedCoach: {
       id: "coach_nichole",
@@ -391,8 +343,7 @@ const SARAH_DETAILS_TAB:
       avatarUrl: null,
     },
 
-    lastContactAt:
-      "2024-04-22T09:00:00-05:00",
+    lastContactAt: "2024-04-22T09:00:00-05:00",
   },
 
   qualification: SARAH_QUALIFICATION,
@@ -403,16 +354,14 @@ const SARAH_DETAILS_TAB:
 
   aiSummary: SARAH_AI_SUMMARY,
 
-  conversionReadiness:
-    SARAH_CONVERSION_READINESS,
-};
+  conversionReadiness: SARAH_CONVERSION_READINESS,
+}
 
 /* ============================================================
    SARAH M. — AI INSIGHTS TAB
 ============================================================ */
 
-const SARAH_AI_INSIGHTS:
-  LeadAIInsightsData = {
+const SARAH_AI_INSIGHTS: LeadAIInsightsData = {
   summary:
     "Sarah shows strong interest in beginner boxing and is a promising candidate for a free trial booking.",
 
@@ -431,8 +380,7 @@ const SARAH_AI_INSIGHTS:
 
       confidence: 0.94,
 
-      detectedAt:
-        "2024-04-22T09:00:00-05:00",
+      detectedAt: "2024-04-22T09:00:00-05:00",
     },
     {
       id: "insight_sarah_interest",
@@ -448,8 +396,7 @@ const SARAH_AI_INSIGHTS:
 
       confidence: 0.91,
 
-      detectedAt:
-        "2024-04-22T09:00:00-05:00",
+      detectedAt: "2024-04-22T09:00:00-05:00",
     },
     {
       id: "insight_sarah_opportunity",
@@ -465,8 +412,7 @@ const SARAH_AI_INSIGHTS:
 
       confidence: 0.87,
 
-      detectedAt:
-        "2024-04-22T09:05:00-05:00",
+      detectedAt: "2024-04-22T09:05:00-05:00",
     },
     {
       id: "insight_sarah_recommendation",
@@ -482,93 +428,78 @@ const SARAH_AI_INSIGHTS:
 
       confidence: 0.92,
 
-      detectedAt:
-        "2024-04-22T09:05:00-05:00",
+      detectedAt: "2024-04-22T09:05:00-05:00",
     },
   ],
 
   recommendedNextAction:
     "Follow up with Sarah and confirm a morning beginner boxing trial class.",
 
-  analyzedAt:
-    "2024-04-22T09:05:00-05:00",
-};
+  analyzedAt: "2024-04-22T09:05:00-05:00",
+}
 
 /* ============================================================
    SARAH M. — CONVERSATIONS TAB
 ============================================================ */
 
-const SARAH_CONVERSATIONS:
-  LeadConversationsData = {
+const SARAH_CONVERSATIONS: LeadConversationsData = {
   items: [
     {
       id: "conversation_sarah_001",
 
       channel: "website",
 
-      lastMessagePreview:
-        "I've never boxed before. Can I join?",
+      lastMessagePreview: "I've never boxed before. Can I join?",
 
-      lastMessageAt:
-        "2024-04-22T09:00:00-05:00",
+      lastMessageAt: "2024-04-22T09:00:00-05:00",
 
       unreadCount: 1,
 
-      href:
-        "/inbox?conversationId=conversation_sarah_001",
+      href: "/inbox?conversationId=conversation_sarah_001",
     },
     {
       id: "conversation_sarah_002",
 
       channel: "website",
 
-      lastMessagePreview:
-        "I'm mainly interested in getting fit.",
+      lastMessagePreview: "I'm mainly interested in getting fit.",
 
-      lastMessageAt:
-        "2024-04-21T17:30:00-05:00",
+      lastMessageAt: "2024-04-21T17:30:00-05:00",
 
       unreadCount: 0,
 
-      href:
-        "/inbox?conversationId=conversation_sarah_002",
+      href: "/inbox?conversationId=conversation_sarah_002",
     },
     {
       id: "conversation_sarah_003",
 
       channel: "website",
 
-      lastMessagePreview:
-        "Do you have morning classes?",
+      lastMessagePreview: "Do you have morning classes?",
 
-      lastMessageAt:
-        "2024-04-21T15:00:00-05:00",
+      lastMessageAt: "2024-04-21T15:00:00-05:00",
 
       unreadCount: 0,
 
-      href:
-        "/inbox?conversationId=conversation_sarah_003",
+      href: "/inbox?conversationId=conversation_sarah_003",
     },
     {
       id: "conversation_sarah_004",
 
       channel: "website",
 
-      lastMessagePreview:
-        "I would like to try a free class.",
+      lastMessagePreview: "I would like to try a free class.",
 
-      lastMessageAt:
-        "2024-04-21T14:30:00-05:00",
+      lastMessageAt: "2024-04-21T14:30:00-05:00",
 
       unreadCount: 0,
 
-      href:
-        "/inbox?conversationId=conversation_sarah_004",
+      href: "/inbox?conversationId=conversation_sarah_004",
     },
   ],
 
   totalCount: 4,
-};
+}
 
 /* ============================================================
    SARAH M. — BOOKINGS TAB
@@ -585,24 +516,19 @@ const SARAH_BOOKINGS: LeadBookingsData = {
   items: [],
 
   totalCount: 0,
-};
+}
 
 /* ============================================================
    SARAH M. — COMPLETE RECORD
 ============================================================ */
 
-const sarahLead = getLeadMockById(
-  "lead_sarah_m",
-);
+const sarahLead = getLeadMockById("lead_sarah_m")
 
 if (!sarahLead) {
-  throw new Error(
-    "Sarah M. is missing from leads.mock.ts.",
-  );
+  throw new Error("Sarah M. is missing from leads.mock.ts.")
 }
 
-export const SARAH_LEAD_DETAILS_MOCK:
-  LeadDetails = {
+export const SARAH_LEAD_DETAILS_MOCK: LeadDetails = {
   id: sarahLead.id,
 
   lead: sarahLead,
@@ -617,9 +543,8 @@ export const SARAH_LEAD_DETAILS_MOCK:
 
   timezone: LEAD_DETAILS_MOCK_TIMEZONE,
 
-  updatedAt:
-    LEAD_DETAILS_MOCK_UPDATED_AT,
-};
+  updatedAt: LEAD_DETAILS_MOCK_UPDATED_AT,
+}
 
 /* ============================================================
    DEFAULT DETAILS FACTORY
@@ -635,20 +560,14 @@ export const SARAH_LEAD_DETAILS_MOCK:
  * Unknown information remains null rather
  * than inventing contact details or bookings.
  */
-function createDefaultLeadDetails(
-  lead: Lead,
-): LeadDetails {
-  const qualification =
-    createDefaultQualification(lead);
+function createDefaultLeadDetails(lead: Lead): LeadDetails {
+  const qualification = createDefaultQualification(lead)
 
-  const bookingInterest =
-    createDefaultBookingInterest(lead);
+  const bookingInterest = createDefaultBookingInterest(lead)
 
-  const aiSummary =
-    createDefaultAISummary(lead);
+  const aiSummary = createDefaultAISummary(lead)
 
-  const conversionReadiness =
-    createDefaultReadiness(lead);
+  const conversionReadiness = createDefaultReadiness(lead)
 
   return {
     id: lead.id,
@@ -661,11 +580,9 @@ function createDefaultLeadDetails(
 
         notes: null,
 
-        assignedCoach:
-          lead.assignedCoach,
+        assignedCoach: lead.assignedCoach,
 
-        lastContactAt:
-          lead.lastActivity.occurredAt,
+        lastContactAt: lead.lastActivity.occurredAt,
       },
 
       qualification,
@@ -679,28 +596,24 @@ function createDefaultLeadDetails(
       conversionReadiness,
     },
 
-    aiInsights:
-      createDefaultAIInsights(lead),
+    aiInsights: createDefaultAIInsights(lead),
 
     conversations: {
       items: [],
 
-      totalCount:
-        lead.conversationCount,
+      totalCount: lead.conversationCount,
     },
 
     bookings: {
       items: [],
 
-      totalCount:
-        lead.bookingCount,
+      totalCount: lead.bookingCount,
     },
 
-    timezone:
-      LEAD_DETAILS_MOCK_TIMEZONE,
+    timezone: LEAD_DETAILS_MOCK_TIMEZONE,
 
     updatedAt: lead.updatedAt,
-  };
+  }
 }
 
 /* ============================================================
@@ -711,82 +624,67 @@ function createDefaultLeadDetails(
  * All leads have a corresponding details
  * payload so card selection can be tested.
  */
-export const LEAD_DETAILS_MOCK:
-  readonly LeadDetails[] = LEADS_MOCK.map(
-  (lead) =>
-    lead.id === "lead_sarah_m"
-      ? SARAH_LEAD_DETAILS_MOCK
-      : createDefaultLeadDetails(lead),
-);
+export const LEAD_DETAILS_MOCK: readonly LeadDetails[] = [
+  ...LEADS_MOCK,
+  ...BOOKING_LINKED_LEADS_MOCK,
+].map((lead) =>
+  lead.id === "lead_sarah_m"
+    ? SARAH_LEAD_DETAILS_MOCK
+    : createDefaultLeadDetails(lead)
+)
 
 /* ============================================================
    LOOKUP
 ============================================================ */
 
-const LEAD_DETAILS_MOCK_MAP =
-  new Map<LeadId, LeadDetails>(
-    LEAD_DETAILS_MOCK.map(
-      (details) => [
-        details.id,
-        details,
-      ],
-    ),
-  );
+const LEAD_DETAILS_MOCK_MAP = new Map<LeadId, LeadDetails>(
+  LEAD_DETAILS_MOCK.map((details) => [details.id, details])
+)
 
 /**
  * Find complete details for a selected lead.
  *
  * Returns null when the ID is unknown.
  */
-export function getLeadDetailsMockById(
-  leadId: LeadId,
-): LeadDetails | null {
-  return (
-    LEAD_DETAILS_MOCK_MAP.get(leadId) ??
-    null
-  );
+export function getLeadDetailsMockById(leadId: LeadId): LeadDetails | null {
+  return LEAD_DETAILS_MOCK_MAP.get(leadId) ?? null
 }
 
 /* ============================================================
    STATE FIXTURES
 ============================================================ */
 
-export const LEAD_DETAILS_SUCCESS_MOCK:
-  LeadDetailsResult = {
+export const LEAD_DETAILS_SUCCESS_MOCK: LeadDetailsResult = {
   data: SARAH_LEAD_DETAILS_MOCK,
 
   status: "success",
 
   error: null,
-};
+}
 
-export const LEAD_DETAILS_LOADING_MOCK:
-  LeadDetailsResult = {
+export const LEAD_DETAILS_LOADING_MOCK: LeadDetailsResult = {
   data: null,
 
   status: "loading",
 
   error: null,
-};
+}
 
-export const LEAD_DETAILS_EMPTY_MOCK:
-  LeadDetailsResult = {
+export const LEAD_DETAILS_EMPTY_MOCK: LeadDetailsResult = {
   data: null,
 
   status: "empty",
 
   error: null,
-};
+}
 
-export const LEAD_DETAILS_ERROR_MOCK:
-  LeadDetailsResult = {
+export const LEAD_DETAILS_ERROR_MOCK: LeadDetailsResult = {
   data: null,
 
   status: "error",
 
-  error:
-    "Unable to load lead details.",
-};
+  error: "Unable to load lead details.",
+}
 
 /* ============================================================
    DYNAMIC MOCK RESULT
@@ -798,23 +696,20 @@ export const LEAD_DETAILS_ERROR_MOCK:
  * Useful when switching between
  * lead cards during UI development.
  */
-export function getLeadDetailsMockResult(
-  leadId: LeadId,
-): LeadDetailsResult {
-  const details =
-    getLeadDetailsMockById(leadId);
+export function getLeadDetailsMockResult(leadId: LeadId): LeadDetailsResult {
+  const details = getLeadDetailsMockById(leadId)
 
   if (!details) {
     return {
       data: null,
       status: "empty",
       error: null,
-    };
+    }
   }
 
   return {
     data: details,
     status: "success",
     error: null,
-  };
+  }
 }

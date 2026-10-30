@@ -1,15 +1,12 @@
-
 import type {
   Lead,
   LeadChannel,
   LeadCoach,
   LeadStage,
   LeadTemperature,
-} from "../types/lead.types";
+} from "../types/lead.types"
 
-import {
-  LEAD_STAGE_ORDER,
-} from "../config/lead-stages.config";
+import { LEAD_STAGE_ORDER } from "../config/lead-stages.config"
 
 /**
  * ============================================================
@@ -60,36 +57,34 @@ export const LEAD_COACHES_MOCK = {
     name: "Nhut",
     avatarUrl: null,
   },
-} as const satisfies Record<string, LeadCoach>;
+} as const satisfies Record<string, LeadCoach>
 
 /* ============================================================
    MOCK LEAD FACTORY
 ============================================================ */
 
 type MockLeadInput = {
-  id: string;
-  customerId: string;
-  name: string;
-  stage: LeadStage;
-  temperature: LeadTemperature;
-  channel: LeadChannel;
-  experienceLevel: Lead["experienceLevel"];
-  interest: Lead["interest"];
-  assignedCoach?: LeadCoach | null;
-  phone?: string | null;
-  email?: string | null;
-  location?: string | null;
-  preferredChannel?: LeadChannel | null;
-  conversationCount?: number;
-  bookingCount?: number;
-  activityAt: string;
-  createdAt: string;
-  updatedAt?: string;
-};
+  id: string
+  customerId: string
+  name: string
+  stage: LeadStage
+  temperature: LeadTemperature
+  channel: LeadChannel
+  experienceLevel: Lead["experienceLevel"]
+  interest: Lead["interest"]
+  assignedCoach?: LeadCoach | null
+  phone?: string | null
+  email?: string | null
+  location?: string | null
+  preferredChannel?: LeadChannel | null
+  conversationCount?: number
+  bookingCount?: number
+  activityAt: string
+  createdAt: string
+  updatedAt?: string
+}
 
-function createMockLead(
-  input: MockLeadInput,
-): Lead {
+function createMockLead(input: MockLeadInput): Lead {
   return {
     id: input.id,
 
@@ -100,8 +95,7 @@ function createMockLead(
       phone: input.phone ?? null,
       email: input.email ?? null,
       location: input.location ?? null,
-      preferredChannel:
-        input.preferredChannel ?? input.channel,
+      preferredChannel: input.preferredChannel ?? input.channel,
     },
 
     stage: input.stage,
@@ -121,15 +115,13 @@ function createMockLead(
       occurredAt: input.activityAt,
     },
 
-    conversationCount:
-      input.conversationCount ?? 1,
+    conversationCount: input.conversationCount ?? 1,
 
-    bookingCount:
-      input.bookingCount ?? 0,
+    bookingCount: input.bookingCount ?? 0,
 
     createdAt: input.createdAt,
     updatedAt: input.updatedAt ?? input.activityAt,
-  };
+  }
 }
 
 /* ============================================================
@@ -445,7 +437,174 @@ export const LEADS_MOCK = [
     activityAt: "2024-04-19T15:15:00-05:00",
     createdAt: "2024-04-03T10:00:00-05:00",
   }),
-] satisfies Lead[];
+] satisfies Lead[]
+
+/* ============================================================
+   BOOKING-LINKED LEADS
+============================================================ */
+
+/**
+ * Booking fixtures use full customer names while the
+ * pipeline preview uses compact sample names. Keep these
+ * linked records outside the board preview so View Lead
+ * routes still resolve without changing the pipeline design.
+ */
+export const BOOKING_LINKED_LEADS_MOCK = [
+  createMockLead({
+    id: "lead_john_smith",
+    customerId: "customer_john_smith",
+    name: "John Smith",
+    stage: "booking_confirmed",
+    temperature: "hot",
+    channel: "website",
+    experienceLevel: "beginner",
+    interest: {
+      type: "free_class",
+      title: "Free Class",
+      description: "Interested in a beginner-friendly trial.",
+    },
+    assignedCoach: LEAD_COACHES_MOCK.cory,
+    phone: "(316) 555-0198",
+    email: "john.smith@example.com",
+    location: "Wichita, KS",
+    conversationCount: 3,
+    bookingCount: 1,
+    activityAt: "2025-04-18T10:24:00-05:00",
+    createdAt: "2025-04-18T10:24:00-05:00",
+  }),
+  createMockLead({
+    id: "lead_sarah_johnson",
+    customerId: "customer_sarah_johnson",
+    name: "Sarah Johnson",
+    stage: "booking_confirmed",
+    temperature: "warm",
+    channel: "website",
+    experienceLevel: "beginner",
+    interest: {
+      type: "group_class",
+      title: "Beginner Boxing",
+      description: "Interested in a beginner boxing session.",
+    },
+    assignedCoach: LEAD_COACHES_MOCK.nichole,
+    phone: "(316) 555-0142",
+    email: "sarah.johnson@example.com",
+    location: "Wichita, KS",
+    conversationCount: 4,
+    bookingCount: 1,
+    activityAt: "2025-04-19T14:12:00-05:00",
+    createdAt: "2025-04-19T14:12:00-05:00",
+  }),
+  createMockLead({
+    id: "lead_emily_wilson",
+    customerId: "customer_emily_wilson",
+    name: "Emily Wilson",
+    stage: "free_class_requested",
+    temperature: "hot",
+    channel: "website",
+    experienceLevel: "beginner",
+    interest: {
+      type: "free_class",
+      title: "Free Class",
+      description: "Requested a fitness boxing trial.",
+    },
+    assignedCoach: LEAD_COACHES_MOCK.nichole,
+    phone: "(316) 555-0164",
+    email: "emily.wilson@example.com",
+    location: "Wichita, KS",
+    conversationCount: 2,
+    bookingCount: 1,
+    activityAt: "2025-04-20T12:30:00-05:00",
+    createdAt: "2025-04-20T12:30:00-05:00",
+  }),
+  createMockLead({
+    id: "lead_david_kim",
+    customerId: "customer_david_kim",
+    name: "David Kim",
+    stage: "ai_qualified",
+    temperature: "warm",
+    channel: "website",
+    experienceLevel: "beginner",
+    interest: {
+      type: "other",
+      title: "Membership Consultation",
+      description: "Interested in membership options.",
+    },
+    assignedCoach: LEAD_COACHES_MOCK.nichole,
+    phone: "(316) 555-0136",
+    email: "david.kim@example.com",
+    location: "Wichita, KS",
+    conversationCount: 2,
+    bookingCount: 1,
+    activityAt: "2025-04-20T08:15:00-05:00",
+    createdAt: "2025-04-20T08:15:00-05:00",
+  }),
+  createMockLead({
+    id: "lead_olivia_brown",
+    customerId: "customer_olivia_brown",
+    name: "Olivia Brown",
+    stage: "booking_confirmed",
+    temperature: "warm",
+    channel: "website",
+    experienceLevel: "beginner",
+    interest: {
+      type: "free_class",
+      title: "Beginner Boxing",
+      description: "First boxing session booked.",
+    },
+    assignedCoach: LEAD_COACHES_MOCK.nichole,
+    phone: "(316) 555-0152",
+    email: "olivia.brown@example.com",
+    location: "Wichita, KS",
+    conversationCount: 3,
+    bookingCount: 1,
+    activityAt: "2025-04-21T09:00:00-05:00",
+    createdAt: "2025-04-21T09:00:00-05:00",
+  }),
+  createMockLead({
+    id: "lead_sophia_martin",
+    customerId: "customer_sophia_martin",
+    name: "Sophia Martin",
+    stage: "ai_qualified",
+    temperature: "cold",
+    channel: "website",
+    experienceLevel: "beginner",
+    interest: {
+      type: "other",
+      title: "Membership Consultation",
+      description: "Exploring membership options.",
+    },
+    assignedCoach: LEAD_COACHES_MOCK.nichole,
+    phone: "(316) 555-0126",
+    email: "sophia.martin@example.com",
+    location: "Wichita, KS",
+    conversationCount: 1,
+    bookingCount: 1,
+    activityAt: "2025-04-21T13:20:00-05:00",
+    createdAt: "2025-04-21T13:20:00-05:00",
+  }),
+  createMockLead({
+    id: "lead_chloe_walker",
+    customerId: "customer_chloe_walker",
+    name: "Chloe Walker",
+    stage: "trial_attended",
+    temperature: "warm",
+    channel: "website",
+    experienceLevel: "beginner",
+    interest: {
+      type: "group_class",
+      title: "Fitness Boxing",
+      description: "Completed a first boxing session.",
+    },
+    assignedCoach: LEAD_COACHES_MOCK.nichole,
+    phone: "(316) 555-0190",
+    email: "chloe.walker@example.com",
+    location: "Wichita, KS",
+    conversationCount: 3,
+    bookingCount: 1,
+    activityAt: "2025-04-22T09:00:00-05:00",
+    createdAt: "2025-04-22T09:00:00-05:00",
+  }),
+] satisfies readonly Lead[]
 
 /* ============================================================
    PIPELINE MOCK DATA
@@ -466,7 +625,7 @@ export const LEAD_PIPELINE_STAGE_COUNTS_MOCK = {
   booking_confirmed: 18,
   trial_attended: 15,
   membership_converted: 42,
-} as const satisfies Record<LeadStage, number>;
+} as const satisfies Record<LeadStage, number>
 
 /**
  * Total number of leads represented by
@@ -474,7 +633,7 @@ export const LEAD_PIPELINE_STAGE_COUNTS_MOCK = {
  *
  * 48 + 38 + 28 + 18 + 15 + 42 = 189
  */
-export const LEAD_PIPELINE_TOTAL_MOCK = 189;
+export const LEAD_PIPELINE_TOTAL_MOCK = 189
 
 /* ============================================================
    MOCK HELPERS
@@ -485,20 +644,18 @@ export const LEAD_PIPELINE_TOTAL_MOCK = 189;
  * the exported dataset.
  */
 export function getLeadsMock(): Lead[] {
-  return [...LEADS_MOCK];
+  return [...LEADS_MOCK]
 }
 
 /**
  * Find a lead by ID.
  */
-export function getLeadMockById(
-  leadId: string,
-): Lead | null {
+export function getLeadMockById(leadId: string): Lead | null {
   return (
-    LEADS_MOCK.find(
-      (lead) => lead.id === leadId,
-    ) ?? null
-  );
+    LEADS_MOCK.find((lead) => lead.id === leadId) ??
+    BOOKING_LINKED_LEADS_MOCK.find((lead) => lead.id === leadId) ??
+    null
+  )
 }
 
 /**
@@ -506,38 +663,28 @@ export function getLeadMockById(
  *
  * Most recently updated leads appear first.
  */
-export function getLeadsMockByStage(
-  stage: LeadStage,
-): Lead[] {
-  return LEADS_MOCK
-    .filter((lead) => lead.stage === stage)
-    .sort(
-      (a, b) =>
-        Date.parse(b.lastActivity.occurredAt) -
-        Date.parse(a.lastActivity.occurredAt),
-    );
+export function getLeadsMockByStage(stage: LeadStage): Lead[] {
+  return LEADS_MOCK.filter((lead) => lead.stage === stage).sort(
+    (a, b) =>
+      Date.parse(b.lastActivity.occurredAt) -
+      Date.parse(a.lastActivity.occurredAt)
+  )
 }
 
 /**
  * Filter leads by temperature.
  */
 export function getLeadsMockByTemperature(
-  temperature: LeadTemperature,
+  temperature: LeadTemperature
 ): Lead[] {
-  return LEADS_MOCK.filter(
-    (lead) => lead.temperature === temperature,
-  );
+  return LEADS_MOCK.filter((lead) => lead.temperature === temperature)
 }
 
 /**
  * Filter leads by source channel.
  */
-export function getLeadsMockByChannel(
-  channel: LeadChannel,
-): Lead[] {
-  return LEADS_MOCK.filter(
-    (lead) => lead.source === channel,
-  );
+export function getLeadsMockByChannel(channel: LeadChannel): Lead[] {
+  return LEADS_MOCK.filter((lead) => lead.source === channel)
 }
 
 /**
@@ -545,13 +692,10 @@ export function getLeadsMockByChannel(
  *
  * Pass null to get unassigned leads.
  */
-export function getLeadsMockByCoach(
-  coachId: string | null,
-): Lead[] {
+export function getLeadsMockByCoach(coachId: string | null): Lead[] {
   return LEADS_MOCK.filter(
-    (lead) =>
-      (lead.assignedCoach?.id ?? null) === coachId,
-  );
+    (lead) => (lead.assignedCoach?.id ?? null) === coachId
+  )
 }
 
 /**
@@ -561,14 +705,10 @@ export function getLeadsMockByCoach(
  *
  * Columns follow the configured stage order.
  */
-export function getLeadsMockGroupedByStage():
-  Record<LeadStage, Lead[]> {
+export function getLeadsMockGroupedByStage(): Record<LeadStage, Lead[]> {
   const groups = Object.fromEntries(
-    LEAD_STAGE_ORDER.map((stage) => [
-      stage,
-      getLeadsMockByStage(stage),
-    ]),
-  ) as Record<LeadStage, Lead[]>;
+    LEAD_STAGE_ORDER.map((stage) => [stage, getLeadsMockByStage(stage)])
+  ) as Record<LeadStage, Lead[]>
 
-  return groups;
+  return groups
 }

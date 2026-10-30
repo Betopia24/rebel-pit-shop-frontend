@@ -20,7 +20,6 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
 } from "@/components/ui/select"
 
 import { cn } from "@/lib/utils"
@@ -143,6 +142,23 @@ export function getActiveLeadFilterCount(filters: LeadFilterValues): number {
   ].filter(Boolean).length
 }
 
+function FilterTriggerValue({
+  label,
+  value,
+}: {
+  label: string
+  value: string
+}) {
+  return (
+    <span className="flex min-w-0 flex-1 items-center gap-1.5 text-left">
+      <span className="shrink-0 text-[10px] text-muted-foreground">
+        {label}:
+      </span>
+      <span className="truncate text-[11px] text-foreground">{value}</span>
+    </span>
+  )
+}
+
 export function LeadFilters({
   value,
   onChange,
@@ -170,15 +186,14 @@ export function LeadFilters({
 
   const sourceLabel = value.source
     ? LEAD_CHANNEL_CONFIG[value.source].label
-    : "All Sources"
-  const stageLabel = value.stage ? getLeadStageLabel(value.stage) : "All Stages"
+    : "All"
+  const stageLabel = value.stage ? getLeadStageLabel(value.stage) : "All"
   const temperatureLabel = value.temperature
     ? getLeadTemperatureConfig(value.temperature).label
-    : "All Temperatures"
+    : "All"
   const coachLabel = value.coachId
-    ? (coaches.find((coach) => coach.id === value.coachId)?.name ??
-      "All Coaches")
-    : "All Coaches"
+    ? (coaches.find((coach) => coach.id === value.coachId)?.name ?? "All")
+    : "All"
   const dateLabel =
     LEAD_DATE_OPTIONS.find((option) => option.value === value.datePreset)
       ?.label ?? "All time"
@@ -261,13 +276,17 @@ export function LeadFilters({
     <div
       role="search"
       aria-label="Filter leads"
-      className={cn("flex min-w-0 flex-wrap", "items-center gap-2", className)}
+      className={cn(
+        "flex min-w-0 flex-col gap-3",
+        "lg:flex-row lg:items-center lg:justify-between",
+        className
+      )}
     >
       {/* ======================================================
           SEARCH
       ====================================================== */}
 
-      <div className={cn("relative min-w-0", "w-full sm:w-56", "lg:w-60")}>
+      <div className="relative w-full min-w-0 lg:max-w-70">
         <Search
           aria-hidden="true"
           className={cn(
@@ -287,7 +306,12 @@ export function LeadFilters({
           disabled={disabled}
           placeholder="Search leads..."
           aria-label="Search leads"
-          className={cn("h-9 w-full", "pr-8 pl-9", "text-xs", "bg-background")}
+          className={cn(
+            "h-9 w-full rounded-md",
+            "border-border bg-background",
+            "pr-8 pl-9",
+            "text-xs"
+          )}
         />
 
         {value.search.length > 0 && !disabled && (
@@ -310,272 +334,274 @@ export function LeadFilters({
         )}
       </div>
 
-      {/* ======================================================
-          DATE FILTER
-      ====================================================== */}
+      <div className="flex min-w-0 flex-wrap items-center gap-2">
+        <div className="flex min-w-0 flex-wrap items-center gap-2">
+          {/* ======================================================
+              DATE FILTER
+          ====================================================== */}
 
-      <div className="flex w-full min-w-0 gap-2 min-[420px]:w-auto">
+          <Select
+            value={value.datePreset}
+            onValueChange={handleDatePresetChange}
+            disabled={disabled}
+          >
+            <SelectTrigger
+              size="sm"
+              aria-label="Filter leads by date"
+              className="h-9 min-w-35 rounded-md border-border bg-background text-[11px]"
+            >
+              <CalendarDays aria-hidden="true" className="size-3.5" />
+              <FilterTriggerValue label="Date" value={dateLabel} />
+            </SelectTrigger>
+
+            <SelectContent align="start">
+              {LEAD_DATE_OPTIONS.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          {value.datePreset === "custom" && (
+            <Popover open={isDateRangeOpen} onOpenChange={setIsDateRangeOpen}>
+              <PopoverTrigger
+                render={
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    disabled={disabled}
+                    className="h-9 max-w-48 min-w-40 flex-1 rounded-md border-border bg-background text-[11px]"
+                    aria-label="Choose lead date range"
+                  />
+                }
+              >
+                <FilterTriggerValue label="Dates" value={customDateLabel} />
+              </PopoverTrigger>
+
+              <PopoverContent
+                align="start"
+                className="w-auto max-w-[calc(100vw-2rem)] p-0"
+              >
+                <div className="border-b border-border px-3 py-3">
+                  <p className="text-sm font-medium text-foreground">
+                    Custom lead date range
+                  </p>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    Filter leads by their creation date.
+                  </p>
+                </div>
+
+                <Calendar
+                  mode="range"
+                  selected={customDateRange}
+                  onSelect={setCustomDateRange}
+                  numberOfMonths={1}
+                  defaultMonth={customDateRange?.from}
+                  className="mx-auto"
+                />
+
+                <div className="flex items-center justify-between gap-3 border-t border-border px-3 py-3">
+                  <span className="min-w-0 truncate text-xs text-muted-foreground">
+                    {customDateLabel}
+                  </span>
+                  <Button
+                    type="button"
+                    size="sm"
+                    className="shrink-0 bg-gold text-background hover:bg-gold-hover"
+                    disabled={!customDateRange?.from || !customDateRange.to}
+                    onClick={applyCustomDateRange}
+                  >
+                    Apply
+                  </Button>
+                </div>
+              </PopoverContent>
+            </Popover>
+          )}
+        </div>
+
+        {/* ====================================================
+            SOURCE FILTER
+        ==================================================== */}
+
         <Select
-          value={value.datePreset}
-          onValueChange={handleDatePresetChange}
+          value={value.source ?? ALL_SOURCES}
+          onValueChange={(nextValue) => {
+            updateFilter(
+              "source",
+              nextValue === ALL_SOURCES ? null : (nextValue as LeadChannel)
+            )
+          }}
           disabled={disabled}
         >
           <SelectTrigger
             size="sm"
-            aria-label="Filter leads by date"
-            className="h-9 w-full bg-background text-xs min-[420px]:w-[145px]"
+            aria-label="Filter by lead source"
+            className={cn(
+              "h-9 min-w-35 rounded-md border-border bg-background text-[11px]"
+            )}
           >
-            <CalendarDays aria-hidden="true" className="size-3.5" />
-            <SelectValue>{dateLabel}</SelectValue>
+            <FilterTriggerValue label="Source" value={sourceLabel} />
           </SelectTrigger>
 
           <SelectContent align="start">
-            {LEAD_DATE_OPTIONS.map((option) => (
-              <SelectItem key={option.value} value={option.value}>
-                {option.label}
+            <SelectItem value={ALL_SOURCES}>All Sources</SelectItem>
+
+            {LEAD_CHANNEL_OPTIONS.map((channel) => (
+              <SelectItem key={channel.value} value={channel.value}>
+                {channel.label}
               </SelectItem>
             ))}
           </SelectContent>
         </Select>
 
-        {value.datePreset === "custom" && (
-          <Popover open={isDateRangeOpen} onOpenChange={setIsDateRangeOpen}>
-            <PopoverTrigger
-              render={
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  disabled={disabled}
-                  className="h-9 max-w-48 min-w-0 flex-1 text-xs min-[420px]:w-40 min-[420px]:flex-none"
-                  aria-label="Choose lead date range"
-                />
-              }
-            >
-              <span className="truncate">{customDateLabel}</span>
-            </PopoverTrigger>
-
-            <PopoverContent
-              align="start"
-              className="w-auto max-w-[calc(100vw-2rem)] p-0"
-            >
-              <div className="border-b border-border px-3 py-3">
-                <p className="text-sm font-medium text-foreground">
-                  Custom lead date range
-                </p>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  Filter leads by their creation date.
-                </p>
-              </div>
-
-              <Calendar
-                mode="range"
-                selected={customDateRange}
-                onSelect={setCustomDateRange}
-                numberOfMonths={1}
-                defaultMonth={customDateRange?.from}
-                className="mx-auto"
-              />
-
-              <div className="flex items-center justify-between gap-3 border-t border-border px-3 py-3">
-                <span className="min-w-0 truncate text-xs text-muted-foreground">
-                  {customDateLabel}
-                </span>
-                <Button
-                  type="button"
-                  size="sm"
-                  className="shrink-0 bg-gold text-background hover:bg-gold-hover"
-                  disabled={!customDateRange?.from || !customDateRange.to}
-                  onClick={applyCustomDateRange}
-                >
-                  Apply
-                </Button>
-              </div>
-            </PopoverContent>
-          </Popover>
-        )}
-      </div>
-
-      {/* ======================================================
-          SOURCE FILTER
-      ====================================================== */}
-
-      <Select
-        value={value.source ?? ALL_SOURCES}
-        onValueChange={(nextValue) => {
-          updateFilter(
-            "source",
-            nextValue === ALL_SOURCES ? null : (nextValue as LeadChannel)
-          )
-        }}
-        disabled={disabled}
-      >
-        <SelectTrigger
-          size="sm"
-          aria-label="Filter by lead source"
-          className={cn(
-            "h-9 w-full min-[420px]:w-[145px]",
-            "bg-background text-xs"
-          )}
-        >
-          <SelectValue>{sourceLabel}</SelectValue>
-        </SelectTrigger>
-
-        <SelectContent align="start">
-          <SelectItem value={ALL_SOURCES}>All Sources</SelectItem>
-
-          {LEAD_CHANNEL_OPTIONS.map((channel) => (
-            <SelectItem key={channel.value} value={channel.value}>
-              {channel.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-
-      {/* ======================================================
+        {/* ======================================================
           STAGE FILTER
       ====================================================== */}
 
-      <Select
-        value={value.stage ?? ALL_STAGES}
-        onValueChange={(nextValue) => {
-          updateFilter(
-            "stage",
-            nextValue === ALL_STAGES ? null : (nextValue as LeadStage)
-          )
-        }}
-        disabled={disabled}
-      >
-        <SelectTrigger
-          size="sm"
-          aria-label="Filter by pipeline stage"
-          className={cn(
-            "h-9 w-full min-[420px]:w-[165px]",
-            "bg-background text-xs"
-          )}
+        <Select
+          value={value.stage ?? ALL_STAGES}
+          onValueChange={(nextValue) => {
+            updateFilter(
+              "stage",
+              nextValue === ALL_STAGES ? null : (nextValue as LeadStage)
+            )
+          }}
+          disabled={disabled}
         >
-          <SelectValue>{stageLabel}</SelectValue>
-        </SelectTrigger>
+          <SelectTrigger
+            size="sm"
+            aria-label="Filter by pipeline stage"
+            className={cn(
+              "h-9 max-w-48 min-w-40 rounded-md border-border bg-background text-[11px]"
+            )}
+          >
+            <FilterTriggerValue label="Stage" value={stageLabel} />
+          </SelectTrigger>
 
-        <SelectContent align="start">
-          <SelectItem value={ALL_STAGES}>All Stages</SelectItem>
+          <SelectContent align="start">
+            <SelectItem value={ALL_STAGES}>All Stages</SelectItem>
 
-          {LEAD_PIPELINE_STAGES.map((stage) => (
-            <SelectItem key={stage.id} value={stage.id}>
-              {stage.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+            {LEAD_PIPELINE_STAGES.map((stage) => (
+              <SelectItem key={stage.id} value={stage.id}>
+                {stage.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
 
-      {/* ======================================================
+        {/* ======================================================
           TEMPERATURE FILTER
       ====================================================== */}
 
-      <Select
-        value={value.temperature ?? ALL_TEMPERATURES}
-        onValueChange={(nextValue) => {
-          updateFilter(
-            "temperature",
-            nextValue === ALL_TEMPERATURES
-              ? null
-              : (nextValue as LeadTemperature)
-          )
-        }}
-        disabled={disabled}
-      >
-        <SelectTrigger
-          size="sm"
-          aria-label="Filter by lead temperature"
-          className={cn(
-            "h-9 w-full min-[420px]:w-[165px]",
-            "bg-background text-xs"
-          )}
-        >
-          <SelectValue>{temperatureLabel}</SelectValue>
-        </SelectTrigger>
-
-        <SelectContent align="start">
-          <SelectItem value={ALL_TEMPERATURES}>All Temperatures</SelectItem>
-
-          {LEAD_TEMPERATURE_ORDER.map((temperature) => {
-            const config = getLeadTemperatureConfig(temperature)
-
-            return (
-              <SelectItem key={temperature} value={temperature}>
-                {config.label}
-              </SelectItem>
+        <Select
+          value={value.temperature ?? ALL_TEMPERATURES}
+          onValueChange={(nextValue) => {
+            updateFilter(
+              "temperature",
+              nextValue === ALL_TEMPERATURES
+                ? null
+                : (nextValue as LeadTemperature)
             )
-          })}
-        </SelectContent>
-      </Select>
+          }}
+          disabled={disabled}
+        >
+          <SelectTrigger
+            size="sm"
+            aria-label="Filter by lead temperature"
+            className={cn(
+              "h-9 max-w-48 min-w-40 rounded-md border-border bg-background text-[11px]"
+            )}
+          >
+            <FilterTriggerValue label="Temperature" value={temperatureLabel} />
+          </SelectTrigger>
 
-      {/* ======================================================
+          <SelectContent align="start">
+            <SelectItem value={ALL_TEMPERATURES}>All Temperatures</SelectItem>
+
+            {LEAD_TEMPERATURE_ORDER.map((temperature) => {
+              const config = getLeadTemperatureConfig(temperature)
+
+              return (
+                <SelectItem key={temperature} value={temperature}>
+                  {config.label}
+                </SelectItem>
+              )
+            })}
+          </SelectContent>
+        </Select>
+
+        {/* ======================================================
           COACH FILTER
       ====================================================== */}
 
-      <Select
-        value={value.coachId ?? ALL_COACHES}
-        onValueChange={(nextValue) => {
-          updateFilter("coachId", nextValue === ALL_COACHES ? null : nextValue)
-        }}
-        disabled={disabled}
-      >
-        <SelectTrigger
-          size="sm"
-          aria-label="Filter by assigned coach"
-          className={cn(
-            "h-9 w-full min-[420px]:w-[145px]",
-            "bg-background text-xs"
-          )}
+        <Select
+          value={value.coachId ?? ALL_COACHES}
+          onValueChange={(nextValue) => {
+            updateFilter(
+              "coachId",
+              nextValue === ALL_COACHES ? null : nextValue
+            )
+          }}
+          disabled={disabled}
         >
-          <SelectValue>{coachLabel}</SelectValue>
-        </SelectTrigger>
+          <SelectTrigger
+            size="sm"
+            aria-label="Filter by assigned coach"
+            className={cn(
+              "h-9 min-w-35 rounded-md border-border bg-background text-[11px]"
+            )}
+          >
+            <FilterTriggerValue label="Coach" value={coachLabel} />
+          </SelectTrigger>
 
-        <SelectContent align="start">
-          <SelectItem value={ALL_COACHES}>All Coaches</SelectItem>
+          <SelectContent align="start">
+            <SelectItem value={ALL_COACHES}>All Coaches</SelectItem>
 
-          {coachOptions.map((coach) => (
-            <SelectItem key={coach.id} value={coach.id}>
-              {coach.name}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+            {coachOptions.map((coach) => (
+              <SelectItem key={coach.id} value={coach.id}>
+                {coach.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
 
-      {/* ======================================================
+        {/* ======================================================
           RESET FILTERS
       ====================================================== */}
 
-      {hasActiveFilters && (
         <Button
           type="button"
           variant="ghost"
           size="sm"
-          disabled={disabled}
+          disabled={disabled || !hasActiveFilters}
           onClick={clearAllFilters}
           className={cn(
-            "h-9 gap-1.5",
-            "px-2.5 text-xs",
+            "h-9 gap-1.5 rounded-md",
+            "px-2.5 text-[11px]",
             "text-muted-foreground",
             "hover:text-foreground"
           )}
-          aria-label={`Clear ${activeFilterCount} active lead filters`}
+          aria-label={`Reset ${activeFilterCount} active lead filters`}
         >
           <RotateCcw aria-hidden="true" className="size-3.5" />
-          Clear
-          <span
-            className={cn(
-              "flex size-4 items-center justify-center",
-              "rounded-full bg-muted",
-              "text-[10px] font-semibold",
-              "tabular-nums"
-            )}
-          >
-            {activeFilterCount}
-          </span>
+          Reset
+          {activeFilterCount > 0 && (
+            <span
+              className={cn(
+                "inline-flex min-w-4",
+                "items-center justify-center",
+                "rounded-sm bg-muted",
+                "px-1 text-[10px]",
+                "font-semibold tabular-nums"
+              )}
+            >
+              {activeFilterCount}
+            </span>
+          )}
         </Button>
-      )}
+      </div>
     </div>
   )
 }

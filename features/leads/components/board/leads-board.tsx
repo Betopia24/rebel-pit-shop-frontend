@@ -304,7 +304,7 @@ export function LeadsBoard({
     <section
       aria-label="Leads pipeline board"
       aria-busy={isLoading}
-      className={cn("w-full min-w-0", className)}
+      className={cn("h-full w-full min-w-0", className)}
     >
       {hasError ? (
         <LeadsBoardError
@@ -319,7 +319,7 @@ export function LeadsBoard({
           aria-label="Scrollable lead pipeline columns"
           tabIndex={0}
           className={cn(
-            "w-full min-w-0 overflow-x-auto",
+            "h-full w-full min-w-0 overflow-x-auto",
             "overscroll-x-contain",
             "pb-2",
             "[scrollbar-width:thin]",
@@ -336,7 +336,7 @@ export function LeadsBoard({
             <div
               id={boardId}
               className={cn(
-                "flex min-w-max",
+                "flex h-full min-w-max",
                 "items-start gap-3",
                 "2xl:grid 2xl:w-full 2xl:min-w-0",
                 "2xl:grid-cols-6"
