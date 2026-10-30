@@ -1,21 +1,16 @@
-
 import Image from "next/image"
 import Link from "next/link"
 
-import {
-  ArrowUpRight,
-  MoveDownRight,
-  Smartphone,
-} from "lucide-react"
+import { ArrowUpRight, MoveDownRight, Smartphone } from "lucide-react"
 
 import { siteConfig } from "@/config/site"
 
+import { CoachBiographyMarkdown } from "@/features/about/components/coach-biography-markdown"
 import { getCoaches } from "@/features/about/services/get-coaches"
 
 import type { Coach } from "@/features/about/types"
 
 import { cn } from "@/lib/utils"
-
 
 /* =========================================================
    MEET THE REBELS
@@ -35,7 +30,6 @@ import { cn } from "@/lib/utils"
    - Mobile-first and accessible
 ========================================================= */
 
-
 export async function MeetTheRebelsSection() {
   const coaches = await getCoaches()
 
@@ -43,207 +37,63 @@ export async function MeetTheRebelsSection() {
     <section
       id="meet-the-rebels"
       aria-labelledby="meet-the-rebels-heading"
-      className="
-        relative
-        isolate
-        overflow-hidden
-        bg-background
-        text-foreground
-      "
+      className="relative isolate overflow-hidden bg-background text-foreground"
     >
       {/* =====================================================
           INTRODUCTION
       ====================================================== */}
 
-      <div
-        className="
-          relative
-          isolate
-          overflow-hidden
-
-          border-y
-          border-foreground/10
-
-          bg-surface-dark
-
-          px-5
-          py-14
-
-          sm:px-7
-          sm:py-16
-
-          md:px-10
-
-          lg:px-14
-          lg:py-18
-
-          xl:px-20
-
-          2xl:px-24
-        "
-      >
+      <div className="relative isolate overflow-hidden border-y border-foreground/10 bg-surface-dark px-5 py-14 sm:px-7 sm:py-16 md:px-10 lg:px-14 lg:py-18 xl:px-20 2xl:px-24">
         {/* SOFT GOLD ATMOSPHERE */}
 
         <div
           aria-hidden="true"
-          className="
-            pointer-events-none
-            absolute
-            inset-0
-            z-0
-
-            bg-[radial-gradient(ellipse_at_50%_100%,var(--gold-08),transparent_65%)]
-          "
+          className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_50%_100%,var(--gold-08),transparent_65%)]"
         />
 
-        <div
-          className="
-            relative
-            z-20
-
-            mx-auto
-            flex
-            w-full
-            max-w-362.5
-            flex-col
-            items-center
-
-            text-center
-          "
-        >
+        <div className="relative z-20 mx-auto flex w-full max-w-362.5 flex-col items-center text-center">
           {/* EYEBROW */}
 
-          <div
-            className="
-              mb-5
+          <div className="mb-5 flex items-center gap-3">
+            <span aria-hidden="true" className="h-px w-8 bg-primary" />
 
-              flex
-              items-center
-              gap-3
-            "
-          >
-            <span
-              aria-hidden="true"
-              className="
-                h-px
-                w-8
-                bg-primary
-              "
-            />
-
-            <span
-              className="
-                text-[10px]
-                font-bold
-                uppercase
-                tracking-[0.3em]
-                text-primary
-
-                sm:text-xs
-              "
-            >
+            <span className="text-[10px] font-bold tracking-[0.3em] text-primary uppercase sm:text-xs">
               The People Behind Rebel
             </span>
 
-            <span
-              aria-hidden="true"
-              className="
-                h-px
-                w-8
-                bg-primary
-              "
-            />
+            <span aria-hidden="true" className="h-px w-8 bg-primary" />
           </div>
 
           {/* MAIN SECTION HEADING */}
 
           <h2
             id="meet-the-rebels-heading"
-            className="
-              font-heading
-              font-black
-              uppercase
-
-              leading-[0.93]
-              tracking-[-0.055em]
-
-              text-[clamp(2.8rem,11vw,5.2rem)]
-
-              sm:text-[clamp(3.8rem,8vw,6.4rem)]
-
-              lg:text-[clamp(4.5rem,6vw,7rem)]
-            "
+            className="font-heading text-[clamp(2.8rem,11vw,5.2rem)] leading-[0.93] font-black tracking-[-0.055em] uppercase sm:text-[clamp(3.8rem,8vw,6.4rem)] lg:text-[clamp(4.5rem,6vw,7rem)]"
           >
-            Meet The{" "}
-            <span className="rebel-gold-text">
-              Rebels.
-            </span>
+            Meet The <span className="rebel-gold-text">Rebels.</span>
           </h2>
 
           {/* DESCRIPTION */}
 
-          <p
-            className="
-              mt-5
-              max-w-180
-
-              text-sm
-              leading-7
-              text-text-secondary
-
-              sm:text-base
-              sm:leading-8
-            "
-          >
-            Get to know the coaches behind Rebel
-            Boxing Club. From boxing and kickboxing
-            to nutrition and personal training,
-            each brings experience and a passion
-            for helping members improve.
+          <p className="mt-5 max-w-180 text-sm leading-7 text-text-secondary sm:text-base sm:leading-8">
+            Get to know the coaches behind Rebel Boxing Club. From boxing and
+            kickboxing to nutrition and personal training, each brings
+            experience and a passion for helping members improve.
           </p>
 
           {/* TEAM COUNT */}
 
-          <div
-            className="
-              mt-7
-
-              inline-flex
-              items-center
-              gap-3
-
-              border-t
-              border-foreground/15
-
-              pt-5
-            "
-          >
-            <span
-              className="
-                font-heading
-                text-2xl
-                font-black
-                text-primary
-              "
-            >
+          <div className="mt-7 inline-flex items-center gap-3 border-t border-foreground/15 pt-5">
+            <span className="font-heading text-2xl font-black text-primary">
               {String(coaches.length).padStart(2, "0")}
             </span>
 
-            <span
-              className="
-                text-[10px]
-                font-bold
-                uppercase
-                tracking-[0.17em]
-                text-text-secondary
-              "
-            >
+            <span className="text-[10px] font-bold tracking-[0.17em] text-text-secondary uppercase">
               Meet Our Coaches
             </span>
           </div>
         </div>
       </div>
-
 
       {/* =====================================================
           INDIVIDUAL COACH SECTIONS
@@ -256,14 +106,10 @@ export async function MeetTheRebelsSection() {
       <ol className="relative">
         {coaches.map((coach, index) => (
           <li key={coach.id}>
-            <CoachProfile
-              coach={coach}
-              index={index}
-            />
+            <CoachProfile coach={coach} index={index} />
           </li>
         ))}
       </ol>
-
 
       {/* =====================================================
           PRIVATE / GROUP TRAINING CTA
@@ -271,192 +117,43 @@ export async function MeetTheRebelsSection() {
           Grounded in the original About Us content.
       ====================================================== */}
 
-      <div
-        className="
-          relative
-          overflow-hidden
-
-          border-t
-          border-primary/20
-
-          bg-surface-dark
-        "
-      >
+      <div className="relative overflow-hidden border-t border-primary/20 bg-surface-dark">
         <div
           aria-hidden="true"
-          className="
-            pointer-events-none
-
-            absolute
-            inset-0
-
-            bg-[radial-gradient(ellipse_at_85%_50%,var(--gold-10),transparent_55%)]
-          "
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_85%_50%,var(--gold-10),transparent_55%)]"
         />
 
-        <div
-          className="
-            relative
-            z-20
-
-            mx-auto
-            flex
-            w-full
-            max-w-[1600px]
-
-            flex-col
-
-            gap-6
-
-            px-5
-            py-10
-
-            sm:px-7
-
-            md:px-10
-
-            lg:flex-row
-            lg:items-center
-            lg:justify-between
-            lg:gap-12
-            lg:px-14
-            lg:py-12
-
-            xl:px-20
-
-            2xl:px-24
-          "
-        >
+        <div className="relative z-20 mx-auto flex w-full max-w-[1600px] flex-col gap-6 px-5 py-10 sm:px-7 md:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12 lg:px-14 lg:py-12 xl:px-20 2xl:px-24">
           <div className="max-w-200">
-            <span
-              className="
-                text-[10px]
-                font-bold
-                uppercase
-                tracking-[0.25em]
-                text-primary
-              "
-            >
+            <span className="text-[10px] font-bold tracking-[0.25em] text-primary uppercase">
               Train With Our Team
             </span>
 
-            <h3
-              className="
-                mt-3
-
-                font-heading
-                text-[clamp(1.8rem,4vw,2.9rem)]
-                font-black
-                uppercase
-
-                leading-[1.03]
-                tracking-[-0.04em]
-              "
-            >
+            <h3 className="mt-3 font-heading text-[clamp(1.8rem,4vw,2.9rem)] leading-[1.03] font-black tracking-[-0.04em] uppercase">
               Take Your Training{" "}
-              <span className="rebel-gold-text">
-                Further.
-              </span>
+              <span className="rebel-gold-text">Further.</span>
             </h3>
 
-            <p
-              className="
-                mt-3
-                max-w-172.5
-
-                text-sm
-                leading-7
-                text-text-secondary
-              "
-            >
-              Message us if you have questions about individual or private group training.
+            <p className="mt-3 max-w-172.5 text-sm leading-7 text-text-secondary">
+              Message us if you have questions about individual or private group
+              training.
             </p>
           </div>
 
-          <div
-            className="
-              flex
-              items-center
-              gap-5
-
-              self-start
-
-              lg:self-center
-            "
-          >
+          <div className="flex items-center gap-5 self-start lg:self-center">
             <Smartphone
               aria-hidden="true"
-              className="
-                size-14
-                shrink-0
-                stroke-[1.5]
-                text-foreground
-
-                sm:size-16
-              "
+              className="size-14 shrink-0 stroke-[1.5] text-foreground sm:size-16"
             />
 
             <Link
               href={siteConfig.contactCta.button.href}
-              className="
-                group
-
-                inline-flex
-                min-h-12
-                shrink-0
-
-                items-center
-                justify-center
-                gap-5
-
-                rounded-md
-
-                border
-                border-primary/70
-
-                bg-primary
-
-                px-6
-
-                text-[11px]
-                font-bold
-                uppercase
-                tracking-[0.08em]
-
-                text-primary-foreground
-
-                shadow-(--shadow-gold-sm)
-
-                transition-[background-color,box-shadow]
-                duration-300
-
-                hover:bg-gold-hover
-                hover:shadow-(--shadow-gold-md)
-
-                focus-visible:outline-none
-                focus-visible:ring-2
-                focus-visible:ring-primary
-                focus-visible:ring-offset-2
-                focus-visible:ring-offset-background
-
-                motion-reduce:transition-none
-              "
+              className="group inline-flex min-h-12 shrink-0 items-center justify-center gap-5 rounded-md border border-primary/70 bg-primary px-6 text-[11px] font-bold tracking-[0.08em] text-primary-foreground uppercase shadow-(--shadow-gold-sm) transition-[background-color,box-shadow] duration-300 hover:bg-gold-hover hover:shadow-(--shadow-gold-md) focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none motion-reduce:transition-none"
             >
               Talk to Our Team
-
               <ArrowUpRight
                 aria-hidden="true"
-                className="
-                  size-4
-
-                  transition-transform
-                  duration-300
-
-                  group-hover:translate-x-0.5
-                  group-hover:-translate-y-0.5
-
-                  motion-reduce:transform-none
-                "
+                className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transform-none"
               />
             </Link>
           </div>
@@ -465,7 +162,6 @@ export async function MeetTheRebelsSection() {
     </section>
   )
 }
-
 
 /* =========================================================
    INDIVIDUAL COACH PROFILE
@@ -484,36 +180,20 @@ type CoachProfileProps = {
   index: number
 }
 
+function CoachProfile({ coach, index }: CoachProfileProps) {
+  const isReversed = index % 2 === 1
 
-function CoachProfile({
-  coach,
-  index,
-}: CoachProfileProps) {
-  const isReversed =
-    index % 2 === 1
+  const displayNumber = String(index + 1).padStart(2, "0")
 
-  const displayNumber =
-    String(index + 1).padStart(2, "0")
-
-  const headingId =
-    `coach-${coach.slug}-heading`
+  const headingId = `coach-${coach.slug}-heading`
 
   return (
     <section
       id={`coach-${coach.slug}`}
       aria-labelledby={headingId}
       className={cn(
-        `
-          relative
-          isolate
-          overflow-hidden
-
-          border-b
-          border-foreground/10
-        `,
-        isReversed
-          ? "bg-surface/55"
-          : "bg-background"
+        `relative isolate overflow-hidden border-b border-foreground/10`,
+        isReversed ? "bg-surface/55" : "bg-background"
       )}
     >
       {/* =====================================================
@@ -523,65 +203,18 @@ function CoachProfile({
       <div
         aria-hidden="true"
         className={cn(
-          `
-            pointer-events-none
-
-            absolute
-            inset-0
-            z-0
-          `,
+          `pointer-events-none absolute inset-0 z-0`,
           isReversed
-            ? `
-                bg-[radial-gradient(ellipse_at_0%_55%,var(--gold-06),transparent_55%)]
-              `
-            : `
-                bg-[radial-gradient(ellipse_at_100%_45%,var(--gold-06),transparent_55%)]
-              `
+            ? `bg-[radial-gradient(ellipse_at_0%_55%,var(--gold-06),transparent_55%)]`
+            : `bg-[radial-gradient(ellipse_at_100%_45%,var(--gold-06),transparent_55%)]`
         )}
       />
-
 
       {/* =====================================================
           PROFILE GRID
       ====================================================== */}
 
-      <div
-        className="
-          relative
-          z-20
-
-          mx-auto
-
-          grid
-          w-full
-          max-w-[1600px]
-
-          grid-cols-1
-          items-center
-
-          gap-10
-
-          px-5
-          py-10
-
-          sm:gap-12
-          sm:px-7
-          sm:py-12
-
-          md:px-10
-
-          lg:grid-cols-[minmax(0,0.43fr)_minmax(0,0.57fr)]
-          lg:gap-16
-          lg:px-14
-          lg:py-14
-
-          xl:gap-20
-          xl:px-20
-          xl:py-16
-
-          2xl:px-24
-        "
-      >
+      <div className="relative z-20 mx-auto grid w-full max-w-[1600px] grid-cols-1 items-center gap-10 px-5 py-10 sm:gap-12 sm:px-7 sm:py-12 md:px-10 lg:grid-cols-[minmax(0,0.43fr)_minmax(0,0.57fr)] lg:gap-16 lg:px-14 lg:py-14 xl:gap-20 xl:px-20 xl:py-16 2xl:px-24">
         {/* ===================================================
             COACH PHOTOGRAPH
 
@@ -591,25 +224,8 @@ function CoachProfile({
 
         <figure
           className={cn(
-            `
-              relative
-              isolate
-
-              mx-auto
-
-              w-full
-              min-w-0
-              max-w-117.5
-            `,
-            isReversed
-              ? `
-                  lg:order-2
-                  lg:ml-auto
-                `
-              : `
-                  lg:order-1
-                  lg:mr-auto
-                `
+            `relative isolate mx-auto w-full max-w-117.5 min-w-0`,
+            isReversed ? `lg:order-2 lg:ml-auto` : `lg:order-1 lg:mr-auto`
           )}
         >
           <div className="relative isolate">
@@ -617,55 +233,13 @@ function CoachProfile({
 
             <div
               aria-hidden="true"
-              className="
-                pointer-events-none
-
-                absolute
-                inset-0
-                z-0
-
-                translate-x-2
-                translate-y-2
-
-                border
-                border-gold-dark/60
-
-                sm:translate-x-3
-                sm:translate-y-3
-              "
+              className="pointer-events-none absolute inset-0 z-0 translate-x-2 translate-y-2 border border-gold-dark/60 sm:translate-x-3 sm:translate-y-3"
             />
 
             {/* MAIN FRAME */}
 
-            <div
-              className="
-                relative
-                z-10
-
-                border
-                border-foreground/20
-
-                bg-surface-deep
-
-                p-1.5
-
-                shadow-(--shadow-card)
-
-                sm:p-2
-              "
-            >
-              <div
-                className="
-                  relative
-
-                  aspect-square
-                  w-full
-
-                  overflow-hidden
-
-                  bg-surface-dark
-                "
-              >
+            <div className="relative z-10 border border-foreground/20 bg-surface-deep p-1.5 shadow-(--shadow-card) sm:p-2">
+              <div className="relative aspect-square w-full overflow-hidden bg-surface-dark">
                 <Image
                   src={coach.image.src}
                   alt={coach.image.alt}
@@ -675,29 +249,14 @@ function CoachProfile({
                     (max-width: 1023px) 470px,
                     38vw
                   "
-                  className="
-                    object-contain
-                    object-center
-                  "
+                  className="object-contain object-center"
                 />
 
                 {/* SUBTLE BOTTOM FADE */}
 
                 <div
                   aria-hidden="true"
-                  className="
-                    pointer-events-none
-
-                    absolute
-                    inset-x-0
-                    bottom-0
-
-                    h-1/3
-
-                    bg-linear-to-t
-                    from-background/35
-                    to-transparent
-                  "
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-background/35 to-transparent"
                 />
               </div>
             </div>
@@ -706,36 +265,7 @@ function CoachProfile({
 
             <div
               aria-hidden="true"
-              className="
-                pointer-events-none
-
-                absolute
-                left-0
-                top-0
-                z-20
-
-                flex
-                size-11
-
-                -translate-x-1/4
-                -translate-y-1/4
-
-                items-center
-                justify-center
-
-                border
-                border-gold-dark
-
-                bg-background
-
-                font-heading
-                text-sm
-                font-black
-
-                text-primary
-
-                sm:size-12
-              "
+              className="pointer-events-none absolute top-0 left-0 z-20 flex size-11 -translate-x-1/4 -translate-y-1/4 items-center justify-center border border-gold-dark bg-background font-heading text-sm font-black text-primary sm:size-12"
             >
               {displayNumber}
             </div>
@@ -744,52 +274,16 @@ function CoachProfile({
 
             <div
               aria-hidden="true"
-              className="
-                pointer-events-none
-
-                absolute
-                bottom-0
-                right-0
-                z-20
-
-                h-0.75
-                w-20
-
-                translate-y-1
-
-                bg-primary
-              "
+              className="pointer-events-none absolute right-0 bottom-0 z-20 h-0.75 w-20 translate-y-1 bg-primary"
             />
           </div>
 
-          <figcaption
-            className="
-              mt-5
+          <figcaption className="mt-5 flex items-center justify-between gap-4 text-[10px] font-bold tracking-[0.14em] text-text-muted uppercase">
+            <span>Rebel Boxing Club</span>
 
-              flex
-              items-center
-              justify-between
-              gap-4
-
-              text-[10px]
-              font-bold
-              uppercase
-
-              tracking-[0.14em]
-
-              text-text-muted
-            "
-          >
-            <span>
-              Rebel Boxing Club
-            </span>
-
-            <span>
-              Coach {displayNumber}
-            </span>
+            <span>Coach {displayNumber}</span>
           </figcaption>
         </figure>
-
 
         {/* ===================================================
             COACH INTRODUCTION
@@ -797,294 +291,95 @@ function CoachProfile({
 
         <div
           className={cn(
-            `
-              relative
-
-              min-w-0
-              max-w-190
-            `,
-            isReversed
-              ? "lg:order-1"
-              : "lg:order-2"
+            `relative max-w-190 min-w-0`,
+            isReversed ? "lg:order-1" : "lg:order-2"
           )}
         >
           {/* PROFILE EYEBROW */}
 
-          <div
-            className="
-              mb-5
+          <div className="mb-5 flex items-center gap-3">
+            <span aria-hidden="true" className="h-px w-8 bg-primary" />
 
-              flex
-              items-center
-              gap-3
-            "
-          >
-            <span
-              aria-hidden="true"
-              className="
-                h-px
-                w-8
-
-                bg-primary
-              "
-            />
-
-            <span
-              className="
-                text-[10px]
-                font-bold
-                uppercase
-
-                tracking-[0.25em]
-
-                text-primary
-
-                sm:text-[11px]
-              "
-            >
+            <span className="text-[10px] font-bold tracking-[0.25em] text-primary uppercase sm:text-[11px]">
               Meet the Coach
             </span>
 
-            <span
-              className="
-                font-heading
-                text-xs
-                font-bold
-
-                text-text-muted
-              "
-            >
+            <span className="font-heading text-xs font-bold text-text-muted">
               / {displayNumber}
             </span>
           </div>
-
 
           {/* COACH NAME */}
 
           <h3
             id={headingId}
-            className="
-              font-heading
-              font-black
-              uppercase
-
-              leading-[0.9]
-              tracking-[-0.055em]
-
-              text-[clamp(3.2rem,11vw,5.2rem)]
-
-              sm:text-[clamp(4rem,8vw,6rem)]
-
-              lg:text-[clamp(3.7rem,5vw,6.1rem)]
-            "
+            className="font-heading text-[clamp(3.2rem,11vw,5.2rem)] leading-[0.9] font-black tracking-[-0.055em] uppercase sm:text-[clamp(4rem,8vw,6rem)] lg:text-[clamp(3.7rem,5vw,6.1rem)]"
           >
-            <span className="sr-only">
-              Coach{" "}
-            </span>
+            <span className="sr-only">Coach </span>
 
-            <span className="rebel-gold-text">
-              {coach.name}
-            </span>
+            <span className="rebel-gold-text">{coach.name}</span>
           </h3>
-
 
           {/* ROLE */}
 
-          <p
-            className="
-              mt-4
-
-              text-[12px]
-              font-bold
-              uppercase
-
-              leading-6
-              tracking-[0.09em]
-
-              text-primary
-
-              sm:text-[13px]
-            "
-          >
+          <p className="mt-4 text-[12px] leading-6 font-bold tracking-[0.09em] text-primary uppercase sm:text-[13px]">
             {coach.role}
           </p>
 
-
           {/* EDITORIAL DIVIDER */}
 
-          <div
-            aria-hidden="true"
-            className="
-              mt-5
+          <div aria-hidden="true" className="mt-5 flex items-center gap-3">
+            <span className="h-0.5 w-12 bg-primary" />
 
-              flex
-              items-center
-              gap-3
-            "
-          >
-            <span
-              className="
-                h-0.5
-                w-12
-
-                bg-primary
-              "
-            />
-
-            <span
-              className="
-                h-px
-                flex-1
-
-                bg-foreground/12
-              "
-            />
+            <span className="h-px flex-1 bg-foreground/12" />
           </div>
-
 
           {/* COMPLETE BIOGRAPHY */}
 
-          <div
-            className="
-              mt-5
-
-              max-w-180
-
-              space-y-4
-
-              text-[13px]
-              leading-[1.85]
-
-              text-text-secondary
-
-              sm:text-sm
-              sm:leading-[1.9]
-
-              xl:text-[15px]
-            "
-          >
-            {coach.biography.map(
-              (paragraph, paragraphIndex) => (
-                <p
-                  key={`${coach.id}-paragraph-${paragraphIndex}`}
-                >
-                  {paragraph}
-                </p>
-              )
-            )}
-          </div>
-
+          <CoachBiographyMarkdown
+            content={coach.biographyMarkdown ?? coach.biography.join("\n\n")}
+            className="mt-5 max-w-180 text-[13px] leading-[1.85] text-text-secondary sm:text-sm sm:leading-[1.9] xl:text-[15px]"
+          />
 
           {/* SPECIALTIES */}
 
           {coach.specialties.length > 0 && (
             <div className="mt-6">
-              <p
-                className="
-                  mb-3
-
-                  text-[10px]
-                  font-bold
-                  uppercase
-
-                  tracking-[0.2em]
-
-                  text-text-muted
-                "
-              >
+              <p className="mb-3 text-[10px] font-bold tracking-[0.2em] text-text-muted uppercase">
                 Areas of Expertise
               </p>
 
               <ul
                 aria-label={`${coach.name}'s specialties`}
-                className="
-                  flex
-                  flex-wrap
-                  gap-2
-                "
+                className="flex flex-wrap gap-2"
               >
-                {coach.specialties.map(
-                  (specialty) => (
-                    <li
-                      key={specialty}
-                      className="
-                        inline-flex
-                        min-h-8
+                {coach.specialties.map((specialty) => (
+                  <li
+                    key={specialty}
+                    className="inline-flex min-h-8 items-center gap-2 rounded-full border border-primary/25 bg-primary/5 px-3 text-[10px] font-semibold text-text-soft sm:text-[11px]"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="size-1 rounded-full bg-primary"
+                    />
 
-                        items-center
-                        gap-2
-
-                        rounded-full
-
-                        border
-                        border-primary/25
-
-                        bg-primary/5
-
-                        px-3
-
-                        text-[10px]
-                        font-semibold
-
-                        text-text-soft
-
-                        sm:text-[11px]
-                      "
-                    >
-                      <span
-                        aria-hidden="true"
-                        className="
-                          size-1
-                          rounded-full
-                          bg-primary
-                        "
-                      />
-
-                      {specialty}
-                    </li>
-                  )
-                )}
+                    {specialty}
+                  </li>
+                ))}
               </ul>
             </div>
           )}
 
-
           {/* PROFILE FOOTER */}
 
-          <div
-            className="
-              mt-7
-
-              flex
-              items-center
-              gap-3
-
-              border-t
-              border-foreground/10
-
-              pt-5
-            "
-          >
+          <div className="mt-7 flex items-center gap-3 border-t border-foreground/10 pt-5">
             <MoveDownRight
               aria-hidden="true"
               strokeWidth={1.5}
-              className="
-                size-4
-                text-primary
-              "
+              className="size-4 text-primary"
             />
 
-            <span
-              className="
-                text-[10px]
-                font-bold
-                uppercase
-
-                tracking-[0.18em]
-
-                text-text-muted
-              "
-            >
+            <span className="text-[10px] font-bold tracking-[0.18em] text-text-muted uppercase">
               The Rebel Team
             </span>
           </div>

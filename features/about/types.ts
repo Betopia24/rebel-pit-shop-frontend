@@ -1,4 +1,3 @@
-
 /* =========================================================
    ABOUT — COACH DATA MODEL
 
@@ -24,6 +23,11 @@ export type Coach = {
   image: CoachImage
 
   biography: string[]
+  /**
+   * Markdown source for rich coach biographies.
+   * `biography` remains as a legacy fallback while content is migrated.
+   */
+  biographyMarkdown?: string
   specialties: string[]
 
   sortOrder: number

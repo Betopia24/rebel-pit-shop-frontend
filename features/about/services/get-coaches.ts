@@ -1,8 +1,6 @@
-
 import { coaches } from "@/features/about/data/coaches"
 
 import type { Coach } from "@/features/about/types"
-
 
 /* =========================================================
    COACH DATA SERVICE
@@ -20,8 +18,11 @@ import type { Coach } from "@/features/about/types"
 ========================================================= */
 
 export async function getCoaches(): Promise<Coach[]> {
-  return [...coaches].sort(
-    (first, second) =>
-      first.sortOrder - second.sortOrder
-  )
+  return [...coaches]
+    .sort((first, second) => first.sortOrder - second.sortOrder)
+    .map((coach) => ({
+      ...coach,
+      biographyMarkdown:
+        coach.biographyMarkdown ?? coach.biography.join("\n\n"),
+    }))
 }

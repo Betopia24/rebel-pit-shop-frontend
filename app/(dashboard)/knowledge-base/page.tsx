@@ -1,10 +1,5 @@
-import { DashboardPageShell } from "@/features/admin-shell/components/dashboard-page-shell"
+import { KnowledgeBaseOverview } from "@/features/knowledge-base/knowledge-base-overview"
 
 export default function KnowledgeBase() {
-  return (
-    <DashboardPageShell
-      title="Knowledge Base"
-      description="Organize the information your team and AI assistants rely on."
-    />
-  )
+  return <KnowledgeBaseOverview />
 }
