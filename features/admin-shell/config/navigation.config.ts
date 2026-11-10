@@ -4,7 +4,6 @@ import {
   Users,
   CalendarDays,
   CalendarCheck2,
-  BrainCircuit,
   FlaskConical,
   BookOpen,
   Plug,
@@ -87,13 +86,6 @@ export const sidebarNavigation = [
     id: "ai_management",
     label: "AI Management",
     items: [
-      {
-        id: "ai-center",
-        title: "AI Center",
-        href: "/ai-center",
-        icon: BrainCircuit,
-        allowedRoles: ADMIN_ONLY,
-      },
       {
         id: "ai-playground",
         title: "AI Playground",

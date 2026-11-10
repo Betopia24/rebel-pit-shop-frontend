@@ -7,6 +7,7 @@ import { HeroSection } from "./_components/hero-section"
 // import { ScheduleEventsSection } from "./_components/schedule-events-section"
 // import { SuccessStoriesSection } from "./_components/success-stories-section"
 import { TrainingOptionsSection } from "./_components/training-options-section"
+import { FloatingChatbot } from "./_components/floating-chatbot"
 
 
 /* =========================================================
@@ -191,6 +192,8 @@ export default function HomePage() {
       ==================================================== */}
 
       <ContactCtaSection />
+
+      <FloatingChatbot />
     </main>
   )
 }

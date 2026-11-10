@@ -22,6 +22,13 @@ const DEMO_USERS = {
     avatarUrl: null,
     role: "staff",
   },
+  "coach@example.com": {
+    id: "coach-nichole",
+    name: "Nichole",
+    email: "coach@example.com",
+    avatarUrl: null,
+    role: "coach",
+  },
 } as const satisfies Record<string, SidebarUser>
 
 export async function authenticateDemoUser(
@@ -63,6 +70,10 @@ export async function getDemoSessionUser(): Promise<SidebarUser | null> {
 
   if (role === "staff") {
     return DEMO_USERS["staff@example.com"]
+  }
+
+  if (role === "coach") {
+    return DEMO_USERS["coach@example.com"]
   }
 
   return null
